@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Shelter</string>
+    <string name="action_settings">Settings</string>
+
+    //Login
+    <string name="email">Электронная почта</string>
+    <string name="password">Пароль</string>
+    <string name="login_btn">ВОЙТИ</string>
+    <string name="txtAutorisation">Авторизация</string>
+
+    //Registration
+    <string name="txtRegistration">Регистрация</string>
+    <string name="txtYouAre">Вы являетесь*</string>
+    <string name="lastName">Фамилия*</string>
+    <string name="firstName">Имя*</string>
+    <string name="patronymic">Отчество</string>
+    <string name="companyName">Название*</string>
+    <string name="country">Страна*</string>
+    <string name="city">Город*</string>
+    <string name="phone">Номер телефона*</string>
+    <string name="registration_btn">ЗАРЕГИСТРИРОВАТЬСЯ</string>
+
+    //Log in to app
+    <string name="btnLogin">"ВОЙТИ"</string>
+
+    //Animal News
+    <string name="search">Поиск</string>
+
+    //Animal Card
+    <string name="aboutAnimal">О животном :</string>
+    <string name="nameAnimal">Имя</string>
+    <string name="typeAnimal">Тип</string>
+    <string name="sexAnimal">Пол</string>
+    <string name="breedAnimal">Порода</string>
+    <string name="ageAnimal">Возраст</string>
+    <string name="passportAnimal">Паспорт</string>
+    <string name="sterilization">Стерилизация/кастрация</string>
+    <string name="growthAnimal">Рост</string>
+    <string name="descriptionAnimal">Описание</string>
+
+    //Homepage
+    <string name="information">Информация</string>
+    <string name="phoneUser">Телефон</string>
+    <string name="emailUser">Электронная почта</string>
+
+    //Messager
+    <string name="messager">Сообщения</string>
+
+</resources>

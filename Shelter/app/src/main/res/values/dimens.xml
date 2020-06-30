@@ -1,0 +1,25 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    //Login
+    <dimen name="txtbuttonHeight">40dp</dimen>
+    <dimen name="txtEditHeight">@dimen/txtbuttonHeight</dimen>
+    <dimen name="paddingImage">8dp</dimen>
+    <dimen name="paddingTxt">@dimen/paddingImage</dimen>
+    <dimen name="txtTitle">20sp</dimen>
+    <dimen name="txtText">14sp</dimen>
+    <dimen name="imgNewsHeight">150dp</dimen>
+
+    //Animal Card
+    <dimen name="imgAnimalCard">400dp</dimen>
+    <dimen name="txtDestinationAnimal">26sp</dimen>
+    <dimen name="txtValuesAnimal">@dimen/txtDestinationAnimal</dimen>
+
+    //Homepage
+    <dimen name="bigAvatarWidth">120dp</dimen>
+    <dimen name="bidAvatarHeight">120dp</dimen>
+
+    //Messager
+    <dimen name="unreadmessagesTxtHeight">20dp</dimen>
+    <dimen name="unreadmessagesTxtWidth">@dimen/unreadmessagesTxtHeight</dimen>
+    <dimen name="txtCountUnreadMessages">10sp</dimen>
+</resources>
