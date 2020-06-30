@@ -3,7 +3,7 @@ package com.example.shelter.presentation.fragment_menu.news.model
 import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
 import com.example.shelter.presentation.model.News
 
-class NewsModel {
+class NewsModel: INewsModel {
     var list: List<News>? = null
 
     fun loadNews(tableAdapter: NewsAdapter, countVisibleItem:Int, firstVisibleItem: Int, onSucess:(List<News>)->(Unit), onError:(Throwable)->(Unit)){
@@ -23,7 +23,14 @@ class NewsModel {
             })*/
     }
 
-    fun putLike(){
-        //меняет данные на сервере
+    override fun loadNews(): List<News> {
+        val tables = ArrayList<News>()
+        tables.add(News("Вася", "М",  1))
+        tables.add(News("Буся", "Ж",  10))
+        tables.add(News("Meca","Ж",1))
+        tables.add(News("Муся","Ж",1))
+        tables.add(News("Симбад","М",1))
+        tables.add(News("Миша","М",2))
+        return tables
     }
 }

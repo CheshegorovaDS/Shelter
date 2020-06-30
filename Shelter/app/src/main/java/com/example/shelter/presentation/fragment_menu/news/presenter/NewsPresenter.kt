@@ -2,19 +2,18 @@ package com.example.shelter.presentation.fragment_menu.news.presenter
 
 import android.content.Context
 import com.example.shelter.presentation.fragment_menu.news.INewsContact
+import com.example.shelter.presentation.fragment_menu.news.model.INewsModel
 import com.example.shelter.presentation.fragment_menu.news.model.NewsModel
 import com.example.shelter.presentation.fragment_menu.news.view.NewsFragment
 import com.example.shelter.presentation.model.News
 
-class NewsPresenter:
-    INewsContact.Presenter {
+class NewsPresenter: INewsContact.Presenter {
     var view: NewsFragment
-    var model: NewsModel
+    var model: INewsModel
 
     constructor(view: NewsFragment){
         this.view = view
-        model =
-            NewsModel()
+        model = NewsModel()
     }
 
     override fun openNews(context: Context, photo: String) {
@@ -22,14 +21,7 @@ class NewsPresenter:
     }
 
     override fun loadNews() : List<News> {
-        val tables = ArrayList<News>()
-        tables.add(News("Игорь Петров", "Пока",  4))
-        tables.add(News("Виктор Петрович", "Ты мне за всё ответишь!",  100))
-        tables.add(News("Meca","m",1))
-        tables.add(News("Муся","d",1))
-        tables.add(News("Муся","d",1))
-        tables.add(News("Муся","d",1))
-        return tables
+        return model.loadNews()
     }
 
     override fun putLike() {

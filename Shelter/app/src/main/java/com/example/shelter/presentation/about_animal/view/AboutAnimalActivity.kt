@@ -6,11 +6,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.shelter.R
-import com.example.shelter.presentation.about_animal.model.Animal
+import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.about_animal.model.Sex
 import com.example.shelter.presentation.about_animal.model.Sterilization
 import com.example.shelter.presentation.about_animal.presenter.AboutAnimalPresenter
@@ -30,9 +29,20 @@ class AboutAnimalActivity: AppCompatActivity() , AboutAnimalView{
         supportActionBar?.setDisplayShowHomeEnabled(true)
         initView()
 
-        var animal: Animal = Animal("Bacя", "https://avatars.mds.yandex.net/get-pdb/1058492/87a96367-4ac0-42c2-9ca3-c4de8e9077ff/s1200?webp=false", "шотландская вислоухая",
-            "Кот", Sex.M, "шотландская вислоухая","1","",Sterilization.NO,
-            "", "Любит спать, ласковый, постоянно мурчит, любит гонять собак. Есть только перепелинные яйца.")
+        var animal: Animal =
+            Animal(
+                "Bacя",
+                "https://avatars.mds.yandex.net/get-pdb/1058492/87a96367-4ac0-42c2-9ca3-c4de8e9077ff/s1200?webp=false",
+                "шотландская вислоухая",
+                "Кот",
+                Sex.M,
+                "шотландская вислоухая",
+                "1",
+                "",
+                Sterilization.NO,
+                "",
+                "Любит спать, ласковый, постоянно мурчит, любит гонять собак. Есть только перепелинные яйца."
+            )
 
         presenter.showAnimal(animal)
 

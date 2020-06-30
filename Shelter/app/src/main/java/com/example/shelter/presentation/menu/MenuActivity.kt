@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.activity_menu.*
 class MenuActivity: AppCompatActivity() {
 
     lateinit var mSettings: SharedPreferences
-    //lateinit var userManager: LoggedUserProvider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,13 +45,11 @@ class MenuActivity: AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_messager -> {
-                //loadFragments(MessagerFragment().newInstance())
                 return@OnNavigationItemSelectedListener loadFragments(
                     MessagerFragment()
                         .newInstance())
             }
             R.id.navigation_homepage -> {
-                //return@OnNavigationItemSelectedListener true
                 return@OnNavigationItemSelectedListener loadFragments(
                     HomepageFragment()
                         .newInstance())
@@ -84,11 +81,6 @@ class MenuActivity: AppCompatActivity() {
     }
 
     private fun checkUser():Boolean{
-        //userManager = LoggedUserManager(mSettings)
-        //val loggedUser: User? = userManager.getLoggedUser()
-//        if(loggedUser == null){
-//            return false
-//        }
         var str: String? = mSettings.getString(APP_LOGIN,"false")
         if(mSettings.getString(APP_LOGIN,"").equals("true")){
             return true

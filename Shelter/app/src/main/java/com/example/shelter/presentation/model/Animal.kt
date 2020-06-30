@@ -1,4 +1,7 @@
-package com.example.shelter.presentation.about_animal.model
+package com.example.shelter.presentation.model
+
+import com.example.shelter.presentation.about_animal.model.Sex
+import com.example.shelter.presentation.about_animal.model.Sterilization
 
 data class Animal (val name: String,
                    val photo: String,

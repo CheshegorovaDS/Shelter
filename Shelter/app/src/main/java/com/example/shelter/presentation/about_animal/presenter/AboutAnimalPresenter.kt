@@ -1,6 +1,6 @@
 package com.example.shelter.presentation.about_animal.presenter
 
-import com.example.shelter.presentation.about_animal.model.Animal
+import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.about_animal.view.AboutAnimalView
 
 class AboutAnimalPresenter: IAboutAnimalPresenter {
