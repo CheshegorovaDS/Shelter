@@ -8,8 +8,8 @@ import com.example.shelter.R
 import com.example.shelter.presentation.extention.nextActivity
 import com.example.shelter.presentation.log_in_app.presenter.ILogInAppPresenter
 import com.example.shelter.presentation.log_in_app.presenter.LogInAppPresenter
-import com.example.shelter.presentation.login.view.LoginActivity
-import com.example.shelter.presentation.registration.view.RegistrationActivity
+import com.example.shelter.presentation.onBoarding.login.view.LoginActivity
+import com.example.shelter.presentation.onBoarding.registration.view.RegistrationActivity
 import kotlinx.android.synthetic.main.activity_log_or_reg.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
 

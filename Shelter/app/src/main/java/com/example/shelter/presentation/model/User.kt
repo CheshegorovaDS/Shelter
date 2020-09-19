@@ -1,6 +1,6 @@
 package com.example.shelter.presentation.model
 
-import com.example.shelter.presentation.registration.model.TypeUser
+import com.example.shelter.presentation.onBoarding.registration.model.TypeUser
 
 data class User(
     val email: String,
