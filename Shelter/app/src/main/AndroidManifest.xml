@@ -22,7 +22,8 @@
         <activity android:name="com.example.shelter.presentation.onBoarding.login.view.LoginActivity"/>
         <activity android:name="com.example.shelter.presentation.onBoarding.registration.view.RegistrationActivity"/>
         <activity android:name="com.example.shelter.presentation.MainActivity"/>
-        <activity android:name="com.example.shelter.presentation.log_in_app.view.LogInAppActivity"/>
+<!--        <activity android:name="com.example.shelter.presentation.log_in_app.view.LogInAppActivity"/>-->
+        <activity android:name=".presentation.LogInAppActivity"/>
         <activity android:name=".presentation.about_animal.view.AboutAnimalActivity"/>
     </application>
 

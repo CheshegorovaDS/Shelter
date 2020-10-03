@@ -2,10 +2,11 @@ package com.example.shelter.presentation.storage
 
 import android.content.SharedPreferences
 import com.example.shelter.presentation.model.User
+import javax.inject.Inject
 
-class LoggedUserManager constructor(sharedPreferences: SharedPreferences) : LoggedUserProvider{
-
-    lateinit var sharedPreferences:SharedPreferences
+class LoggedUserManager @Inject constructor(
+    private val sharedPreferences: SharedPreferences) :
+    LoggedUserProvider {
 
     companion object {
         private const val USER_EMAIL: String = "logged_user_email"

@@ -11,7 +11,7 @@
         app:titleMarginStart="16dp" />
 
     <ImageView
-        android:id="@+id/imgLogo"
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="95dp"
@@ -25,7 +25,7 @@
         app:srcCompat="@drawable/ic_logo" />
 
     <Button
-        android:id="@+id/btnLogIn"
+        android:id="@+id/logIn"
         android:layout_width="0dp"
         android:layout_height="@dimen/txtbuttonHeight"
         android:layout_marginStart="16dp"
@@ -38,10 +38,10 @@
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <Button
-        android:id="@+id/btnRegistration"
+        android:id="@+id/registration"
         android:layout_width="0dp"
         android:layout_height="@dimen/txtbuttonHeight"
         android:layout_marginStart="16dp"
@@ -54,6 +54,6 @@
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogIn" />
+        app:layout_constraintTop_toBottomOf="@+id/logIn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

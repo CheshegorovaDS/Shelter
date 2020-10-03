@@ -38,7 +38,7 @@ class RegistrationActivity: AppCompatActivity(),
 
         editTxtYouAre.setOnClickListener { presenter.showListUser()}
 
-        btnRegistration.setOnClickListener{ view ->
+        registration.setOnClickListener{ view ->
             presenter.register(User(email.text.toString(),
                                     password.text.toString(),
                                     editTxtYouAre.text.toString(),

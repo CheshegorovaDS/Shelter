@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
 
         //if check all data
-        btnLogIn.setOnClickListener { changeActivity() }
+        logIn.setOnClickListener { changeActivity() }
 
 /*        fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

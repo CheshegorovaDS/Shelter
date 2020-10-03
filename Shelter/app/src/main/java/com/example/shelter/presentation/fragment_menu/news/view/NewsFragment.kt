@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shelter.R
 import com.example.shelter.presentation.APP_LOGIN
+import com.example.shelter.presentation.LogInAppActivity
 import com.example.shelter.presentation.base.AppFragment
 import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
 import com.example.shelter.presentation.fragment_menu.news.presenter.NewsPresenter
-import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
 import kotlinx.android.synthetic.main.fragment_news.*
 
 
@@ -43,7 +43,7 @@ class NewsFragment : AppFragment {
                 presenter.loadNews()
             )
         )
-        listAnimal.addItemDecoration(DividerItemDecoration(context!!, LinearLayoutManager.VERTICAL))
+        listAnimal.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
 
 
         search.setOnClickListener{view ->
@@ -83,7 +83,7 @@ class NewsFragment : AppFragment {
 
     private fun next(){
         val intent = Intent(view?.context, LogInAppActivity::class.java)
-        startActivities(view!!.context, arrayOf(intent))
+        startActivities(requireView().context, arrayOf(intent))
     }
 
 

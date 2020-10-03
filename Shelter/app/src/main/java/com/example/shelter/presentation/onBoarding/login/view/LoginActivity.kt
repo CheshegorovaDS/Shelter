@@ -33,7 +33,7 @@ class LoginActivity: AppCompatActivity(),
 
         initView()
 
-        btnLogIn.setOnClickListener{ view ->
+        logIn.setOnClickListener{ view ->
             presenter.login(User(email.text.toString(),password.text.toString()))
         }
 

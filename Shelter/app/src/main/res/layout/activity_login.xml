@@ -15,7 +15,7 @@
         app:titleMarginStart="16dp" />
 
     <ImageView
-        android:id="@+id/imgLogo"
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="95dp"
@@ -42,7 +42,7 @@
         android:textSize="@dimen/txtTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgLogo"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
         android:visibility="gone"/>
 
     <!--hintEnabled-->
@@ -117,7 +117,7 @@
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
-        android:id="@+id/btnLogIn"
+        android:id="@+id/logIn"
         android:layout_width="0dp"
         android:layout_height="@dimen/txtbuttonHeight"
         android:layout_marginStart="16dp"

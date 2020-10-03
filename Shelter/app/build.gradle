@@ -49,6 +49,9 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxjava_version"
     implementation "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
+    // RxBindings
+    implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:$rxbindings_version"
+
     // Dagger
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     implementation "com.google.dagger:dagger:$dagger_version"

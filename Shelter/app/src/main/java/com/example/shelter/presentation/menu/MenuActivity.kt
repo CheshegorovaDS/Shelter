@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import com.example.shelter.R
 import com.example.shelter.presentation.APP_LOGIN
 import com.example.shelter.presentation.APP_PREFERENCES
+import com.example.shelter.presentation.LogInAppActivity
 import com.example.shelter.presentation.extention.nextActivity
 import com.example.shelter.presentation.fragment_menu.homepage.view.HomepageFragment
 import com.example.shelter.presentation.fragment_menu.messager.view.MessagerFragment
 import com.example.shelter.presentation.fragment_menu.news.view.NewsFragment
-import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_menu.*
 
