@@ -1,4 +1,4 @@
-package com.example.shelter.presentation.base2
+package com.example.shelter.presentation.base.inrefaces
 
 interface BasePresenter{
     fun attachView(baseView: BaseView)

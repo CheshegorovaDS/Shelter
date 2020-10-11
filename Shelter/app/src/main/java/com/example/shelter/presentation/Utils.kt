@@ -14,6 +14,10 @@ fun checkEmailAndPassword(user: User):Boolean{
     return checkPassword(user.password) && checkEmail(user.email)
 }
 
+fun checkEmailAndPassword(email: String, password: String):Boolean{
+    return checkPassword(password) && checkEmail(email)
+}
+
 private fun checkPassword(password:String):Boolean{
     return password.length >= MIN_EMAIL_LENGTH;
 }

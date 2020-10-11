@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         style="@style/Toolbar"
         app:titleTextColor="@android:color/background_light"
-        app:title="@string/txtAutorisation"
+        app:title="@string/autorisation"
         app:titleMarginStart="16dp" />
 
     <ImageView
@@ -38,7 +38,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="178dp"
         android:layout_marginRight="178dp"
-        android:text="@string/txtAutorisation"
+        android:text="@string/autorisation"
         android:textSize="@dimen/txtTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

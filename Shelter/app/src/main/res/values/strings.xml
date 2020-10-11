@@ -6,7 +6,7 @@
     <string name="email">Электронная почта</string>
     <string name="password">Пароль</string>
     <string name="login_btn">ВОЙТИ</string>
-    <string name="txtAutorisation">Авторизация</string>
+    <string name="autorisation">Авторизация</string>
 
     //Registration
     <string name="txtRegistration">Регистрация</string>
