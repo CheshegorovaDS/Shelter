@@ -2,6 +2,7 @@ package com.example.shelter.presentation.log_in_app.presenter
 
 
 import com.example.shelter.presentation.base.inrefaces.BaseView
+import com.example.shelter.presentation.log_in_app.model.LogInAppState
 import com.example.shelter.presentation.log_in_app.reducer.ILogInAppReducer
 import com.example.shelter.presentation.log_in_app.view.LogInAppView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -41,5 +42,17 @@ class LogInAppPresenter @Inject constructor(
             .subscribe {
                 view?.navigationTo(it)
             }.addTo(disposeContainer)
+
+        reducer.updateState
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe{
+                updateState(it)
+            }.addTo(disposeContainer)
     }
+
+    private fun updateState(state: LogInAppState){
+        view?.loginEnabled(state.loginEnabled)
+        view?.registrationEnabled(state.registrationEnabled)
+    }
+
 }

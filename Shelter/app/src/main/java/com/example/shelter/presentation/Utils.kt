@@ -4,7 +4,7 @@ import com.example.shelter.presentation.model.User
 import java.util.regex.Pattern
 
 const val MIN_EMAIL_LENGTH: Int = 3;
-const val DEBOUNCE_VALUE: Long = 500;
+const val DEBOUNCE_VALUE: Long = 1000;
 const val APP_PREFERENCES = "mysettings"
 const val APP_PREFERENCES_NAME = "Email"
 const val APP_LOGIN = "Login"

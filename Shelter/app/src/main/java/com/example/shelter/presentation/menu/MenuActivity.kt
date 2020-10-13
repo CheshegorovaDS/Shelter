@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.shelter.R
+import com.example.shelter.app.ShelterManagerApp
 import com.example.shelter.presentation.APP_LOGIN
 import com.example.shelter.presentation.APP_PREFERENCES
 import com.example.shelter.presentation.LogInAppActivity
@@ -14,17 +15,23 @@ import com.example.shelter.presentation.extention.nextActivity
 import com.example.shelter.presentation.fragment_menu.homepage.view.HomepageFragment
 import com.example.shelter.presentation.fragment_menu.messager.view.MessagerFragment
 import com.example.shelter.presentation.fragment_menu.news.view.NewsFragment
+import com.example.shelter.presentation.menu.di.DaggerMenuComponent
+import com.example.shelter.presentation.storage.LoggedUserProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_menu.*
+import javax.inject.Inject
 
 
 class MenuActivity: AppCompatActivity() {
 
     lateinit var mSettings: SharedPreferences
+    @Inject
+    lateinit var loggedUserProvider: LoggedUserProvider
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
+        initComponent()
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         mSettings = getSharedPreferences(APP_PREFERENCES,Context.MODE_PRIVATE)
         loadFragment(
@@ -32,6 +39,15 @@ class MenuActivity: AppCompatActivity() {
                 mSettings
             )
         )
+    }
+
+    private fun initComponent() {
+        val appComponent = (application as ShelterManagerApp).getAppComponent()
+        DaggerMenuComponent
+            .builder()
+            .appComponent(appComponent)
+            .build()
+            .inject(this)
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item->
@@ -45,12 +61,12 @@ class MenuActivity: AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_messager -> {
-                return@OnNavigationItemSelectedListener loadFragments(
+                return@OnNavigationItemSelectedListener tryLoadFragment(
                     MessagerFragment()
                         .newInstance())
             }
             R.id.navigation_homepage -> {
-                return@OnNavigationItemSelectedListener loadFragments(
+                return@OnNavigationItemSelectedListener tryLoadFragment(
                     HomepageFragment()
                         .newInstance())
             }
@@ -64,11 +80,9 @@ class MenuActivity: AppCompatActivity() {
             ft.commit()
     }
 
-    private fun loadFragments(fragment: Fragment): Boolean {
+    private fun tryLoadFragment(fragment: Fragment): Boolean {
         if(checkUser()) {
-            val ft = supportFragmentManager.beginTransaction()
-                .replace(R.id.fl_content, fragment)
-            ft.commit()
+            loadFragment(fragment)
         }else{
             AlertDialog.Builder(this)
                 .setTitle("Вы не авторизованы")
@@ -81,8 +95,9 @@ class MenuActivity: AppCompatActivity() {
     }
 
     private fun checkUser():Boolean{
+        val user = loggedUserProvider.getLoggedUser()
         var str: String? = mSettings.getString(APP_LOGIN,"false")
-        if(mSettings.getString(APP_LOGIN,"").equals("true")){
+        if(mSettings.getString(APP_LOGIN,"").equals("true") || user != null){
             return true
         }
         return false

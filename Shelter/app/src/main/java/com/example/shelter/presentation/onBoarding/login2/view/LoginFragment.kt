@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
+import com.example.shelter.presentation.DEBOUNCE_VALUE
 import com.example.shelter.presentation.onBoarding.login2.di.DaggerLoginComponent
 import com.example.shelter.presentation.onBoarding.login2.model.LoginDestination
 import com.example.shelter.presentation.onBoarding.login2.model.LoginErrorCode
@@ -18,8 +19,10 @@ import com.example.shelter.presentation.onBoarding.login2.model.LoginException
 import com.example.shelter.presentation.onBoarding.login2.presenter.ILoginPresenter
 import com.example.shelter.presentation.onBoarding.login2.presenter.LoginPresenter
 import com.example.shelter.presentation.onBoarding.registration.view.RegistrationActivity
+import com.example.shelter.presentation.storage.LoggedUserProvider
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_login.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class LoginFragment: LoginView, Fragment() {
@@ -27,6 +30,8 @@ class LoginFragment: LoginView, Fragment() {
 
     @Inject
     lateinit var presenter: ILoginPresenter
+    @Inject
+    lateinit var manager: LoggedUserProvider
 
     override val clickLogin: PublishSubject<Pair<String, String>> = PublishSubject.create()
 
@@ -54,12 +59,12 @@ class LoginFragment: LoginView, Fragment() {
     }
 
     override fun initComponent() {
-//        val appComponent = (activity?.application as ShelterManagerApp)
-//            .getAppComponent()
+        val appComponent = (activity?.application as ShelterManagerApp)
+            .getAppComponent()
 
         DaggerLoginComponent.builder()
 //            .userRepositoryComponent(repository)
-//            .appComponent(appComponent)
+            .appComponent(appComponent)
             .build()
             .inject(this)
     }

@@ -15,5 +15,5 @@ class ShelterManagerApp: Application() {
             .build()
     }
 
-    fun getAppComponent() = appComponent
+    fun getAppComponent(): AppComponent = appComponent
 }

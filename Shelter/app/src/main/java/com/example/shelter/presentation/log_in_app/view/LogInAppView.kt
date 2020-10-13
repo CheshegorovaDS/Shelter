@@ -11,4 +11,6 @@ interface LogInAppView:
     fun clickLogin(): Observable<Any>
     fun clickRegistration(): Observable<Any>
     fun navigationTo(destination: LogInAppDestination)
+    fun loginEnabled(isEnable: Boolean)
+    fun registrationEnabled(isEnable: Boolean)
 }
