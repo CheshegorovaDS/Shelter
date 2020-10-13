@@ -1,4 +1,4 @@
-package com.example.shelter.presentation.onBoarding.login2.model
+package com.example.shelter.presentation.onBoarding.login.model
 
 enum class LoginErrorCode {
     INTERNET_CONNECTION_EXCEPTION,

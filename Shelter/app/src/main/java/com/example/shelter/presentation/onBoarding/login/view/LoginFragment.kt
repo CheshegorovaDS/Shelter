@@ -1,4 +1,4 @@
-package com.example.shelter.presentation.onBoarding.login2.view
+package com.example.shelter.presentation.onBoarding.login.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,18 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
-import com.example.shelter.presentation.DEBOUNCE_VALUE
-import com.example.shelter.presentation.onBoarding.login2.di.DaggerLoginComponent
-import com.example.shelter.presentation.onBoarding.login2.model.LoginDestination
-import com.example.shelter.presentation.onBoarding.login2.model.LoginErrorCode
-import com.example.shelter.presentation.onBoarding.login2.model.LoginException
-import com.example.shelter.presentation.onBoarding.login2.presenter.ILoginPresenter
-import com.example.shelter.presentation.onBoarding.login2.presenter.LoginPresenter
+import com.example.shelter.presentation.onBoarding.login.di.DaggerLoginComponent
+import com.example.shelter.presentation.onBoarding.login.model.LoginDestination
+import com.example.shelter.presentation.onBoarding.login.model.LoginErrorCode
+import com.example.shelter.presentation.onBoarding.login.model.LoginException
+import com.example.shelter.presentation.onBoarding.login.presenter.ILoginPresenter
 import com.example.shelter.presentation.onBoarding.registration.view.RegistrationActivity
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_login.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class LoginFragment: LoginView, Fragment() {

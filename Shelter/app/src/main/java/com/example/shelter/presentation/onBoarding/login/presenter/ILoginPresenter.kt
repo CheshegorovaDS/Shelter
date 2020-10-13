@@ -1,7 +1,6 @@
 package com.example.shelter.presentation.onBoarding.login.presenter
 
-import com.example.shelter.presentation.model.User
+import com.example.shelter.presentation.base.inrefaces.BasePresenter
 
-interface ILoginPresenter {
-    fun login(user:User)
-}
+interface ILoginPresenter:
+    BasePresenter

@@ -1,4 +1,4 @@
-package com.example.shelter.presentation.onBoarding.login2.model
+package com.example.shelter.presentation.onBoarding.login.model
 
 import java.lang.Exception
 

@@ -6,7 +6,7 @@
     app:startDestination="@id/logInAppFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.shelter.presentation.onBoarding.login2.view.LoginFragment"
+        android:name="com.example.shelter.presentation.onBoarding.login.view.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/activity_login">
         <action

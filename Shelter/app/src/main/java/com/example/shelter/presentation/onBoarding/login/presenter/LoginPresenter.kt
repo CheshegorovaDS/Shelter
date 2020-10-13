@@ -1,35 +1,46 @@
 package com.example.shelter.presentation.onBoarding.login.presenter
 
-import android.content.SharedPreferences
-import com.example.shelter.presentation.APP_LOGIN
-import com.example.shelter.presentation.checkEmailAndPassword
+import com.example.shelter.presentation.base.inrefaces.BaseView
+import com.example.shelter.presentation.onBoarding.login.reducer.ILoginReducer
 import com.example.shelter.presentation.onBoarding.login.view.LoginView
-import com.example.shelter.presentation.model.User
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import javax.inject.Inject
 
-class LoginPresenter:
-    ILoginPresenter {
-    var view: LoginView
-    var sharedPreferences:SharedPreferences
+class LoginPresenter @Inject constructor(
+    var reducer: ILoginReducer
+): ILoginPresenter {
 
-    constructor(view: LoginView, sharedPreferences: SharedPreferences){
-        this.view = view
-        this.sharedPreferences = sharedPreferences
+    var view: LoginView? = null
+
+    private val disposeContainer = CompositeDisposable()
+
+    override fun attachView(baseView: BaseView) {
+        view = baseView as? LoginView
+        bind()
     }
 
-    override fun login(user: User) {
-        if(checkEmailAndPassword(user)){
-            saveUser()
-            view.login()
-        }else{
-            view.showError()
-        }
+    override fun detachView() {
+        reducer.clearDispose()
+        disposeContainer.clear()
     }
 
-    fun saveUser(){
-        var ed: SharedPreferences.Editor = sharedPreferences.edit()
-        ed.putString(APP_LOGIN,"true")
-        ed.commit()
+    override fun bind() {
+        view?.clickLogin?.subscribe{
+            reducer.login(it.first, it.second)
+        }?.addTo(disposeContainer)
+
+        reducer.updateDestination
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view?.navigateTo(it)
+            }.addTo(disposeContainer)
+
+        reducer.updateError
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view?.showError(it)
+            }.addTo(disposeContainer)
     }
-
-
 }

@@ -1,10 +1,10 @@
-package com.example.shelter.presentation.onBoarding.login2.reducer
+package com.example.shelter.presentation.onBoarding.login.reducer
 
 import com.example.shelter.presentation.checkEmailAndPassword
 import com.example.shelter.presentation.model.User
-import com.example.shelter.presentation.onBoarding.login2.model.LoginDestination
-import com.example.shelter.presentation.onBoarding.login2.model.LoginErrorCode
-import com.example.shelter.presentation.onBoarding.login2.model.LoginException
+import com.example.shelter.presentation.onBoarding.login.model.LoginDestination
+import com.example.shelter.presentation.onBoarding.login.model.LoginErrorCode
+import com.example.shelter.presentation.onBoarding.login.model.LoginException
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject

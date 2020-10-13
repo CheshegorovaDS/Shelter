@@ -5,8 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.example.shelter.R
-import com.example.shelter.presentation.extention.nextActivity
-import com.example.shelter.presentation.onBoarding.login.view.LoginActivity
+//import com.example.shelter.presentation.extention.nextActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 import kotlinx.android.synthetic.main.activity_main.toolbar
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun changeActivity() {
-        nextActivity(LoginActivity::class.java)
+        //nextActivity(LoginActivity::class.java)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

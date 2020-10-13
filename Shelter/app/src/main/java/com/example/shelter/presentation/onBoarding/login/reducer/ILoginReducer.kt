@@ -1,8 +1,8 @@
-package com.example.shelter.presentation.onBoarding.login2.reducer
+package com.example.shelter.presentation.onBoarding.login.reducer
 
 import com.example.shelter.presentation.base.inrefaces.BaseReducer
-import com.example.shelter.presentation.onBoarding.login2.model.LoginDestination
-import com.example.shelter.presentation.onBoarding.login2.model.LoginException
+import com.example.shelter.presentation.onBoarding.login.model.LoginDestination
+import com.example.shelter.presentation.onBoarding.login.model.LoginException
 import io.reactivex.subjects.PublishSubject
 
 interface ILoginReducer: BaseReducer {

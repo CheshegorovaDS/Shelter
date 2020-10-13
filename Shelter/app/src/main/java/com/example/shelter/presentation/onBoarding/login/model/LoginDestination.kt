@@ -1,4 +1,4 @@
-package com.example.shelter.presentation.onBoarding.login2.model
+package com.example.shelter.presentation.onBoarding.login.model
 
 enum class LoginDestination {
     LOGIN_OR_REGISTRATION_SCREEN,
