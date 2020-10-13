@@ -9,5 +9,4 @@ import dagger.Component
 @Component(dependencies = [AppComponent::class])
 interface MenuComponent {
     fun inject(menuActivity: MenuActivity)
-//    fun getActivity(): MenuActivity
 }

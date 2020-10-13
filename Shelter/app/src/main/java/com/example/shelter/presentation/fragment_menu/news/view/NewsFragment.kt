@@ -2,7 +2,6 @@ package com.example.shelter.presentation.fragment_menu.news.view
 
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -15,22 +14,17 @@ import com.example.shelter.presentation.LogInAppActivity
 import com.example.shelter.presentation.base.AppFragment
 import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
 import com.example.shelter.presentation.fragment_menu.news.presenter.NewsPresenter
+import com.example.shelter.presentation.storage.LoggedUserProvider
 import kotlinx.android.synthetic.main.fragment_news.*
 
 
-class NewsFragment : AppFragment {
-    lateinit var presenter: NewsPresenter
-    var sharedPreferences: SharedPreferences
+class NewsFragment(
+    private val loggedUserProvider: LoggedUserProvider
+) : AppFragment() {
 
     override val resLayout: Int = R.layout.fragment_news
 
-//    fun newInstance(): Fragment{
-//        return NewsFragment()
-//    }
-
-    constructor(sharedPreferences: SharedPreferences){
-        this.sharedPreferences = sharedPreferences
-    }
+    lateinit var presenter: NewsPresenter
 
     override fun initView(view: View) {
         listAnimal.layoutManager = LinearLayoutManager(context)
@@ -38,21 +32,19 @@ class NewsFragment : AppFragment {
             NewsPresenter(
                 this
             )
-        listAnimal.setAdapter(
-            NewsAdapter(
-                presenter.loadNews()
-            )
+        listAnimal.adapter = NewsAdapter(
+            presenter.loadNews()
         )
         listAnimal.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
 
 
-        search.setOnClickListener{view ->
+        search.setOnClickListener{
             Toast.makeText(context,"Поиск", Toast.LENGTH_SHORT).show()
         }
 
-        imgFilter.setOnClickListener{view -> Toast.makeText(context,"Фильтр", Toast.LENGTH_SHORT).show()}
+        imgFilter.setOnClickListener{ Toast.makeText(context,"Фильтр", Toast.LENGTH_SHORT).show()}
 
-        imgAdd.setOnClickListener{view ->
+        imgAdd.setOnClickListener{
             if(checkUser()){
                 Toast.makeText(context,"Добавить объявление", Toast.LENGTH_SHORT).show()
             }else{
@@ -69,22 +61,12 @@ class NewsFragment : AppFragment {
     }
 
     private fun checkUser():Boolean{
-        //userManager = LoggedUserManager(mSettings)
-        //val loggedUser: User? = userManager.getLoggedUser()
-//        if(loggedUser == null){
-//            return false
-//        }
-        var str: String? = sharedPreferences.getString(APP_LOGIN,"false")
-        if(sharedPreferences.getString(APP_LOGIN,"").equals("true")){
-            return true
-        }
-        return false
+        val user = loggedUserProvider.getLoggedUser()
+        return user != null
     }
 
     private fun next(){
         val intent = Intent(view?.context, LogInAppActivity::class.java)
         startActivities(requireView().context, arrayOf(intent))
     }
-
-
 }

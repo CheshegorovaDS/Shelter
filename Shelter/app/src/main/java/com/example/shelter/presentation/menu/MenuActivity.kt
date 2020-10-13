@@ -1,15 +1,11 @@
 package com.example.shelter.presentation.menu
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
-import com.example.shelter.presentation.APP_LOGIN
-import com.example.shelter.presentation.APP_PREFERENCES
 import com.example.shelter.presentation.LogInAppActivity
 import com.example.shelter.presentation.extention.nextActivity
 import com.example.shelter.presentation.fragment_menu.homepage.view.HomepageFragment
@@ -24,7 +20,6 @@ import javax.inject.Inject
 
 class MenuActivity: AppCompatActivity() {
 
-    lateinit var mSettings: SharedPreferences
     @Inject
     lateinit var loggedUserProvider: LoggedUserProvider
 
@@ -33,10 +28,9 @@ class MenuActivity: AppCompatActivity() {
         setContentView(R.layout.activity_menu)
         initComponent()
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        mSettings = getSharedPreferences(APP_PREFERENCES,Context.MODE_PRIVATE)
         loadFragment(
             NewsFragment(
-                mSettings
+                loggedUserProvider
             )
         )
     }
@@ -55,7 +49,7 @@ class MenuActivity: AppCompatActivity() {
             R.id.navigation_news -> {
                 loadFragment(
                     NewsFragment(
-                        mSettings
+                        loggedUserProvider
                     )
                 )
                 return@OnNavigationItemSelectedListener true
@@ -70,7 +64,7 @@ class MenuActivity: AppCompatActivity() {
                     HomepageFragment()
                         .newInstance())
             }
-            else -> return@OnNavigationItemSelectedListener false;
+            else -> return@OnNavigationItemSelectedListener false
         }
     }
 
@@ -96,15 +90,10 @@ class MenuActivity: AppCompatActivity() {
 
     private fun checkUser():Boolean{
         val user = loggedUserProvider.getLoggedUser()
-        var str: String? = mSettings.getString(APP_LOGIN,"false")
-        if(mSettings.getString(APP_LOGIN,"").equals("true") || user != null){
-            return true
-        }
-        return false
+        return user != null
     }
 
     private fun next(){
         nextActivity(LogInAppActivity::class.java)
     }
-
 }
