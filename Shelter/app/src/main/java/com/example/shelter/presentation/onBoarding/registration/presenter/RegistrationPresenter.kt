@@ -1,59 +1,65 @@
 package com.example.shelter.presentation.onBoarding.registration.presenter
 
-import android.content.SharedPreferences
-import com.example.shelter.presentation.APP_LOGIN
-import com.example.shelter.presentation.checkEmailAndPassword
-import com.example.shelter.presentation.model.User
+import com.example.shelter.presentation.base.inrefaces.BaseView
+import com.example.shelter.presentation.onBoarding.registration.model.RegistrationState
+import com.example.shelter.presentation.onBoarding.registration.reducer.IRegistrationReducer
+import com.example.shelter.presentation.onBoarding.registration.view.RegistrationFragment
 import com.example.shelter.presentation.onBoarding.registration.view.RegistrationView
-import java.util.regex.Pattern
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import javax.inject.Inject
 
-class RegistrationPresenter :
-    IRegistrationPresenter {
-    var view: RegistrationView
-    var sharedPreferences:SharedPreferences
+class RegistrationPresenter @Inject constructor(
+    var reducer: IRegistrationReducer
+): IRegistrationPresenter {
 
-    constructor(view: RegistrationView, sharedPreferences: SharedPreferences){
-        this.view = view
-        this.sharedPreferences = sharedPreferences
+    var view: RegistrationView? = null
+
+    private val disposeContainer = CompositeDisposable()
+
+    override fun attachView(baseView: BaseView) {
+        view = baseView as? RegistrationFragment
+        bind()
     }
 
-    override fun register(user: User) {
-        if (checkDataUser(user)) {
-                saveUser()
-               view.navigateTo()
-            }else{
-                view.showException()
-            }
+    override fun detachView() {
+        reducer.clearDispose()
+        disposeContainer.clear()
     }
 
-    override fun showListUser() {
-        view.showListTypeUser()
+    override fun bind() {
+        view?.updateUserType?.subscribe {
+            reducer.updateUserType(it)
+        }?.addTo(disposeContainer)
+
+        view?.clickRegistration?.subscribe {
+            reducer.tryToRegistration(it)
+        }?.addTo(disposeContainer)
+
+        reducer.updateState
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                renderState(it)
+            }.addTo(disposeContainer)
+
+        reducer.updateException
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view?.showError(it)
+            }.addTo(disposeContainer)
+
+        reducer.updateDestination
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view?.navigateTo(it)
+            }.addTo(disposeContainer)
     }
 
-    private fun checkDataUser(user:User): Boolean{
-        val pattern: Pattern = Pattern.compile("^[+а-яА-Я]+$")
-        val phonePattern: Pattern = Pattern.compile("^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}\$")
-        val str =  user.type
-        if(!checkEmailAndPassword(user) ||
-            user.type.equals("") ||
-            user.phone.equals("")||
-            !phonePattern.matcher(user.phone).find() ||
-            !pattern.matcher(user.city).find() ||
-            (user.type.equals("Частное лицо") && !view.checkHuman()) ||
-            (user.type.equals("Организация") && !view.checkOrganisation())
-
-        ){
-            return false
-        }
-
-        return true
+    private fun renderState(state: RegistrationState) {
+        view?.setUserType(state.userType)
+        view?.setFirstNameVisible(state.firstNameVisibility)
+        view?.setLastNameVisible(state.lastNameVisibility)
+        view?.setOrganisationNameVisible(state.organizationNameVisibility)
     }
-
-    private fun saveUser(){
-        var ed: SharedPreferences.Editor = sharedPreferences.edit()
-        ed.putString(APP_LOGIN,"true")
-        ed.commit()
-    }
-
-
 }

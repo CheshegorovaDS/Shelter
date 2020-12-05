@@ -1,9 +1,24 @@
 package com.example.shelter.presentation.onBoarding.registration.view
 
-interface RegistrationView {
+import com.example.shelter.presentation.base.inrefaces.BaseView
+import com.example.shelter.presentation.onBoarding.registration.model.RegistrationDestination
+import com.example.shelter.presentation.onBoarding.registration.model.RegistrationException
+import com.example.shelter.presentation.onBoarding.registration.model.User
+import com.example.shelter.presentation.onBoarding.registration.model.UserType
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+
+interface RegistrationView: BaseView {
+    val clickRegistration: PublishSubject<User>
+    val updateUserType: PublishSubject<UserType>
+
+    fun clickRegistration()
+    fun clickYouAre(): Observable<Any>
+    fun showError(code: RegistrationException)
+    fun navigateTo(registerDestination: RegistrationDestination)
     fun showListTypeUser()
-    fun navigateTo()
-    fun showException()
-    fun checkHuman(): Boolean
-    fun checkOrganisation(): Boolean
+    fun setUserType(type: UserType?)
+    fun setFirstNameVisible(isVisible: Boolean)
+    fun setLastNameVisible(isVisible: Boolean)
+    fun setOrganisationNameVisible(isVisible: Boolean)
 }

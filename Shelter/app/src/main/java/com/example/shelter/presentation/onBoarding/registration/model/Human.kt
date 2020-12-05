@@ -1,4 +1,4 @@
-package com.example.shelter.presentation.onBoarding.registration2.model
+package com.example.shelter.presentation.onBoarding.registration.model
 
 data class Human (
     val firstName: String? = null,

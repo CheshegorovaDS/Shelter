@@ -1,4 +1,4 @@
-package com.example.shelter.presentation.onBoarding.registration2.view
+package com.example.shelter.presentation.onBoarding.registration.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,9 +11,9 @@ import androidx.fragment.app.Fragment
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
 import com.example.shelter.presentation.LogInAppActivity
-import com.example.shelter.presentation.onBoarding.registration2.di.DaggerRegistrationComponent
-import com.example.shelter.presentation.onBoarding.registration2.model.*
-import com.example.shelter.presentation.onBoarding.registration2.presenter.IRegistrationPresenter
+import com.example.shelter.presentation.onBoarding.registration.di.DaggerRegistrationComponent
+import com.example.shelter.presentation.onBoarding.registration.model.*
+import com.example.shelter.presentation.onBoarding.registration.presenter.IRegistrationPresenter
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.subjects.PublishSubject

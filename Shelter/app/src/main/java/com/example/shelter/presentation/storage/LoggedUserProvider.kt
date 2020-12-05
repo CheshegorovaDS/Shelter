@@ -1,6 +1,6 @@
 package com.example.shelter.presentation.storage
 
-import com.example.shelter.presentation.onBoarding.registration2.model.User
+import com.example.shelter.presentation.onBoarding.registration.model.User
 
 
 interface LoggedUserProvider {

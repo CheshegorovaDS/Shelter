@@ -1,9 +1,9 @@
-package com.example.shelter.presentation.onBoarding.registration2.di
+package com.example.shelter.presentation.onBoarding.registration.di
 
 import com.example.shelter.app.di.AppComponent
 import com.example.shelter.presentation.RegistrationScope
-import com.example.shelter.presentation.onBoarding.registration2.reducer.IRegistrationReducer
-import com.example.shelter.presentation.onBoarding.registration2.view.RegistrationFragment
+import com.example.shelter.presentation.onBoarding.registration.reducer.IRegistrationReducer
+import com.example.shelter.presentation.onBoarding.registration.view.RegistrationFragment
 import dagger.Component
 
 @RegistrationScope

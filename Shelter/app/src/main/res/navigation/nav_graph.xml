@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="com.example.shelter.presentation.onBoarding.registration2.view.RegistrationFragment"
+        android:name="com.example.shelter.presentation.onBoarding.registration.view.RegistrationFragment"
         android:label="RegistrationFragment"
         tools:layout="@layout/fragment_registration">
         <action

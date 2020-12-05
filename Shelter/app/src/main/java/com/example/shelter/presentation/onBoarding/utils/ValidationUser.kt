@@ -1,8 +1,8 @@
 package com.example.shelter.presentation.onBoarding.utils
 
 import com.example.shelter.presentation.checkEmailAndPassword
-import com.example.shelter.presentation.onBoarding.registration2.model.Human
-import com.example.shelter.presentation.onBoarding.registration2.model.Organisation
+import com.example.shelter.presentation.onBoarding.registration.model.Human
+import com.example.shelter.presentation.onBoarding.registration.model.Organisation
 import java.util.regex.Pattern
 
 val pattern: Pattern = Pattern.compile("^[+а-яА-Яa-zA-Z]+$")

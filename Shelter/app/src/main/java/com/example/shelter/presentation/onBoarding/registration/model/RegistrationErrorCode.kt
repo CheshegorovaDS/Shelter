@@ -1,4 +1,4 @@
-package com.example.shelter.presentation.onBoarding.registration2.model
+package com.example.shelter.presentation.onBoarding.registration.model
 
 enum class RegistrationErrorCode {
     INTERNET_CONNECTION_EXCEPTION,

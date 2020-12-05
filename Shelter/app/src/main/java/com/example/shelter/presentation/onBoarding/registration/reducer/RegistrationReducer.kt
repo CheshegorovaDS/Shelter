@@ -1,9 +1,8 @@
-package com.example.shelter.presentation.onBoarding.registration2.reducer
+package com.example.shelter.presentation.onBoarding.registration.reducer
 
-import com.example.shelter.presentation.onBoarding.registration2.model.*
+import com.example.shelter.presentation.onBoarding.registration.model.*
 import com.example.shelter.presentation.onBoarding.utils.checkHuman
 import com.example.shelter.presentation.onBoarding.utils.checkOrganisation
-import com.example.shelter.presentation.storage.LoggedUserManager
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject

@@ -6,7 +6,7 @@ import com.example.shelter.presentation.onBoarding.login.model.LoginDestination
 import com.example.shelter.presentation.onBoarding.login.model.LoginErrorCode
 import com.example.shelter.presentation.onBoarding.login.model.LoginException
 import com.example.shelter.presentation.onBoarding.login.reducer.LoginReducer
-import com.example.shelter.presentation.onBoarding.registration2.model.User
+import com.example.shelter.presentation.onBoarding.registration.model.User
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import org.junit.Rule
 import org.junit.Test

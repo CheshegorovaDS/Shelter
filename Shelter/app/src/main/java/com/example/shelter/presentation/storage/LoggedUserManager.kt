@@ -1,7 +1,7 @@
 package com.example.shelter.presentation.storage
 
 import android.content.SharedPreferences
-import com.example.shelter.presentation.onBoarding.registration2.model.User
+import com.example.shelter.presentation.onBoarding.registration.model.User
 import javax.inject.Inject
 
 class LoggedUserManager @Inject constructor(
