@@ -24,9 +24,7 @@ class NewsAdapter(internal var list: List<News>) : RecyclerView.Adapter<NewsAdap
         return TableViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_news, parent, false))
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+    override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: TableViewHolder, position: Int) {
         holder.name.setText(list[position].name)

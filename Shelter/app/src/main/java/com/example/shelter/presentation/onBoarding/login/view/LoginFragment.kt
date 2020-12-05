@@ -11,19 +11,19 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
+import com.example.shelter.presentation.LogInAppActivity
 import com.example.shelter.presentation.onBoarding.login.di.DaggerLoginComponent
 import com.example.shelter.presentation.onBoarding.login.model.LoginDestination
 import com.example.shelter.presentation.onBoarding.login.model.LoginErrorCode
 import com.example.shelter.presentation.onBoarding.login.model.LoginException
 import com.example.shelter.presentation.onBoarding.login.presenter.ILoginPresenter
-import com.example.shelter.presentation.onBoarding.registration.view.RegistrationActivity
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
 
 class LoginFragment: LoginView, Fragment() {
-    private val resLayout = R.layout.activity_login
+    private val resLayout = R.layout.fragment_login
 
     @Inject
     lateinit var presenter: ILoginPresenter
@@ -85,7 +85,7 @@ class LoginFragment: LoginView, Fragment() {
     override fun navigateTo(loginDestination: LoginDestination) {
         when (loginDestination) {
             LoginDestination.LOGIN_OR_REGISTRATION_SCREEN -> {
-                val intent = Intent(context, RegistrationActivity::class.java)
+                val intent = Intent(context, LogInAppActivity::class.java)
                 startActivity(intent)
             }
             LoginDestination.NEWS_SCREEN -> requireActivity().finish()

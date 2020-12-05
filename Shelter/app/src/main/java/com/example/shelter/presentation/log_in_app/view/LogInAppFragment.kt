@@ -9,15 +9,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.shelter.R
-import com.example.shelter.presentation.DEBOUNCE_VALUE
 import com.example.shelter.presentation.log_in_app.di.DaggerLogInAppComponent
 import com.example.shelter.presentation.log_in_app.model.LogInAppDestination
 import com.example.shelter.presentation.log_in_app.presenter.ILogInAppPresenter
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activity_log_or_reg.*
-import java.util.concurrent.TimeUnit
+import kotlinx.android.synthetic.main.fragment_log_or_reg.*
 import javax.inject.Inject
 
 
@@ -26,7 +24,7 @@ class LogInAppFragment :
     LogInAppView,
     Toolbar.OnMenuItemClickListener {
 
-    private val resLayout = R.layout.activity_log_or_reg
+    private val resLayout = R.layout.fragment_log_or_reg
 
     @Inject
     lateinit var presenter: ILogInAppPresenter
@@ -67,8 +65,8 @@ class LogInAppFragment :
 
     override fun navigationTo(destination: LogInAppDestination) {
         val s = when (destination) {
-            LogInAppDestination.LOGIN_SCREEN -> R.id.action_baseFragment2_to_loginFragment
-            LogInAppDestination.REGISTRATION_SCREEN -> R.id.action_baseFragment2_to_registrationActivity
+            LogInAppDestination.LOGIN_SCREEN -> R.id.action_baseFragment_to_loginFragment
+            LogInAppDestination.REGISTRATION_SCREEN -> R.id.action_baseFragment_to_registrationFragment
             else -> null
         }
 

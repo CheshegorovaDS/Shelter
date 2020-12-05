@@ -23,4 +23,25 @@
         <item name="android:background">@color/mainColorGreen</item>
     </style>
 
+<!--    Login, Registration, LogInApp-->
+
+    <style name="EditTextLogInApp">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/txtEditHeight</item>
+        <item name="android:layout_margin">@dimen/marginEditText</item>
+        <item name="android:background">@drawable/back_edit_txt</item>
+        <item name="android:drawablePadding">@dimen/paddingTxt</item>
+        <item name="android:padding">@dimen/paddingImage</item>
+        <item name="android:textColorHint">@color/editTxtHint</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/txtButtonHeight</item>
+        <item name="android:layout_margin">@dimen/marginButton</item>
+        <item name="android:layout_marginBottom">24dp</item>
+        <item name="android:background">@drawable/green_btn</item>
+        <item name="android:textColor">@android:color/background_light</item>
+    </style>
+
 </resources>

@@ -67,8 +67,8 @@
 
     <TextView
         android:id="@+id/countUnreadMessage"
-        android:layout_width="@dimen/unreadmessagesTxtWidth"
-        android:layout_height="@dimen/unreadmessagesTxtHeight"
+        android:layout_width="@dimen/unreadMessagesTxtWidth"
+        android:layout_height="@dimen/unreadMessagesTxtHeight"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/round_button"

@@ -1,10 +1,10 @@
 package com.example.shelter.presentation.onBoarding.login.reducer
 
 import com.example.shelter.presentation.checkEmailAndPassword
-import com.example.shelter.presentation.model.User
 import com.example.shelter.presentation.onBoarding.login.model.LoginDestination
 import com.example.shelter.presentation.onBoarding.login.model.LoginErrorCode
 import com.example.shelter.presentation.onBoarding.login.model.LoginException
+import com.example.shelter.presentation.onBoarding.registration2.model.User
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
@@ -24,7 +24,9 @@ class LoginReducer @Inject constructor(
     override fun login(email: String, password: String) {
         if(checkEmailAndPassword(email, password)){
             //repository
-            loggedUser.setLoggedUser(User(email, password))
+            loggedUser.setLoggedUser(User(
+                email = email,
+                password = password))
             updateDestination.onNext(LoginDestination.NEWS_SCREEN)
         }else{
             updateError.onNext(LoginException(LoginErrorCode.REQUEST_STATUS_ERROR, ""))

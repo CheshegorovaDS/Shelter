@@ -8,26 +8,30 @@
         android:id="@+id/loginFragment"
         android:name="com.example.shelter.presentation.onBoarding.login.view.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/activity_login">
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_baseFragment2"
             app:destination="@id/logInAppFragment" />
     </fragment>
-    <activity
-        android:id="@+id/registrationActivity"
-        android:name="com.example.shelter.presentation.onBoarding.registration.view.RegistrationActivity"
-        android:label="RegistrationActivity"
-        tools:layout="@layout/activity_registration"/>
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.example.shelter.presentation.onBoarding.registration2.view.RegistrationFragment"
+        android:label="RegistrationFragment"
+        tools:layout="@layout/fragment_registration">
+        <action
+            android:id="@+id/action_registrationFragment_to_logInAppFragment"
+            app:destination="@id/logInAppFragment" />
+    </fragment>
     <fragment
         android:id="@+id/logInAppFragment"
         android:name="com.example.shelter.presentation.log_in_app.view.LogInAppFragment"
         android:label="LogInAppFragment"
-        tools:layout="@layout/activity_log_or_reg" >
+        tools:layout="@layout/fragment_log_or_reg" >
         <action
-            android:id="@+id/action_baseFragment2_to_registrationActivity"
-            app:destination="@id/registrationActivity" />
+            android:id="@+id/action_baseFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
         <action
-            android:id="@+id/action_baseFragment2_to_loginFragment"
+            android:id="@+id/action_baseFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

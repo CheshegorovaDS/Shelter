@@ -8,4 +8,8 @@ annotation class LoginScope
 
 @Scope
 @Retention
+annotation class RegistrationScope
+
+@Scope
+@Retention
 annotation class MenuScope

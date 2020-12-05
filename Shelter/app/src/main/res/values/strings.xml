@@ -2,6 +2,14 @@
     <string name="app_name">Shelter</string>
     <string name="action_settings">Settings</string>
 
+    <string name="human">Частное лицо</string>
+    <string name="organisation">Организация</string>
+
+    <string-array name="typeUser">
+        <item>@string/human</item>
+        <item>@string/organisation</item>
+    </string-array>
+
     //Login
     <string name="email">Электронная почта</string>
     <string name="password">Пароль</string>
@@ -19,6 +27,11 @@
     <string name="city">Город*</string>
     <string name="phone">Номер телефона*</string>
     <string name="registration_btn">ЗАРЕГИСТРИРОВАТЬСЯ</string>
+    <string name="you_are">Вы : </string>
+    <string name="back">Назад</string>
+
+    //Registration Exception
+    <string name="wrong_entered_data">Неправильно введены данные.</string>
 
     //Log in to app
     <string name="btnLogin">"ВОЙТИ"</string>

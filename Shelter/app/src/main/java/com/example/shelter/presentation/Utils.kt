@@ -14,8 +14,11 @@ fun checkEmailAndPassword(user: User):Boolean{
     return checkPassword(user.password) && checkEmail(user.email)
 }
 
-fun checkEmailAndPassword(email: String, password: String):Boolean{
-    return checkPassword(password) && checkEmail(email)
+fun checkEmailAndPassword(email: String?, password: String?):Boolean{
+    return email != null &&
+            password != null &&
+            checkPassword(password) &&
+            checkEmail(email)
 }
 
 private fun checkPassword(password:String):Boolean{

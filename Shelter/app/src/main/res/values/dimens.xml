@@ -1,13 +1,15 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    //Login
-    <dimen name="txtbuttonHeight">40dp</dimen>
-    <dimen name="txtEditHeight">@dimen/txtbuttonHeight</dimen>
+    //Login and Registration
+    <dimen name="txtButtonHeight">40dp</dimen>
+    <dimen name="txtEditHeight">@dimen/txtButtonHeight</dimen>
     <dimen name="paddingImage">8dp</dimen>
     <dimen name="paddingTxt">@dimen/paddingImage</dimen>
     <dimen name="txtTitle">20sp</dimen>
     <dimen name="txtText">14sp</dimen>
     <dimen name="imgNewsHeight">150dp</dimen>
+    <dimen name="marginEditText">16dp</dimen>
+    <dimen name="marginButton">@dimen/marginEditText</dimen>
 
     //Animal Card
     <dimen name="imgAnimalCard">400dp</dimen>
@@ -19,7 +21,7 @@
     <dimen name="bidAvatarHeight">120dp</dimen>
 
     //Messager
-    <dimen name="unreadmessagesTxtHeight">20dp</dimen>
-    <dimen name="unreadmessagesTxtWidth">@dimen/unreadmessagesTxtHeight</dimen>
+    <dimen name="unreadMessagesTxtHeight">20dp</dimen>
+    <dimen name="unreadMessagesTxtWidth">@dimen/unreadMessagesTxtHeight</dimen>
     <dimen name="txtCountUnreadMessages">10sp</dimen>
 </resources>

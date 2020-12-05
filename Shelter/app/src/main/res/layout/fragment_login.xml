@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--Добавить toolbar туда перетащить текст авторизация и кнопку назад-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         style="@style/Toolbar"
@@ -78,56 +78,29 @@
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/txtEditHeight"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        style="@style/EditTextLogInApp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/back_edit_txt"
         android:drawableLeft="@drawable/ic_email"
-        android:drawablePadding="@dimen/paddingTxt"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
-        android:padding="@dimen/paddingImage"
-        android:textColorHint="@color/editTxtHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtAutorisation" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/txtbuttonHeight"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/back_edit_txt"
+        style="@style/EditTextLogInApp"
         android:drawableLeft="@drawable/ic_password"
-        android:drawablePadding="@dimen/paddingTxt"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:padding="@dimen/paddingImage"
-        android:textColorHint="@color/editTxtHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <Button
         android:id="@+id/logIn"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/txtbuttonHeight"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/green_btn"
+        style="@style/Button"
         android:text="@string/login_btn"
-        android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />

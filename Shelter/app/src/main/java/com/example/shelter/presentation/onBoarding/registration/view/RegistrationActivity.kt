@@ -17,7 +17,7 @@ import com.example.shelter.presentation.model.User
 import com.example.shelter.presentation.onBoarding.registration.presenter.IRegistrationPresenter
 import com.example.shelter.presentation.onBoarding.registration.presenter.RegistrationPresenter
 import kotlinx.android.synthetic.main.activity_main.toolbar
-import kotlinx.android.synthetic.main.activity_registration.*
+import kotlinx.android.synthetic.main.fragment_registration.*
 import java.util.regex.Pattern
 
 class RegistrationActivity: AppCompatActivity(),
@@ -28,7 +28,7 @@ class RegistrationActivity: AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registration)
+        setContentView(R.layout.fragment_registration)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -48,7 +48,7 @@ class RegistrationActivity: AppCompatActivity(),
         }
     }
 
-    fun initView(){
+    private fun initView(){
         presenter =
             RegistrationPresenter(
                 this,
