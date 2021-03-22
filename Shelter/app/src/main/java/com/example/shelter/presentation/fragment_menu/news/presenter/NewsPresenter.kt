@@ -1,10 +1,10 @@
-package com.example.shelter.presentation.news.presenter
+package com.example.shelter.presentation.fragment_menu.news.presenter
 
 import com.example.shelter.presentation.base.inrefaces.BasePresenter
 import com.example.shelter.presentation.base.inrefaces.BaseView
-import com.example.shelter.presentation.news.model.NewsState
-import com.example.shelter.presentation.news.reducer.INewsReducer
-import com.example.shelter.presentation.news.view.NewsView
+import com.example.shelter.presentation.fragment_menu.news.model.NewsState
+import com.example.shelter.presentation.fragment_menu.news.reducer.INewsReducer
+import com.example.shelter.presentation.fragment_menu.news.view.NewsView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo

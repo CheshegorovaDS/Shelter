@@ -1,4 +1,4 @@
-package com.example.shelter.presentation.news.view
+package com.example.shelter.presentation.fragment_menu.news.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,11 +15,12 @@ import com.example.shelter.app.ShelterManagerApp
 import com.example.shelter.presentation.LogInAppActivity
 import com.example.shelter.presentation.about_animal.view.AboutAnimalActivity
 import com.example.shelter.presentation.base.inrefaces.BaseView
+import com.example.shelter.presentation.creating_news.CreatingNewsActivity
 import com.example.shelter.presentation.model.Animal
-import com.example.shelter.presentation.news.adapter.NewsAdapter
-import com.example.shelter.presentation.news.di.DaggerNewsComponent
-import com.example.shelter.presentation.news.model.NewsDestination
-import com.example.shelter.presentation.news.presenter.NewsPresenter
+import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
+import com.example.shelter.presentation.fragment_menu.news.di.DaggerNewsComponent
+import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
+import com.example.shelter.presentation.fragment_menu.news.presenter.NewsPresenter
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
@@ -74,39 +75,22 @@ class NewsFragment: Fragment(), NewsView, BaseView {
 
     override fun clickAddCard(): Observable<Any> = RxView.clicks(addNews)
 
+    override fun clickFilter(): Observable<Any> = RxView.clicks(filterNews)
+
+    private fun clickOpenCard(animal: Animal) = clickOpenCard.onNext(animal)
+
     override fun clickSearch(): Observable<Any> {
         TODO("Not yet implemented")
     }
-
-    override fun clickFilter(): Observable<Any> = RxView.clicks(filterNews)
 
     override fun showNews(list: List<Animal>) {
         if (adapter == null) {
             adapter = NewsAdapter(::clickOpenCard)
             listAnimal.layoutManager = LinearLayoutManager(context)
             listAnimal.adapter = adapter
-            listAnimal.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
         }
         adapter?.updateList(list as MutableList<Animal>)
         adapter?.notifyDataSetChanged()
-    }
-
-    private fun clickOpenCard(animal: Animal) = clickOpenCard.onNext(animal)
-
-    override fun openCard(intentAnimal: Intent) {
-        val intentActivity = Intent(requireContext(), AboutAnimalActivity::class.java)
-        intentActivity.putExtra("animal", intentAnimal)
-        startActivity(intentActivity)
-    }
-
-    override fun navigateTo(destination: NewsDestination) =
-        when (destination) {
-            NewsDestination.LOGIN_OR_REGISTRATION_SCREEN -> showLogInAppDialog()
-            NewsDestination.ADD_ANIMAL_CARD -> openCreatingNews()
-        }
-
-    override fun openFilter() {
-        Toast.makeText(context, "open filter", Toast.LENGTH_SHORT).show()
     }
 
     override fun showProgressBar(visible: Boolean) {
@@ -121,11 +105,21 @@ class NewsFragment: Fragment(), NewsView, BaseView {
         addNews.isEnabled = isEnabled
     }
 
+    override fun navigateTo(destination: NewsDestination) =
+        when (destination) {
+            NewsDestination.LOGIN_OR_REGISTRATION_SCREEN -> showLogInAppDialog()
+            NewsDestination.ADD_ANIMAL_CARD -> openCreatingNews()
+        }
+
+    override fun openFilter() {
+        Toast.makeText(context, "open filter", Toast.LENGTH_SHORT).show()
+    }
+
     private fun showLogInAppDialog() =
         AlertDialog.Builder(requireContext())
-            .setTitle("Вы не авторизованы")
-            .setNegativeButton("Отмена"){dialog, _ -> dialog.cancel()}
-            .setNeutralButton("Войти в приложение"){dialog, _ -> dialog.apply {
+            .setTitle(getString(R.string.not_log_in))
+            .setNegativeButton(getString(R.string.cancel)){dialog, _ -> dialog.cancel()}
+            .setNeutralButton(getString(R.string.log_in_app)){dialog, _ -> dialog.apply {
                 openLogInAppScreen()
             } }.create()
             .show()
@@ -136,8 +130,17 @@ class NewsFragment: Fragment(), NewsView, BaseView {
     }
 
     private fun openCreatingNews() {
-        Toast.makeText(context, "create news", Toast.LENGTH_SHORT).show()
-//        val intent = Intent(view?.context, LogInAppActivity::class.java)
-//        startActivity(intent)
+        val intent = Intent(view?.context, CreatingNewsActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun openCard(intentAnimal: Intent) {
+        val intentActivity = Intent(requireContext(), AboutAnimalActivity::class.java)
+        intentActivity.putExtra(ANIMAL_KEY, intentAnimal)
+        startActivity(intentActivity)
+    }
+
+    companion object {
+        const val ANIMAL_KEY = "animal"
     }
 }

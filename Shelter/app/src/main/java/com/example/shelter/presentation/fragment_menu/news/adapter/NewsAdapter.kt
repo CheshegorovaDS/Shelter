@@ -1,4 +1,4 @@
-package com.example.shelter.presentation.news.adapter
+package com.example.shelter.presentation.fragment_menu.news.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shelter.R
-import com.example.shelter.presentation.news.utils.OpenCardAnimal
+import com.example.shelter.presentation.fragment_menu.news.utils.OpenCardAnimal
 import com.example.shelter.presentation.model.Animal
 
 class NewsAdapter (

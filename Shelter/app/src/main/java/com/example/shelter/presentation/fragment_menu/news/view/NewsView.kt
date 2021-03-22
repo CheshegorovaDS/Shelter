@@ -1,8 +1,8 @@
-package com.example.shelter.presentation.news.view
+package com.example.shelter.presentation.fragment_menu.news.view
 
 import android.content.Intent
 import com.example.shelter.presentation.model.Animal
-import com.example.shelter.presentation.news.model.NewsDestination
+import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 

@@ -1,4 +1,4 @@
-package com.example.shelter.presentation.news.model
+package com.example.shelter.presentation.fragment_menu.news.model
 
 data class NewsState(
     val progressBarVisibility: Boolean = false,

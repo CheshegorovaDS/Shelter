@@ -2,7 +2,6 @@ package com.example.shelter.app.di
 
 import android.content.Context
 import com.example.shelter.presentation.LogInAppActivity
-import com.example.shelter.presentation.news.view.NewsFragment
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import dagger.BindsInstance
 import dagger.Component

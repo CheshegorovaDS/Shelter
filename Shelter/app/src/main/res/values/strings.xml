@@ -34,7 +34,12 @@
     <string name="wrong_entered_data">Неправильно введены данные.</string>
 
     //Log in to app
-    <string name="btnLogin">"ВОЙТИ"</string>
+    <string name="login">"ВОЙТИ"</string>
+
+    //Alert Dialog before Log in App
+    <string name="not_log_in">Вы не авторизованы</string>
+    <string name="cancel">Отмена</string>
+    <string name="log_in_app">Войти в приложение</string>
 
     //Animal News
     <string name="search">Поиск</string>

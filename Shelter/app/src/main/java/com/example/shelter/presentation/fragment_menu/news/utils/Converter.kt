@@ -1,4 +1,4 @@
-package com.example.shelter.presentation.news.utils
+package com.example.shelter.presentation.fragment_menu.news.utils
 
 import android.content.Intent
 import com.example.shelter.presentation.about_animal.model.Sex

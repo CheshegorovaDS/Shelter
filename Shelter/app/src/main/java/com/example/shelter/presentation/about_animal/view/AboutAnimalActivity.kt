@@ -17,8 +17,7 @@ import com.example.shelter.presentation.about_animal.model.Sterilization
 import com.example.shelter.presentation.about_animal.presenter.AboutAnimalPresenter
 import com.example.shelter.presentation.about_animal.presenter.IAboutAnimalPresenter
 import com.example.shelter.presentation.extention.toast
-import com.example.shelter.presentation.news.utils.convertAnimalToIntent
-import com.example.shelter.presentation.news.utils.convertIntentToAnimal
+import com.example.shelter.presentation.fragment_menu.news.utils.convertIntentToAnimal
 import kotlinx.android.synthetic.main.activity_animal_card.*
 
 

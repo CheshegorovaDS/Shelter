@@ -1,4 +1,4 @@
-package com.example.shelter.presentation.news.model
+package com.example.shelter.presentation.fragment_menu.news.model
 
 enum class NewsDestination {
     LOGIN_OR_REGISTRATION_SCREEN,

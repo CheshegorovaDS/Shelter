@@ -11,7 +11,7 @@ import com.example.shelter.presentation.extention.nextActivity
 import com.example.shelter.presentation.fragment_menu.homepage.view.HomepageFragment
 import com.example.shelter.presentation.fragment_menu.messager.view.MessagerFragment
 import com.example.shelter.presentation.menu.di.DaggerMenuComponent
-import com.example.shelter.presentation.news.view.NewsFragment
+import com.example.shelter.presentation.fragment_menu.news.view.NewsFragment
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_menu.*

@@ -1,11 +1,11 @@
-package com.example.shelter.presentation.news.reducer
+package com.example.shelter.presentation.fragment_menu.news.reducer
 
 import android.content.Intent
 import com.example.shelter.presentation.base.inrefaces.BaseReducer
 import com.example.shelter.presentation.model.Animal
-import com.example.shelter.presentation.news.model.NewsDestination
-import com.example.shelter.presentation.news.model.NewsException
-import com.example.shelter.presentation.news.model.NewsState
+import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
+import com.example.shelter.presentation.fragment_menu.news.model.NewsException
+import com.example.shelter.presentation.fragment_menu.news.model.NewsState
 import io.reactivex.subjects.PublishSubject
 
 interface INewsReducer: BaseReducer {
