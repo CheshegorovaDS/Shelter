@@ -8,16 +8,6 @@ class LoggedUserManager @Inject constructor(
     private val sharedPreferences: SharedPreferences) :
     LoggedUserProvider {
 
-    companion object {
-        private const val USER_EMAIL: String = "logged_user_email"
-        private const val USER_NAME_PASSWORD: String = "logged_user_password"
-        private const val USER_NAME_ACCESS_TOKEN: String = "logged_user_access_token"
-        private const val DEFAULT_STRING_VALUE: String = ""
-
-        private var loggedInUser: User? = null
-    }
-
-
     override fun setLoggedUser(loggedUser: User) {
         loggedInUser = loggedUser
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
@@ -57,5 +47,14 @@ class LoggedUserManager @Inject constructor(
                 User(loggedUsername, password)
         }
         return savedUser
+    }
+
+    companion object {
+        private const val USER_EMAIL: String = "logged_user_email"
+        private const val USER_NAME_PASSWORD: String = "logged_user_password"
+        private const val USER_NAME_ACCESS_TOKEN: String = "logged_user_access_token"
+        private const val DEFAULT_STRING_VALUE: String = ""
+
+        private var loggedInUser: User? = null
     }
 }

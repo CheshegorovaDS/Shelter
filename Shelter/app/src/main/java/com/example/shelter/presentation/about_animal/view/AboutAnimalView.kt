@@ -1,7 +1,7 @@
 package com.example.shelter.presentation.about_animal.view
 
 interface AboutAnimalView {
-    fun showAnimalInfo()
+    fun showAnimalInfo(name: String)
     fun showPhotoUser(visibility: Boolean)
     fun showBreed(visibility: Boolean)
     fun showAge(visibility: Boolean)

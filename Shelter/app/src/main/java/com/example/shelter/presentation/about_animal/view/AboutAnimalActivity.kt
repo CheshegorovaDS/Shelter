@@ -1,11 +1,13 @@
 package com.example.shelter.presentation.about_animal.view
 
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.shelter.R
@@ -15,6 +17,8 @@ import com.example.shelter.presentation.about_animal.model.Sterilization
 import com.example.shelter.presentation.about_animal.presenter.AboutAnimalPresenter
 import com.example.shelter.presentation.about_animal.presenter.IAboutAnimalPresenter
 import com.example.shelter.presentation.extention.toast
+import com.example.shelter.presentation.news.utils.convertAnimalToIntent
+import com.example.shelter.presentation.news.utils.convertIntentToAnimal
 import kotlinx.android.synthetic.main.activity_animal_card.*
 
 
@@ -37,12 +41,16 @@ class AboutAnimalActivity: AppCompatActivity() , AboutAnimalView{
                 "Кот",
                 Sex.M,
                 "шотландская вислоухая",
-                "1",
+                1,
                 "",
                 Sterilization.NO,
                 "",
                 "Любит спать, ласковый, постоянно мурчит, любит гонять собак. Есть только перепелинные яйца."
             )
+
+
+        val intentAnimal = intent.extras?.get("animal") as Intent
+        animal = convertIntentToAnimal(intentAnimal)
 
         presenter.showAnimal(animal)
 
@@ -68,8 +76,8 @@ class AboutAnimalActivity: AppCompatActivity() , AboutAnimalView{
         return super.onOptionsItemSelected(item)
     }
 
-    override fun showAnimalInfo() {
-
+    override fun showAnimalInfo(name: String) {
+        findViewById<TextView>(R.id.name).text = name
     }
 
     override fun showPhotoUser(visibility: Boolean) {

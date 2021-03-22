@@ -16,13 +16,13 @@ class AboutAnimalPresenter: IAboutAnimalPresenter {
     }
 
     override fun showAnimal(animal: Animal) {
-        view.showAnimalInfo()
+        view.showAnimalInfo(animal.name)
         view.showAge(!animal.age.equals(""))
-        view.showBreed(!animal.breed.equals(""))
-        view.showPhoto(!animal.photo.equals(""))
-        view.showGrowth(!animal.growth.equals(""))
-        view.showPassport(!animal.passport.equals(""))
+        view.showBreed(animal.breed != "")
+        view.showPhoto(animal.photo != "")
+        view.showGrowth(animal.growth != "")
+        view.showPassport(animal.passport != "")
         view.showSterilization(!animal.sterilization.equals(""))
-        view.showDescription(!animal.description.equals(""))
+        view.showDescription(animal.description != "")
     }
 }

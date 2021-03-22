@@ -9,16 +9,16 @@ import androidx.core.content.ContextCompat.startActivities
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shelter.R
-import com.example.shelter.presentation.APP_LOGIN
 import com.example.shelter.presentation.LogInAppActivity
 import com.example.shelter.presentation.base.AppFragment
 import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
 import com.example.shelter.presentation.fragment_menu.news.presenter.NewsPresenter
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import kotlinx.android.synthetic.main.fragment_news.*
+import javax.inject.Inject
 
 
-class NewsFragment(
+class NewsFragment @Inject constructor(
     private val loggedUserProvider: LoggedUserProvider
 ) : AppFragment() {
 
@@ -42,21 +42,21 @@ class NewsFragment(
             Toast.makeText(context,"Поиск", Toast.LENGTH_SHORT).show()
         }
 
-        imgFilter.setOnClickListener{ Toast.makeText(context,"Фильтр", Toast.LENGTH_SHORT).show()}
+        filterNews.setOnClickListener{ Toast.makeText(context,"Фильтр", Toast.LENGTH_SHORT).show()}
 
-        imgAdd.setOnClickListener{
-            if(checkUser()){
-                Toast.makeText(context,"Добавить объявление", Toast.LENGTH_SHORT).show()
-            }else{
-                this.context?.let {
-                    AlertDialog.Builder(it)
-                        .setTitle("Вы не авторизованы")
-                        .setNegativeButton("Отмена"){dialog,id-> dialog.cancel()}
-                        .setNeutralButton("Войти в приложение"){dialog, id -> dialog.apply { next() } }.create()
-                        .show()
-                }
-            }
-        }
+//        addNews.setOnClickListener{
+//            if(checkUser()){
+//                Toast.makeText(context,"Добавить объявление", Toast.LENGTH_SHORT).show()
+//            }else{
+//                this.context?.let {
+//                    AlertDialog.Builder(it)
+//                        .setTitle("Вы не авторизованы")
+//                        .setNegativeButton("Отмена"){dialog,id-> dialog.cancel()}
+//                        .setNeutralButton("Войти в приложение"){dialog, id -> dialog.apply { next() } }.create()
+//                        .show()
+//                }
+//            }
+//        }
 
     }
 

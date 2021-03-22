@@ -13,3 +13,7 @@ annotation class RegistrationScope
 @Scope
 @Retention
 annotation class MenuScope
+
+@Scope
+@Retention
+annotation class NewsScope

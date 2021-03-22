@@ -1,6 +1,6 @@
 package com.example.shelter.presentation.fragment_menu.news.model
 
-import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
+import com.example.shelter.presentation.news.adapter.NewsAdapter
 import com.example.shelter.presentation.model.News
 
 class NewsModel: INewsModel {
