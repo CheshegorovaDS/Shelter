@@ -1,7 +1,7 @@
-package com.example.shelter.data.repository
+package com.example.shelter.data.user.repositry
 
-import com.example.shelter.data.request.UserRequest
-import com.example.shelter.data.response.UserResponse
+import com.example.shelter.data.user.request.UserRequest
+import com.example.shelter.data.user.response.UserResponse
 import io.reactivex.Observable
 
 interface IUserApi {

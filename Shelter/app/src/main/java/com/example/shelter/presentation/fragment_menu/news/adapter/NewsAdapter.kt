@@ -15,13 +15,15 @@ import com.example.shelter.presentation.model.Animal
 class NewsAdapter (
     val clickOpenCardAnimal: OpenCardAnimal
 ): RecyclerView.Adapter<NewsAdapter.TableViewHolder>() {
-    var view: View? = null
-    val list: MutableList<Animal> = mutableListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TableViewHolder {
-        view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_news, parent, false)
-        return TableViewHolder(view!!)
-    }
+    private val list: MutableList<Animal> = mutableListOf()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TableViewHolder  =
+       TableViewHolder(
+           LayoutInflater
+               .from(parent.context)
+               .inflate(R.layout.list_item_news, parent, false)
+       )
 
     override fun getItemCount(): Int = list.size
 
@@ -36,7 +38,7 @@ class NewsAdapter (
 
     private fun openCard(animal: Animal) = clickOpenCardAnimal(animal)
 
-    fun updateList(list: MutableList<Animal>) {
+    fun updateList(list: List<Animal>) {
         this.list.clear()
         this.list.addAll(list)
     }

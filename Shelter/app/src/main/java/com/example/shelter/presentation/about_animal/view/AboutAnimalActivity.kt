@@ -32,24 +32,8 @@ class AboutAnimalActivity: AppCompatActivity() , AboutAnimalView{
         supportActionBar?.setDisplayShowHomeEnabled(true)
         initView()
 
-        var animal: Animal =
-            Animal(
-                "Bacя",
-                "https://avatars.mds.yandex.net/get-pdb/1058492/87a96367-4ac0-42c2-9ca3-c4de8e9077ff/s1200?webp=false",
-                "шотландская вислоухая",
-                "Кот",
-                Sex.M,
-                "шотландская вислоухая",
-                1,
-                "",
-                Sterilization.NO,
-                "",
-                "Любит спать, ласковый, постоянно мурчит, любит гонять собак. Есть только перепелинные яйца."
-            )
-
-
         val intentAnimal = intent.extras?.get("animal") as Intent
-        animal = convertIntentToAnimal(intentAnimal)
+        val animal = convertIntentToAnimal(intentAnimal)
 
         presenter.showAnimal(animal)
 

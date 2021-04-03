@@ -28,12 +28,7 @@ class MenuActivity: AppCompatActivity() {
         setContentView(R.layout.activity_menu)
         initComponent()
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        loadFragment(
-//            NewsFragment(
-//                loggedUserProvider
-//            )
-        NewsFragment()
-        )
+        loadFragment(NewsFragment())
     }
 
     private fun initComponent() {
@@ -48,12 +43,7 @@ class MenuActivity: AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item->
         when(item.itemId){
             R.id.navigation_news -> {
-                loadFragment(
-//                    NewsFragment(
-//                        loggedUserProvider
-//                    )
-                NewsFragment()
-                )
+                loadFragment(NewsFragment())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_messager -> {
@@ -83,7 +73,7 @@ class MenuActivity: AppCompatActivity() {
             AlertDialog.Builder(this)
                 .setTitle("Вы не авторизованы")
                 .setNegativeButton("Отмена"){dialog,id-> dialog.cancel()}
-                .setNeutralButton("Войти в приложение"){dialog, id -> dialog.apply { next() } }.create()
+                .setNeutralButton("Войти в приложение"){dialog, _ -> dialog.apply { next() } }.create()
                 .show()
             return false
         }

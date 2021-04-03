@@ -1,4 +1,4 @@
-package com.example.shelter.data.response
+package com.example.shelter.data.user.response
 
 data class UserResponse(
     val code: Int,

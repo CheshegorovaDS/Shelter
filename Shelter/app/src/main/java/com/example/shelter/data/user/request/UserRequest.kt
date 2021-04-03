@@ -1,4 +1,4 @@
-package com.example.shelter.data.request
+package com.example.shelter.data.user.request
 
 import com.google.gson.annotations.SerializedName
 

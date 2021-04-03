@@ -56,6 +56,10 @@
     <string name="growthAnimal">Рост</string>
     <string name="descriptionAnimal">Описание</string>
 
+    //Add new Animal Card
+    <string name="addCard">Добавить новую запись:</string>
+    <string name="category">Категория</string>
+
     //Homepage
     <string name="information">Информация</string>
     <string name="phoneUser">Телефон</string>

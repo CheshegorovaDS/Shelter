@@ -1,12 +1,13 @@
 package com.example.shelter.presentation.fragment_menu.news.view
 
 import android.content.Intent
+import com.example.shelter.presentation.base.inrefaces.BaseView
 import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
-interface NewsView {
+interface NewsView: BaseView {
     val updateNews: PublishSubject<Unit>
     val clickOpenCard: PublishSubject<Animal>
     fun clickAddCard(): Observable<Any>

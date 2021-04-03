@@ -1,7 +1,7 @@
 package com.example.shelter.login
 
 import com.RxJavaRule
-import com.example.shelter.data.repository.IUserRepository
+import com.example.shelter.data.user.repositry.IUserRepository
 import com.example.shelter.presentation.onBoarding.login.model.LoginDestination
 import com.example.shelter.presentation.onBoarding.login.model.LoginErrorCode
 import com.example.shelter.presentation.onBoarding.login.model.LoginException

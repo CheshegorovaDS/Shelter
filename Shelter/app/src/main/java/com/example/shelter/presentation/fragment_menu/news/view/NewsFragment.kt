@@ -8,33 +8,29 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
+import com.example.shelter.data.di.DaggerNewsRepositoryComponent
 import com.example.shelter.presentation.LogInAppActivity
 import com.example.shelter.presentation.about_animal.view.AboutAnimalActivity
-import com.example.shelter.presentation.base.inrefaces.BaseView
 import com.example.shelter.presentation.creating_news.CreatingNewsActivity
 import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
 import com.example.shelter.presentation.fragment_menu.news.di.DaggerNewsComponent
 import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
 import com.example.shelter.presentation.fragment_menu.news.presenter.NewsPresenter
-import com.example.shelter.presentation.storage.LoggedUserProvider
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_news.*
 import javax.inject.Inject
 
-class NewsFragment: Fragment(), NewsView, BaseView {
+class NewsFragment: Fragment(), NewsView {
     private val resLayout = R.layout.fragment_news
 
     @Inject
     lateinit var presenter: NewsPresenter
-    @Inject
-    lateinit var manager: LoggedUserProvider
 
     private var adapter: NewsAdapter? = null
 
@@ -56,8 +52,11 @@ class NewsFragment: Fragment(), NewsView, BaseView {
         val appComponent = (activity?.application as ShelterManagerApp)
             .getAppComponent()
 
+        val newsRepository = DaggerNewsRepositoryComponent.builder().build()
+
         DaggerNewsComponent.builder()
             .appComponent(appComponent)
+            .newsRepositoryComponent(newsRepository)
             .build()
             .inject(this)
     }
@@ -89,7 +88,7 @@ class NewsFragment: Fragment(), NewsView, BaseView {
             listAnimal.layoutManager = LinearLayoutManager(context)
             listAnimal.adapter = adapter
         }
-        adapter?.updateList(list as MutableList<Animal>)
+        adapter?.updateList(list)
         adapter?.notifyDataSetChanged()
     }
 

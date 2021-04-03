@@ -1,6 +1,7 @@
 package com.example.shelter.presentation.fragment_menu.news.reducer
 
 import android.content.Intent
+import com.example.shelter.data.news.repository.INewsRepository
 import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
 import com.example.shelter.presentation.fragment_menu.news.model.NewsException
@@ -8,11 +9,13 @@ import com.example.shelter.presentation.fragment_menu.news.model.NewsState
 import com.example.shelter.presentation.fragment_menu.news.utils.convertAnimalToIntent
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class NewsReducer @Inject constructor(
-    var loggedUserProvider: LoggedUserProvider
+    private var loggedUserProvider: LoggedUserProvider,
+    private var backend: INewsRepository
 ) : INewsReducer {
 
     private val disposeContainer = CompositeDisposable()
@@ -24,25 +27,52 @@ class NewsReducer @Inject constructor(
     override val updateDestination: PublishSubject<NewsDestination> = PublishSubject.create()
 
     private var state = NewsState()
-    private var list : List<Animal> = listOf()
+    private var list : MutableList<Animal> = mutableListOf()
 
     override fun downloadNews() {
         state = NewsState(progressBarVisibility = true)
         updateState.onNext(state)
-//        downloadNews from service
-        list = addList()
-        updateNews.onNext(list)
+
+        disposeContainer.add(
+            backend.getListNews()
+            .observeOn(Schedulers.io())
+            .subscribe ({
+                list.clear()
+                list.addAll(it)
+                updateNews.onNext(list)
+            }, {
+                updateException.onNext(NewsException())
+            })
+        )
+
         state = state.copy(
             progressBarVisibility = false,
             addNewsEnabled = true
         )
         updateState.onNext(state)
-        //or
-//        updateException.onNext()
     }
 
     override fun downloadNews(category: String) {
-        TODO("Not yet implemented")
+        state = NewsState(progressBarVisibility = true)
+        updateState.onNext(state)
+
+        disposeContainer.add(
+            backend.getListNewsByCategory(category)
+                .observeOn(Schedulers.io())
+                .subscribe ({
+                    list.clear()
+                    list.addAll(it)
+                    updateNews.onNext(list)
+                }, {
+                    updateException.onNext(NewsException())
+                })
+        )
+
+        state = state.copy(
+            progressBarVisibility = false,
+            addNewsEnabled = true
+        )
+        updateState.onNext(state)
     }
 
     override fun openFilter() {
@@ -55,28 +85,14 @@ class NewsReducer @Inject constructor(
         openAnimalNews.onNext(convertAnimalToIntent(animal))
     }
 
-    override fun addNews() {
+    override fun addNews() =
         if (userIsLogged()) {
             updateDestination.onNext(NewsDestination.ADD_ANIMAL_CARD)
         } else {
             updateDestination.onNext(NewsDestination.LOGIN_OR_REGISTRATION_SCREEN)
         }
-    }
 
     private fun userIsLogged(): Boolean = loggedUserProvider.getLoggedUser() != null
 
-    override fun clearDispose() {
-        disposeContainer.clear()
-    }
-
-    private fun addList(): List<Animal> {
-        val tables = ArrayList<Animal>()
-        tables.add(Animal("Вася", ""))
-        tables.add(Animal("Буся", "Ж",  age = 2))
-        tables.add(Animal("Meca","Ж",age = 1))
-        tables.add(Animal("Муся","Ж",age = 1))
-        tables.add(Animal("Симбад","М",age = 1))
-        tables.add(Animal("Миша","М",age = 2))
-        return tables
-    }
+    override fun clearDispose() = disposeContainer.clear()
 }

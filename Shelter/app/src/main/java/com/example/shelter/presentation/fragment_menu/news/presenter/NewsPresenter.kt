@@ -11,9 +11,9 @@ import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
 
 class NewsPresenter @Inject constructor(
-    var reducer: INewsReducer
+    private var reducer: INewsReducer
 ): BasePresenter {
-//    private var reducer: INewsReducer = NewsReducer()
+
     var view: NewsView? = null
 
     private val disposeContainer = CompositeDisposable()
@@ -40,7 +40,7 @@ class NewsPresenter @Inject constructor(
         view?.clickOpenCard?.subscribe {
             reducer.openCard(it)
         }?.addTo(disposeContainer)
-//
+
 //        view?.clickFilter()?.subscribe {
 //
 //        }?.addTo(disposeContainer)
