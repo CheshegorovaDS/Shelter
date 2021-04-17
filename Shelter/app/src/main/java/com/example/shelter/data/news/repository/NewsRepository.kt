@@ -1,13 +1,18 @@
 package com.example.shelter.data.news.repository
 
+import com.example.shelter.network.Voter
 import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.model.News
 import io.reactivex.Observable
+import io.reactivex.Single
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
     var newsApi: INewsApi
 ): INewsRepository {
+    override fun getVoter(): Single<Voter> {
+        return newsApi.getNews2()
+    }
 
     override fun getListNews(): Observable<List<Animal>> {
         return Observable.just(addList())

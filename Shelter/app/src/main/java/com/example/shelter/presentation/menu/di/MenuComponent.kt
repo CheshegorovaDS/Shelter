@@ -1,7 +1,7 @@
 package com.example.shelter.presentation.menu.di
 
 import com.example.shelter.app.di.AppComponent
-import com.example.shelter.presentation.MenuScope
+import com.example.shelter.utils.MenuScope
 import com.example.shelter.presentation.menu.MenuActivity
 import dagger.Component
 

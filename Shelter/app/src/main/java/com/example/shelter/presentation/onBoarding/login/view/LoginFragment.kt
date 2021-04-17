@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
-import com.example.shelter.presentation.LogInAppActivity
+import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
 import com.example.shelter.presentation.onBoarding.login.di.DaggerLoginComponent
 import com.example.shelter.presentation.onBoarding.login.model.LoginDestination
 import com.example.shelter.presentation.onBoarding.login.model.LoginErrorCode

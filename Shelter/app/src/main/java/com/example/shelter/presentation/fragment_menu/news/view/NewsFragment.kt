@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
 import com.example.shelter.data.di.DaggerNewsRepositoryComponent
-import com.example.shelter.presentation.LogInAppActivity
+import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
 import com.example.shelter.presentation.about_animal.view.AboutAnimalActivity
-import com.example.shelter.presentation.creating_news.CreatingNewsActivity
+import com.example.shelter.presentation.creating_news.view.CreatingNewsActivity
 import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
 import com.example.shelter.presentation.fragment_menu.news.di.DaggerNewsComponent

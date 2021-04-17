@@ -1,6 +1,6 @@
 package com.example.shelter.presentation.onBoarding.utils
 
-import com.example.shelter.presentation.checkEmailAndPassword
+import com.example.shelter.utils.checkEmailAndPassword
 import com.example.shelter.presentation.onBoarding.registration.model.Human
 import com.example.shelter.presentation.onBoarding.registration.model.Organisation
 import java.util.regex.Pattern

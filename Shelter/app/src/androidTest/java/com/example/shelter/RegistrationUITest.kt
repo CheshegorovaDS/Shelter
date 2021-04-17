@@ -7,7 +7,7 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
-import com.example.shelter.presentation.LogInAppActivity
+import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

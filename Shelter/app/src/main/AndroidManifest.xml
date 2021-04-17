@@ -3,6 +3,7 @@
     package="com.example.shelter">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -24,11 +25,11 @@
 
         <activity android:name="com.example.shelter.presentation.MainActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".presentation.LogInAppActivity"
+        <activity android:name=".presentation.log_in_app.view.LogInAppActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".presentation.about_animal.view.AboutAnimalActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".presentation.creating_news.CreatingNewsActivity"
+        <activity android:name=".presentation.creating_news.view.CreatingNewsActivity"
             android:screenOrientation="portrait"/>
     </application>
 

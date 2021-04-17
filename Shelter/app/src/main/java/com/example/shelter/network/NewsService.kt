@@ -7,9 +7,14 @@ import com.example.shelter.presentation.about_animal.model.Sterilization
 import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.model.User
 import io.reactivex.Observable
+import io.reactivex.Single
+import retrofit2.Response
+import retrofit2.http.GET
 
+interface NewsService {
 
-class NewsService {
+    @GET("/api/voter/42")
+    fun getNewsList2(): Single<Response<Voter>>
 
     fun getNewsList(): Observable<List<NewsResponse>> {
         return Observable.just(getNews())

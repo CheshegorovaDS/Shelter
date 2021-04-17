@@ -1,4 +1,4 @@
-package com.example.shelter.presentation
+package com.example.shelter.utils
 
 import com.example.shelter.presentation.model.User
 import java.util.regex.Pattern

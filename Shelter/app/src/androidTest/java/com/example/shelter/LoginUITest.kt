@@ -5,10 +5,9 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.example.shelter.presentation.LogInAppActivity
+import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
 import androidx.test.rule.ActivityTestRule
 import org.hamcrest.CoreMatchers
 import org.junit.Before

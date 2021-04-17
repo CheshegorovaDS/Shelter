@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
-import com.example.shelter.presentation.LogInAppActivity
+import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
 import com.example.shelter.presentation.extention.nextActivity
 import com.example.shelter.presentation.fragment_menu.homepage.view.HomepageFragment
 import com.example.shelter.presentation.fragment_menu.messager.view.MessagerFragment

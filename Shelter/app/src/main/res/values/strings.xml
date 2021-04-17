@@ -57,8 +57,12 @@
     <string name="descriptionAnimal">Описание</string>
 
     //Add new Animal Card
-    <string name="addCard">Добавить новую запись:</string>
-    <string name="category">Категория</string>
+    <string name="addNews">Добавить новую запись:</string>
+    <string name="category">Категория*</string>
+    <string name="addNameAnimal">Имя*</string>
+    <string name="addTypeAnimal">Тип*</string>
+    <string name="addSexAnimal">Пол*</string>
+    <string name="addCard">Добавить карточку</string>
 
     //Homepage
     <string name="information">Информация</string>

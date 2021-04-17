@@ -1,4 +1,4 @@
-package com.example.shelter.presentation
+package com.example.shelter.utils
 
 import javax.inject.Scope
 

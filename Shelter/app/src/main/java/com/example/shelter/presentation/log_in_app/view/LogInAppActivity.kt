@@ -1,4 +1,4 @@
-package com.example.shelter.presentation
+package com.example.shelter.presentation.log_in_app.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -1,6 +1,6 @@
 package com.example.shelter.presentation.onBoarding.login.reducer
 
-import com.example.shelter.presentation.checkEmailAndPassword
+import com.example.shelter.utils.checkEmailAndPassword
 import com.example.shelter.presentation.onBoarding.login.model.LoginDestination
 import com.example.shelter.presentation.onBoarding.login.model.LoginErrorCode
 import com.example.shelter.presentation.onBoarding.login.model.LoginException

@@ -10,7 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
-import com.example.shelter.presentation.LogInAppActivity
+import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
 import com.example.shelter.presentation.onBoarding.registration.di.DaggerRegistrationComponent
 import com.example.shelter.presentation.onBoarding.registration.model.*
 import com.example.shelter.presentation.onBoarding.registration.presenter.IRegistrationPresenter

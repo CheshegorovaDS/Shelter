@@ -1,6 +1,7 @@
 package com.example.shelter.presentation.fragment_menu.news.reducer
 
 import android.content.Intent
+import android.util.Log
 import com.example.shelter.data.news.repository.INewsRepository
 import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
@@ -32,6 +33,17 @@ class NewsReducer @Inject constructor(
     override fun downloadNews() {
         state = NewsState(progressBarVisibility = true)
         updateState.onNext(state)
+
+        disposeContainer.add(
+            backend.getVoter()
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    val voter = it
+                    Log.d("voter", voter.toString())
+                }, {
+                    Log.e("exception",it.toString())
+                })
+        )
 
         disposeContainer.add(
             backend.getListNews()
