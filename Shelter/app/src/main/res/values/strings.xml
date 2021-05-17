@@ -71,5 +71,6 @@
 
     //Messager
     <string name="messager">Сообщения</string>
+    <string name="image_of_animal">Image of animal.</string>
 
 </resources>

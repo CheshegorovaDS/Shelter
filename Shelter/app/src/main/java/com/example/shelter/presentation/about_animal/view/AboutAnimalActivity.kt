@@ -11,13 +11,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.shelter.R
-import com.example.shelter.presentation.model.Animal
-import com.example.shelter.presentation.about_animal.model.Sex
-import com.example.shelter.presentation.about_animal.model.Sterilization
 import com.example.shelter.presentation.about_animal.presenter.AboutAnimalPresenter
 import com.example.shelter.presentation.about_animal.presenter.IAboutAnimalPresenter
 import com.example.shelter.presentation.extention.toast
-import com.example.shelter.presentation.fragment_menu.news.utils.convertIntentToAnimal
 import kotlinx.android.synthetic.main.activity_animal_card.*
 
 
@@ -33,9 +29,8 @@ class AboutAnimalActivity: AppCompatActivity() , AboutAnimalView{
         initView()
 
         val intentAnimal = intent.extras?.get("animal") as Intent
-        val animal = convertIntentToAnimal(intentAnimal)
 
-        presenter.showAnimal(animal)
+//        presenter.showAnimal(animal)
 
         cardUser.setOnClickListener {
             presenter.openUser()
