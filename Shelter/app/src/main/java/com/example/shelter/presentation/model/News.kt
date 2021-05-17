@@ -1,7 +1,8 @@
 package com.example.shelter.presentation.model
 
 data class News (
+    val id: Int,
     val name: String,
-    val sex: String,
-    val age: Int
+    val photo: String,
+    val category: String
 )

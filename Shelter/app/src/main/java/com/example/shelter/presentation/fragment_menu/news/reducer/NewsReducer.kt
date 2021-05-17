@@ -1,13 +1,10 @@
 package com.example.shelter.presentation.fragment_menu.news.reducer
 
-import android.content.Intent
-import android.util.Log
 import com.example.shelter.data.news.repository.INewsRepository
-import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
 import com.example.shelter.presentation.fragment_menu.news.model.NewsException
 import com.example.shelter.presentation.fragment_menu.news.model.NewsState
-import com.example.shelter.presentation.fragment_menu.news.utils.convertAnimalToIntent
+import com.example.shelter.presentation.model.News
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -21,33 +18,22 @@ class NewsReducer @Inject constructor(
 
     private val disposeContainer = CompositeDisposable()
 
-    override val updateNews: PublishSubject<List<Animal>> = PublishSubject.create()
+    override val updateNews: PublishSubject<List<News>> = PublishSubject.create()
     override val updateState: PublishSubject<NewsState> = PublishSubject.create()
     override val updateException: PublishSubject<NewsException> = PublishSubject.create()
-    override val openAnimalNews: PublishSubject<Intent> = PublishSubject.create()
+    override val openAnimalNews: PublishSubject<Int> = PublishSubject.create()
     override val updateDestination: PublishSubject<NewsDestination> = PublishSubject.create()
 
     private var state = NewsState()
-    private var list : MutableList<Animal> = mutableListOf()
+    private var list : MutableList<News> = mutableListOf()
 
     override fun downloadNews() {
         state = NewsState(progressBarVisibility = true)
         updateState.onNext(state)
 
         disposeContainer.add(
-            backend.getVoter()
-                .subscribeOn(Schedulers.io())
-                .subscribe({
-                    val voter = it
-                    Log.d("voter", voter.toString())
-                }, {
-                    Log.e("exception",it.toString())
-                })
-        )
-
-        disposeContainer.add(
             backend.getListNews()
-            .observeOn(Schedulers.io())
+            .subscribeOn(Schedulers.io())
             .subscribe ({
                 list.clear()
                 list.addAll(it)
@@ -91,10 +77,10 @@ class NewsReducer @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override fun openCard(animal: Animal) {
+    override fun openCard(news: News) {
         state = state.copy(addNewsEnabled = false)
         updateState.onNext(state)
-        openAnimalNews.onNext(convertAnimalToIntent(animal))
+        openAnimalNews.onNext(news.id)
     }
 
     override fun addNews() =

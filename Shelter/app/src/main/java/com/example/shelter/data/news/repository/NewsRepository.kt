@@ -1,7 +1,5 @@
 package com.example.shelter.data.news.repository
 
-import com.example.shelter.network.Voter
-import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.model.News
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -10,15 +8,12 @@ import javax.inject.Inject
 class NewsRepository @Inject constructor(
     var newsApi: INewsApi
 ): INewsRepository {
-    override fun getVoter(): Single<Voter> {
-        return newsApi.getNews2()
+
+    override fun getListNews(): Observable<List<News>> {
+        return newsApi.getNews()
     }
 
-    override fun getListNews(): Observable<List<Animal>> {
-        return Observable.just(addList())
-    }
-
-    override fun getListNewsByCategory(category: String): Observable<List<Animal>> {
+    override fun getListNewsByCategory(category: String): Observable<List<News>> {
         TODO()
 //        return Observable.just(ad)
     }
@@ -33,17 +28,6 @@ class NewsRepository @Inject constructor(
 
     override fun changeNews(id: Long, news: News) {
         TODO("Not yet implemented")
-    }
-
-    private fun addList(): List<Animal> {
-        val tables = ArrayList<Animal>()
-        tables.add(Animal("Вася", ""))
-        tables.add(Animal("Буся", "Ж",  age = 2))
-        tables.add(Animal("Meca","Ж",age = 1))
-        tables.add(Animal("Муся","Ж",age = 1))
-        tables.add(Animal("Симбад","М",age = 1))
-        tables.add(Animal("Миша","М",age = 2))
-        return tables
     }
 
 }

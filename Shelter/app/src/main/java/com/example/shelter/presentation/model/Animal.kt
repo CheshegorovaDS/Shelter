@@ -7,7 +7,6 @@ data class Animal (
     val name: String,
     val photo: String,
     val type: String = "",
-    val category: String = "",
     val sex: Sex = Sex.NONE,
     val breed: String = "",
     val age: Int = 0,

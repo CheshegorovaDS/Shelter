@@ -66,7 +66,6 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
             findViewById<TextView>(R.id.name).text.toString(),
             "",
             "",
-            "",
             Sex.NONE,
             findViewById<TextView>(R.id.breed).text.toString(),
             0,

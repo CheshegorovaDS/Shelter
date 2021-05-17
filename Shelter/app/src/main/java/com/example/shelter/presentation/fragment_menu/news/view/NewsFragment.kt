@@ -20,6 +20,7 @@ import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
 import com.example.shelter.presentation.fragment_menu.news.di.DaggerNewsComponent
 import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
 import com.example.shelter.presentation.fragment_menu.news.presenter.NewsPresenter
+import com.example.shelter.presentation.model.News
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -35,7 +36,7 @@ class NewsFragment: Fragment(), NewsView {
     private var adapter: NewsAdapter? = null
 
     override val updateNews: PublishSubject<Unit> = PublishSubject.create()
-    override val clickOpenCard: PublishSubject<Animal> = PublishSubject.create()
+    override val clickOpenCard: PublishSubject<News> = PublishSubject.create()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,13 +77,13 @@ class NewsFragment: Fragment(), NewsView {
 
     override fun clickFilter(): Observable<Any> = RxView.clicks(filterNews)
 
-    private fun clickOpenCard(animal: Animal) = clickOpenCard.onNext(animal)
+    private fun clickOpenCard(news: News) = clickOpenCard.onNext(news)
 
     override fun clickSearch(): Observable<Any> {
         TODO("Not yet implemented")
     }
 
-    override fun showNews(list: List<Animal>) {
+    override fun showNews(list: List<News>) {
         if (adapter == null) {
             adapter = NewsAdapter(::clickOpenCard)
             listAnimal.layoutManager = LinearLayoutManager(context)
@@ -133,9 +134,9 @@ class NewsFragment: Fragment(), NewsView {
         startActivity(intent)
     }
 
-    override fun openCard(intentAnimal: Intent) {
+    override fun openCard(idCard: Int) {
         val intentActivity = Intent(requireContext(), AboutAnimalActivity::class.java)
-        intentActivity.putExtra(ANIMAL_KEY, intentAnimal)
+        intentActivity.putExtra(ANIMAL_KEY, idCard)
         startActivity(intentActivity)
     }
 

@@ -1,23 +1,22 @@
 package com.example.shelter.presentation.fragment_menu.news.view
 
-import android.content.Intent
 import com.example.shelter.presentation.base.inrefaces.BaseView
-import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
+import com.example.shelter.presentation.model.News
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 interface NewsView: BaseView {
     val updateNews: PublishSubject<Unit>
-    val clickOpenCard: PublishSubject<Animal>
+    val clickOpenCard: PublishSubject<News>
     fun clickAddCard(): Observable<Any>
     fun clickSearch(): Observable<Any>
     fun clickFilter(): Observable<Any>
 
-    fun showNews(list: List<Animal>)
+    fun showNews(list: List<News>)
     fun openFilter()
     fun showProgressBar(visible:Boolean)
     fun addNewsEnabled(isEnabled: Boolean)
-    fun openCard(intentAnimal: Intent)
+    fun openCard(idCard: Int)
     fun navigateTo(destination: NewsDestination)
 }

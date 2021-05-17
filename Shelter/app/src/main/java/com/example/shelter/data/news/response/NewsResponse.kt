@@ -1,11 +1,16 @@
 package com.example.shelter.data.news.response
 
-import com.example.shelter.presentation.model.Animal
-import com.example.shelter.presentation.model.User
+import com.google.gson.annotations.SerializedName
 
 data class NewsResponse(
-    val id: Long,
-//    val category: Category,
-    val animal: Animal,
-    val user: User
+    @SerializedName("idAnimal")
+    val id: Int,
+    @SerializedName("nameAnimal")
+    val name: String,
+    @SerializedName("photoAnimal")
+    val photo: String,
+    @SerializedName("titleCategory")
+    val category: String,
+    @SerializedName("idUser")
+    val idUser: Int
 )
