@@ -11,7 +11,5 @@ data class Animal (
     val breed: String = "",
     val age: Int = 0,
     val passport: String = "",
-    val sterilization: Sterilization = Sterilization.NONE,
-    val growth: String = "",
     val description: String = ""
 )

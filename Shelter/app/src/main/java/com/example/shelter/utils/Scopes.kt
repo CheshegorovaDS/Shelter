@@ -17,3 +17,7 @@ annotation class MenuScope
 @Scope
 @Retention
 annotation class NewsScope
+
+@Scope
+@Retention
+annotation class AboutAnimalScope

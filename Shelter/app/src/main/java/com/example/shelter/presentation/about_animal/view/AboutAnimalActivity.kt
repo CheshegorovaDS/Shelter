@@ -1,7 +1,6 @@
 package com.example.shelter.presentation.about_animal.view
 
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -11,35 +10,59 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.shelter.R
+import com.example.shelter.app.ShelterManagerApp
+import com.example.shelter.data.di.DaggerNewsRepositoryComponent
+import com.example.shelter.presentation.about_animal.di.DaggerAboutAnimalComponent
 import com.example.shelter.presentation.about_animal.presenter.AboutAnimalPresenter
-import com.example.shelter.presentation.about_animal.presenter.IAboutAnimalPresenter
 import com.example.shelter.presentation.extention.toast
+import com.example.shelter.presentation.fragment_menu.news.view.NewsFragment
+import com.example.shelter.presentation.model.News
+import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_animal_card.*
+import javax.inject.Inject
 
 
-class AboutAnimalActivity: AppCompatActivity() , AboutAnimalView{
-    lateinit var presenter: IAboutAnimalPresenter
+class AboutAnimalActivity: AppCompatActivity() , AboutAnimalView {
+    private val resLayout = R.layout.activity_animal_card
+
+    @Inject
+    lateinit var presenter: AboutAnimalPresenter
+
+    override val downloadNews: PublishSubject<Int> = PublishSubject.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_animal_card)
+        setContentView(resLayout)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        initView()
 
-        val intentAnimal = intent.extras?.get("animal") as Intent
+        initComponent()
+        presenter.attachView(this)
 
-//        presenter.showAnimal(animal)
+        val idAnimal = intent.extras?.getInt(NewsFragment.ANIMAL_KEY)
 
-        cardUser.setOnClickListener {
-            presenter.openUser()
-        }
-
+        idAnimal?.let { downloadNews.onNext(it) }
     }
 
-    private fun initView(){
-        presenter = AboutAnimalPresenter(this)
+    override fun initComponent() {
+        val appComponent = (application as ShelterManagerApp)
+            .getAppComponent()
+
+        val newsRepository = DaggerNewsRepositoryComponent.builder().build()
+
+        DaggerAboutAnimalComponent.builder()
+            .appComponent(appComponent)
+            .newsRepositoryComponent(newsRepository)
+            .build()
+            .inject(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.detachView()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -48,10 +71,23 @@ class AboutAnimalActivity: AppCompatActivity() , AboutAnimalView{
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == android.R.id.home){
+        if (item.itemId == android.R.id.home) {
             finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun clickUserCard(): Observable<Any> = RxView.clicks(cardUser)
+
+    override fun updateNews(news: News) {
+        Glide.with(imgAnimal.context)
+            .load(Uri.parse(news.photo)).into(imgAnimal)
+        findViewById<TextView>(R.id.name).text = news.name
+        findViewById<TextView>(R.id.age).text = news.age.toString()
+        findViewById<TextView>(R.id.sex).text = news.sex
+        findViewById<TextView>(R.id.breed).text = news.breed
+        findViewById<TextView>(R.id.passport).text = news.passport
+        findViewById<TextView>(R.id.description).text = news.description
     }
 
     override fun showAnimalInfo(name: String) {
@@ -59,69 +95,89 @@ class AboutAnimalActivity: AppCompatActivity() , AboutAnimalView{
     }
 
     override fun showPhotoUser(visibility: Boolean) {
-        if(visibility){
+        if (visibility) {
             Glide.with(imgAvatarUser.context)
                 .load(Uri.parse("avatarUser")).into(imgAvatarUser)
         }
     }
 
     override fun showBreed(visibility: Boolean) {
-        if(visibility){
+        if (visibility) {
             layoutBreed.visibility = View.VISIBLE
-        }else{
+        } else {
             layoutBreed.visibility = View.GONE
         }
     }
 
     override fun showAge(visibility: Boolean) {
-        if(visibility){
+        if (visibility) {
             layoutAge.visibility = View.VISIBLE
-        }else{
+        } else {
             layoutAge.visibility = View.GONE
         }
     }
 
     override fun showPassport(visibility: Boolean) {
-        if(visibility){
+        if (visibility) {
             layoutPassport.visibility = View.VISIBLE
-        }else{
+        } else {
             layoutPassport.visibility = View.GONE
         }
     }
 
-    override fun showSterilization(visibility: Boolean) {
-        if(visibility){
-            layoutSterilization.visibility = View.VISIBLE
-        }else{
-            layoutSterilization.visibility = View.GONE
+    override fun showSex(visibility: Boolean) {
+        if (visibility) {
+            layoutSex.visibility = View.VISIBLE
+        } else {
+            layoutSex.visibility = View.GONE
         }
     }
 
-    override fun showGrowth(visibility: Boolean) {
-        if(visibility){
-            layoutGrowth.visibility = View.VISIBLE
-        }else{
-            layoutGrowth.visibility = View.GONE
+    override fun showUser(visibility: Boolean) {
+        if (visibility) {
+            cardUser.visibility = View.VISIBLE
+        } else {
+            cardUser.visibility = View.GONE
         }
     }
 
     override fun showDescription(visibility: Boolean) {
-        if(visibility){
+        if(visibility) {
             layoutDescription.visibility = View.VISIBLE
-        }else{
+        } else {
             layoutDescription.visibility = View.GONE
         }
     }
 
     override fun showPhoto(visibility: Boolean) {
-        if(visibility){
+        if(visibility) {
             imgAnimal.visibility = View.VISIBLE
-            Glide.with(imgAnimal.context)
-                .load(Uri.parse("https://avatars.mds.yandex.net/get-pdb/1058492/87a96367-4ac0-42c2-9ca3-c4de8e9077ff/s1200?webp=false")).into(imgAnimal)
+        } else {
+            imgAnimal.visibility = View.GONE
         }
     }
 
-    override fun openUserHomepage() {
-        toast("open user homepage")
+    override fun showName(visibility: Boolean) {
+        if(visibility) {
+            layoutName.visibility = View.VISIBLE
+        } else {
+            layoutName.visibility = View.GONE
+        }
+    }
+
+    override fun showCategory(visibility: Boolean) {
+
+    }
+
+    override fun showProgressBar(visibility: Boolean) {
+        if(visibility) {
+            progressBar.visibility = View.VISIBLE
+        } else {
+            progressBar.visibility = View.GONE
+        }
+    }
+
+    override fun openUserHomepage(idUser: Int) {
+        toast("open user $idUser homepage")
     }
 }

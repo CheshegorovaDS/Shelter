@@ -18,8 +18,8 @@ class NewsRepository @Inject constructor(
 //        return Observable.just(ad)
     }
 
-    override fun getNewsById(id: Long): Observable<News> {
-        TODO("Not yet implemented")
+    override fun getNewsById(id: Int): Single<News> {
+        return newsApi.getNewsById(id)
     }
 
     override fun addNews(news: News) {

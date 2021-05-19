@@ -15,7 +15,6 @@ import com.example.shelter.data.di.DaggerNewsRepositoryComponent
 import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
 import com.example.shelter.presentation.about_animal.view.AboutAnimalActivity
 import com.example.shelter.presentation.creating_news.view.CreatingNewsActivity
-import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
 import com.example.shelter.presentation.fragment_menu.news.di.DaggerNewsComponent
 import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
@@ -141,6 +140,6 @@ class NewsFragment: Fragment(), NewsView {
     }
 
     companion object {
-        const val ANIMAL_KEY = "animal"
+        const val ANIMAL_KEY = "idAnimal"
     }
 }

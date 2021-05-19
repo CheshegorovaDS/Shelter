@@ -70,8 +70,6 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
             findViewById<TextView>(R.id.breed).text.toString(),
             0,
             "",
-            Sterilization.NONE,
-            "",
             findViewById<TextView>(R.id.description).text.toString()
         )
     }

@@ -12,5 +12,15 @@ data class NewsResponse(
     @SerializedName("titleCategory")
     val category: String,
     @SerializedName("idUser")
-    val idUser: Int
+    val idUser: Int,
+    @SerializedName("ageAnimal")
+    val age: Int,
+    @SerializedName("breedAnimal")
+    val breed: String?,
+    @SerializedName("sexAnimal")
+    val sex: String,
+    @SerializedName("passportAnimal")
+    val passport: String?,
+    @SerializedName("descriptionAnimal")
+    val description: String?
 )
