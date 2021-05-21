@@ -76,5 +76,6 @@ class NewsPresenter @Inject constructor(
 
     private fun renderState(state: NewsState){
         view?.showProgressBar(state.progressBarVisibility)
+        view?.showListNews(state.listVisibility)
     }
 }

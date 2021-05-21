@@ -92,8 +92,16 @@ class NewsFragment: Fragment(), NewsView {
         adapter?.notifyDataSetChanged()
     }
 
-    override fun showProgressBar(visible: Boolean) {
-        progressBar.visibility = if (visible) {
+    override fun showProgressBar(visibility: Boolean) {
+        progressBar.visibility = if (visibility) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
+    override fun showListNews(visibility: Boolean) {
+        listAnimal.visibility = if (visibility) {
             View.VISIBLE
         } else {
             View.GONE

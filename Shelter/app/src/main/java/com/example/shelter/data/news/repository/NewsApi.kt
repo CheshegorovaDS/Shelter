@@ -14,7 +14,7 @@ import javax.inject.Inject
 class NewsApi @Inject constructor(): INewsApi {
 
     val builder = NetworkService
-    private val service = builder.buildUserService()
+    private val service = builder.buildNewsService()
     private val dispose = CompositeDisposable()
 
     override fun getNews(): Observable<List<News>> {
@@ -22,7 +22,13 @@ class NewsApi @Inject constructor(): INewsApi {
             if (it.isSuccessful) {
                 val list = mutableListOf<News>()
                 it.body()?.forEach { news ->
-                    list.add(News(news.id, news.name, news.photo, news.category))
+                    list.add(News(
+                        news.id,
+                        news.name,
+                        news.photo,
+                        news.category,
+                        news.idUser
+                    ))
                 }
                 list
             } else {
@@ -41,15 +47,21 @@ class NewsApi @Inject constructor(): INewsApi {
            if (it.isSuccessful) {
                it.body()?.let { n ->
                    News(
-                       n.id,
-                       n.name,
-                       n.photo,
-                       n.category,
-                       n.age,
-                       n.sex,
-                       n.breed,
-                       n.passport,
-                       n.description
+                       id = n.id,
+                       name = n.name,
+                       photo = n.photo,
+                       category = n.category,
+                       idUser = n.idUser,
+                       age = n.age,
+                       sex = n.sex,
+                       breed = n.breed,
+                       passport = n.passport,
+                       description = n.description,
+                       user = User(
+                           id = n.idUser,
+                           email = n.email,
+                           phone = n.phone
+                       )
                    )
                }
            } else {

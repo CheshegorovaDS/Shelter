@@ -1,16 +1,19 @@
 package com.example.shelter.presentation.about_animal.reducer
 
 import com.example.shelter.data.news.repository.INewsRepository
+import com.example.shelter.data.user.repositry.UserRepository
 import com.example.shelter.presentation.about_animal.model.AboutAnimalException
 import com.example.shelter.presentation.about_animal.model.AboutAnimalState
 import com.example.shelter.presentation.model.News
+import com.example.shelter.presentation.model.User
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 class AboutAnimalReducer @Inject constructor(
-    private var backend: INewsRepository
+    private var newsRepository: INewsRepository,
+    private var userRepository: UserRepository
 ): IAboutAnimalReducer {
 
     private val dispose = CompositeDisposable()
@@ -26,25 +29,11 @@ class AboutAnimalReducer @Inject constructor(
     override fun downloadNews(idAnimal: Int) {
         updateState.onNext(state)
 
-        dispose.add(backend.getNewsById(idAnimal)
+        dispose.add(newsRepository.getNewsById(idAnimal)
                 .subscribeOn(Schedulers.io())
                 .subscribe({
                     news = it
-                    updateNews.onNext(news!!)
-                    state = AboutAnimalState(
-                        progressbarVisibility = false,
-                        nameVisibility = true,
-                        photoVisibility = true,
-                        ageVisibility = (it.age != 0),
-                        breedVisibility = (it.breed != null),
-                        animalType = true,
-                        sexVisibility = true,
-                        categoryVisibility = true,
-                        passportVisibility = (it.passport != null),
-                        descriptionVisibility = (it.description != null),
-                        userVisibility = true
-                    )
-                    updateState.onNext(state)
+                    downloadUser(news!!.idUser)
                 }, {
                     updateException.onNext(AboutAnimalException())
                 })
@@ -52,8 +41,39 @@ class AboutAnimalReducer @Inject constructor(
 
     }
 
+    private fun downloadUser(idUser: Int) {
+        dispose.add(userRepository.getUserById(idUser)
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                if (news == null) {
+                    return@subscribe
+                }
+                news = news!!.copy(
+                    user = it
+                )
+                updateNews.onNext(news!!)
+                state = AboutAnimalState(
+                    progressbarVisibility = false,
+                    nameVisibility = true,
+                    photoVisibility = true,
+                    ageVisibility = (news!!.age != 0),
+                    breedVisibility = (news!!.breed != null),
+                    animalType = true,
+                    sexVisibility = true,
+                    categoryVisibility = true,
+                    passportVisibility = (news!!.passport != null),
+                    descriptionVisibility = (news!!.description != null),
+                    userVisibility = true
+                )
+                updateState.onNext(state)
+            }, {
+                updateException.onNext(AboutAnimalException())
+            })
+        )
+    }
+
     override fun openUserPage() {
-        news?.user?.id?.let { updateDestination.onNext(it) }
+        news?.idUser?.let { updateDestination.onNext(it) }
     }
 
     override fun clearDispose() = dispose.clear()

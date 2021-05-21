@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
 import com.example.shelter.data.di.DaggerNewsRepositoryComponent
+import com.example.shelter.data.di.DaggerUserRepositoryComponent
 import com.example.shelter.presentation.about_animal.di.DaggerAboutAnimalComponent
 import com.example.shelter.presentation.about_animal.presenter.AboutAnimalPresenter
 import com.example.shelter.presentation.extention.toast
@@ -52,10 +53,12 @@ class AboutAnimalActivity: AppCompatActivity() , AboutAnimalView {
             .getAppComponent()
 
         val newsRepository = DaggerNewsRepositoryComponent.builder().build()
+        val userRepository = DaggerUserRepositoryComponent.builder().build()
 
         DaggerAboutAnimalComponent.builder()
             .appComponent(appComponent)
             .newsRepositoryComponent(newsRepository)
+            .userRepositoryComponent(userRepository)
             .build()
             .inject(this)
     }
@@ -88,6 +91,21 @@ class AboutAnimalActivity: AppCompatActivity() , AboutAnimalView {
         findViewById<TextView>(R.id.breed).text = news.breed
         findViewById<TextView>(R.id.passport).text = news.passport
         findViewById<TextView>(R.id.description).text = news.description
+        var userType = getString(R.string.human)
+        val name = if (news.user?.human == null) {
+            userType = getString(R.string.organisation)
+            news.user!!.organisation!!.title
+        } else {
+            "${news.user.human.firstName} ${news.user.human.lastName} " +
+                    (news.user.human.patronymic ?: "")
+        }
+        updateUser(name ?: "no name", news.user.phone, userType)
+    }
+
+    private fun updateUser(name: String, phone: String, userType: String) {
+        findViewById<TextView>(R.id.txtFullName).text = name
+        findViewById<TextView>(R.id.txtConnection).text = phone
+        findViewById<TextView>(R.id.txtUser).text = userType
     }
 
     override fun showAnimalInfo(name: String) {

@@ -5,6 +5,7 @@ data class News (
     val name: String,
     val photo: String,
     val category: String,
+    val idUser: Int,
     val age: Int = 0,
     val sex: String? = null,
     val breed: String? = null,

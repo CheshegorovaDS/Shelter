@@ -15,7 +15,8 @@ interface NewsView: BaseView {
 
     fun showNews(list: List<News>)
     fun openFilter()
-    fun showProgressBar(visible:Boolean)
+    fun showProgressBar(visibility:Boolean)
+    fun showListNews(visibility: Boolean)
     fun addNewsEnabled(isEnabled: Boolean)
     fun openCard(idCard: Int)
     fun navigateTo(destination: NewsDestination)

@@ -45,6 +45,7 @@ class NewsReducer @Inject constructor(
 
         state = state.copy(
             progressBarVisibility = false,
+            listVisibility = true,
             addNewsEnabled = true
         )
         updateState.onNext(state)
@@ -68,6 +69,7 @@ class NewsReducer @Inject constructor(
 
         state = state.copy(
             progressBarVisibility = false,
+            listVisibility = true,
             addNewsEnabled = true
         )
         updateState.onNext(state)

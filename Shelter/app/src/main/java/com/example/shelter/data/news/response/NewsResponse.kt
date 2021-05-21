@@ -11,8 +11,6 @@ data class NewsResponse(
     val photo: String,
     @SerializedName("titleCategory")
     val category: String,
-    @SerializedName("idUser")
-    val idUser: Int,
     @SerializedName("ageAnimal")
     val age: Int,
     @SerializedName("breedAnimal")
@@ -22,5 +20,11 @@ data class NewsResponse(
     @SerializedName("passportAnimal")
     val passport: String?,
     @SerializedName("descriptionAnimal")
-    val description: String?
-)
+    val description: String?,
+    @SerializedName("idUser")
+    val idUser: Int,
+    @SerializedName("phoneUser")
+    val phone: String,
+    @SerializedName("emailUser")
+    val email: String
+    )

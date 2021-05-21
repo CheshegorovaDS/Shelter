@@ -31,7 +31,7 @@ object NetworkService {
         .client(client)
         .build()
 
-    fun buildUserService(): NewsService = retrofit.create(NewsService::class.java)
+    fun buildNewsService(): NewsService = retrofit.create(NewsService::class.java)
 
-    // fun buildVacationService(): UserService = mRetrofit.create(UserService::class.java)
+     fun buildUserService(): UserService = retrofit.create(UserService::class.java)
 }
