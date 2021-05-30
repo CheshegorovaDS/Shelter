@@ -75,9 +75,7 @@ class NewsReducer @Inject constructor(
         updateState.onNext(state)
     }
 
-    override fun openFilter() {
-        TODO("Not yet implemented")
-    }
+    override fun openFilter() = updateDestination.onNext(NewsDestination.FILTER_CARD)
 
     override fun openCard(news: News) {
         state = state.copy(addNewsEnabled = false)

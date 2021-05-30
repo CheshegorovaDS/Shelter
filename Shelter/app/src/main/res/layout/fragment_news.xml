@@ -8,7 +8,7 @@
 
 
     <EditText
-        android:id="@+id/search"
+        android:id="@+id/apply"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -71,7 +71,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search" />
+        app:layout_constraintTop_toBottomOf="@+id/apply" />
 
     <ImageButton
         android:id="@+id/addNews"
@@ -81,7 +81,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search"
+        app:layout_constraintTop_toBottomOf="@+id/apply"
         app:srcCompat="@drawable/ic_add"
         android:background="@android:color/transparent"
         android:foreground="@android:color/transparent"/>
@@ -92,9 +92,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/search"
-        app:layout_constraintEnd_toEndOf="@+id/search"
-        app:layout_constraintTop_toTopOf="@+id/search"
+        app:layout_constraintBottom_toBottomOf="@+id/apply"
+        app:layout_constraintEnd_toEndOf="@+id/apply"
+        app:layout_constraintTop_toTopOf="@+id/apply"
         app:srcCompat="@drawable/ic_filter" />
 
     <ProgressBar
@@ -108,6 +108,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/filterNews"
+        app:layout_constraintEnd_toEndOf="@+id/filterNews"
+        app:layout_constraintStart_toStartOf="@+id/filterNews"
+        app:layout_constraintTop_toTopOf="@+id/filterNews" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

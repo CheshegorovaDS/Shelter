@@ -18,7 +18,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/animalForm"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -136,6 +136,7 @@
 
             <EditText
                 android:id="@+id/sterilization"
+                android:visibility="gone"
                 style="@style/EditTextLogInApp"
                 android:clickable="false"
                 android:cursorVisible="false"
@@ -151,6 +152,7 @@
 
             <EditText
                 android:id="@+id/growth"
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/txtEditHeight"
                 android:layout_margin="16dp"

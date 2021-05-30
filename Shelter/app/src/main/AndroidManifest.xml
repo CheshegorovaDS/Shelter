@@ -31,6 +31,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".presentation.creating_news.view.CreatingNewsActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".presentation.filtering_news.view.FilteringNewsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

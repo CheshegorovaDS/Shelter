@@ -15,6 +15,7 @@ import com.example.shelter.data.di.DaggerNewsRepositoryComponent
 import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
 import com.example.shelter.presentation.about_animal.view.AboutAnimalActivity
 import com.example.shelter.presentation.creating_news.view.CreatingNewsActivity
+import com.example.shelter.presentation.filtering_news.view.FilteringNewsActivity
 import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
 import com.example.shelter.presentation.fragment_menu.news.di.DaggerNewsComponent
 import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
@@ -74,7 +75,7 @@ class NewsFragment: Fragment(), NewsView {
 
     override fun clickAddCard(): Observable<Any> = RxView.clicks(addNews)
 
-    override fun clickFilter(): Observable<Any> = RxView.clicks(filterNews)
+    override fun clickFilter(): Observable<Any> = RxView.clicks(buttonFilter)
 
     private fun clickOpenCard(news: News) = clickOpenCard.onNext(news)
 
@@ -116,6 +117,7 @@ class NewsFragment: Fragment(), NewsView {
         when (destination) {
             NewsDestination.LOGIN_OR_REGISTRATION_SCREEN -> showLogInAppDialog()
             NewsDestination.ADD_ANIMAL_CARD -> openCreatingNews()
+            NewsDestination.FILTER_CARD -> openFilteringNews()
         }
 
     override fun openFilter() {
@@ -138,6 +140,11 @@ class NewsFragment: Fragment(), NewsView {
 
     private fun openCreatingNews() {
         val intent = Intent(view?.context, CreatingNewsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun openFilteringNews() {
+        val intent = Intent(requireContext(), FilteringNewsActivity::class.java)
         startActivity(intent)
     }
 

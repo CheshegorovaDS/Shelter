@@ -6,6 +6,7 @@ import com.example.shelter.presentation.creating_news.reducer.ICreatingNewsReduc
 import com.example.shelter.presentation.creating_news.view.CreatingNewsActivity
 import com.example.shelter.presentation.creating_news.view.CreatingNewsView
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 
 class CreatingNewsPresenter constructor(
     private var reducer: ICreatingNewsReducer
@@ -25,6 +26,8 @@ class CreatingNewsPresenter constructor(
     }
 
     override fun bind() {
-        TODO("Not yet implemented")
+        view?.downloadParameters?.subscribe {
+            reducer.download()
+        }?.addTo(dispose)
     }
 }

@@ -99,21 +99,21 @@ class RegistrationFragment: Fragment(), RegistrationView {
     override fun showListTypeUser(){
         val list = resources.getStringArray(R.array.typeUser)
 
-        val builder = context?.let { AlertDialog.Builder(it) }
+        val builder = AlertDialog.Builder(requireContext())
 
         var user = ""
 
-        builder?.setTitle(resources.getString(R.string.you_are))
+        builder.setTitle(resources.getString(R.string.you_are))
             ?.setCancelable(true)
             ?.setNegativeButton(resources.getString(R.string.back)) {
                     dialog, _ -> dialog.cancel()
             }
 
-        builder?.setSingleChoiceItems(list, -1) {
+        builder.setSingleChoiceItems(list, -1) {
                 _, item -> user = list[item]
         }
 
-        builder?.setPositiveButton("OK") { _, _ ->
+        builder.setPositiveButton("OK") { _, _ ->
             val type = if(user == resources.getString(R.string.human)){
                 UserType.HUMAN
             } else {
@@ -123,8 +123,8 @@ class RegistrationFragment: Fragment(), RegistrationView {
         }
 
 
-        val alertDialog = builder?.create()
-        alertDialog?.show()
+        val alertDialog = builder.create()
+        alertDialog.show()
     }
 
     override fun setUserType(type: UserType?) {

@@ -41,9 +41,9 @@ class NewsPresenter @Inject constructor(
             reducer.openCard(it)
         }?.addTo(disposeContainer)
 
-//        view?.clickFilter()?.subscribe {
-//
-//        }?.addTo(disposeContainer)
+        view?.clickFilter()?.subscribe {
+            reducer.openFilter()
+        }?.addTo(disposeContainer)
 //
 //        view?.clickSearch()?.subscribe {
 //

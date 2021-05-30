@@ -56,8 +56,14 @@
     <string name="growthAnimal">Рост</string>
     <string name="descriptionAnimal">Описание</string>
 
+    //Filtering News
+    <string name="filteringNews">Фильтр новостей :</string>
+    <string name="apply">Применить</string>
+    <string name="choseCategory">Выберите категории</string>
+    <string name="complete">Готово</string>
+
     //Add new Animal Card
-    <string name="addNews">Добавить новую запись:</string>
+    <string name="addNews">Добавить новую запись :</string>
     <string name="category">Категория*</string>
     <string name="addNameAnimal">Имя*</string>
     <string name="addTypeAnimal">Тип*</string>
@@ -68,6 +74,8 @@
     <string name="information">Информация</string>
     <string name="phoneUser">Телефон</string>
     <string name="emailUser">Электронная почта</string>
+    <string name="card">Карточки</string>
+    <string name="noNews">Нет карточек</string>
 
     //Messager
     <string name="messager">Сообщения</string>

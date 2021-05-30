@@ -7,6 +7,7 @@ import io.reactivex.subjects.PublishSubject
 
 interface CreatingNewsView: BaseView {
     val tryCreateNews: PublishSubject<Animal>
+    val downloadParameters: PublishSubject<Unit>
 
     fun showException(isVisible: Boolean)
     fun showProgressBar(isVisible: Boolean)

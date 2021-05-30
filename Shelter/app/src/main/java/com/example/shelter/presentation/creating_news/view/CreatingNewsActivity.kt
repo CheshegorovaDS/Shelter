@@ -1,6 +1,8 @@
 package com.example.shelter.presentation.creating_news.view
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
@@ -14,7 +16,9 @@ import com.example.shelter.presentation.creating_news.reducer.CreatingNewsReduce
 import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.model.News
 import io.reactivex.subjects.PublishSubject
+import kotlinx.android.synthetic.main.activity_animal_card.*
 import kotlinx.android.synthetic.main.activity_creating_news.*
+import kotlinx.android.synthetic.main.activity_creating_news.toolbar
 
 class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
     private val resLayout = R.layout.activity_creating_news
@@ -22,12 +26,18 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
     private var presenter: CreatingNewsPresenter = CreatingNewsPresenter(CreatingNewsReducer())
 
     override val tryCreateNews: PublishSubject<Animal> = PublishSubject.create()
+    override val downloadParameters: PublishSubject<Unit> = PublishSubject.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(resLayout)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
 //        initComponent()
         presenter.attachView(this)
+        downloadParameters.onNext(Unit)
 
         findViewById<Button>(R.id.createNews).setOnClickListener {
             tryCreateNews.onNext(getAnimal())
@@ -41,6 +51,18 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
     override fun onDestroy() {
         super.onDestroy()
         presenter.detachView()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_back, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun showException(isVisible: Boolean) {
