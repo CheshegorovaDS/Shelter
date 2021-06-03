@@ -15,7 +15,6 @@ interface NewsView: BaseView {
     fun clickFilter(): Observable<Any>
 
     fun showNews(list: List<News>)
-//    fun openFilter()
     fun showProgressBar(visibility:Boolean)
     fun showListNews(visibility: Boolean)
     fun addNewsEnabled(isEnabled: Boolean)

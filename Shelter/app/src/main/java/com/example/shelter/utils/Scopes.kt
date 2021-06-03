@@ -20,6 +20,10 @@ annotation class NewsScope
 
 @Scope
 @Retention
+annotation class HomepageScope
+
+@Scope
+@Retention
 annotation class AboutAnimalScope
 
 @Scope

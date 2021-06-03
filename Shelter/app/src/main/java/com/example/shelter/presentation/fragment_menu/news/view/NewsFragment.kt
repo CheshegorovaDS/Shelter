@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -122,10 +121,6 @@ class NewsFragment: Fragment(), NewsView {
             NewsDestination.ADD_ANIMAL_CARD -> openCreatingNews()
             NewsDestination.FILTER_CARD -> openFilteringNews()
         }
-
-//    override fun openFilter() {
-//        Toast.makeText(context, "open filter", Toast.LENGTH_SHORT).show()
-//    }
 
     private fun showLogInAppDialog() =
         AlertDialog.Builder(requireContext())
