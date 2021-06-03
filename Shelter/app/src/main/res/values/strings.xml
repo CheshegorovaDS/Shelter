@@ -9,6 +9,11 @@
         <item>@string/human</item>
         <item>@string/organisation</item>
     </string-array>
+    <string-array name="gender">
+        <item>@string/m</item>
+        <item>@string/w</item>
+        <item>@string/none</item>
+    </string-array>
 
     //Login
     <string name="email">Электронная почта</string>
@@ -61,6 +66,7 @@
     <string name="apply">Применить</string>
     <string name="choseCategory">Выберите категории</string>
     <string name="choseAnimalType">Выберите тип животного</string>
+    <string name="choseGender">Выберите пол животного</string>
     <string name="complete">Готово</string>
 
     //Add new Animal Card
@@ -81,5 +87,10 @@
     //Messager
     <string name="messager">Сообщения</string>
     <string name="image_of_animal">Image of animal.</string>
+
+    //Gender
+    <string name="m">M</string>
+    <string name="w">Ж</string>
+    <string name="none">Неизвестно</string>
 
 </resources>

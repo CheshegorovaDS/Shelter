@@ -140,7 +140,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/type"
+                android:id="@+id/animalType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/typeAnimal"

@@ -103,7 +103,7 @@ class FilteringNewsActivity: AppCompatActivity(), FilteringNewsView {
 
     override fun clickChoosingCategory(): Observable<Any> = RxView.clicks(category)
 
-    override fun clickChoosingAnimalTypes(): Observable<Any> = RxView.clicks(type)
+    override fun clickChoosingAnimalTypes(): Observable<Any> = RxView.clicks(animalType)
 
     override fun showCategoriesDialog(list: List<Pair<Category, Boolean>>) {
         var array = emptyArray<String>()
@@ -234,7 +234,7 @@ class FilteringNewsActivity: AppCompatActivity(), FilteringNewsView {
     }
 
     override fun animalTypesVisibility(isVisible: Boolean) {
-        findViewById<EditText>(R.id.type).visibility = if (isVisible) {
+        findViewById<EditText>(R.id.animalType).visibility = if (isVisible) {
             View.VISIBLE
         } else {
             View.GONE

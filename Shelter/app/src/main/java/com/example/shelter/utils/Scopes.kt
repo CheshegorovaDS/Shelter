@@ -25,3 +25,7 @@ annotation class AboutAnimalScope
 @Scope
 @Retention
 annotation class FilteringNewsScope
+
+@Scope
+@Retention
+annotation class CreatingNewsScope

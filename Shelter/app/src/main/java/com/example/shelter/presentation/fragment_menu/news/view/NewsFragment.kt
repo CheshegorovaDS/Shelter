@@ -162,8 +162,6 @@ class NewsFragment: Fragment(), NewsView {
                 checkedCategoriesId?.toList() ?: listOf(),
                 checkedTypesId?.toList() ?: listOf()
             ))
-            Toast.makeText(requireContext(), "hey", Toast.LENGTH_SHORT).show()
-
         }
     }
 

@@ -5,28 +5,40 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.shelter.R
+import com.example.shelter.data.di.DaggerAnimalTypeRepositoryComponent
+import com.example.shelter.data.di.DaggerCategoryRepositoryComponent
 import com.example.shelter.presentation.about_animal.model.Sex
-import com.example.shelter.presentation.about_animal.model.Sterilization
+import com.example.shelter.presentation.creating_news.di.DaggerCreatingNewsComponent
 import com.example.shelter.presentation.creating_news.presenter.CreatingNewsPresenter
-import com.example.shelter.presentation.creating_news.reducer.CreatingNewsReducer
 import com.example.shelter.presentation.model.Animal
-import com.example.shelter.presentation.model.News
+import com.example.shelter.presentation.model.AnimalType
+import com.example.shelter.presentation.model.Category
+import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activity_animal_card.*
 import kotlinx.android.synthetic.main.activity_creating_news.*
 import kotlinx.android.synthetic.main.activity_creating_news.toolbar
+import javax.inject.Inject
 
 class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
     private val resLayout = R.layout.activity_creating_news
 
-    private var presenter: CreatingNewsPresenter = CreatingNewsPresenter(CreatingNewsReducer())
+    @Inject
+    lateinit var presenter: CreatingNewsPresenter
 
     override val tryCreateNews: PublishSubject<Animal> = PublishSubject.create()
     override val downloadParameters: PublishSubject<Unit> = PublishSubject.create()
+
+    private var checkedAnimalType: AnimalType? = null
+    private var checkedCategory: Category? = null
+    private var checkedGender = Sex.NONE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +47,7 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-//        initComponent()
+        initComponent()
         presenter.attachView(this)
         downloadParameters.onNext(Unit)
 
@@ -45,7 +57,14 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
     }
 
     override fun initComponent() {
-        TODO("Not yet implemented")
+        val categoryRepository = DaggerCategoryRepositoryComponent.builder().build()
+        val animalTypeRepository = DaggerAnimalTypeRepositoryComponent.builder().build()
+
+        DaggerCreatingNewsComponent.builder()
+            .categoryRepositoryComponent(categoryRepository)
+            .animalTypeRepositoryComponent(animalTypeRepository)
+            .build()
+            .inject(this)
     }
 
     override fun onDestroy() {
@@ -65,23 +84,135 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun showCategoriesDialog(list: List<Category>) {
+        var array = emptyArray<String>()
+        list.forEach { category ->
+            array += category.title
+        }
+        var id = -1
+        val builder = createAlertDialog(
+            resources.getString(R.string.choseCategory)
+        )
+
+        builder.setPositiveButton(
+            resources.getString(R.string.complete)
+        ){ _, _ ->
+            if (id < 0) return@setPositiveButton
+            checkedCategory = list[id]
+            findViewById<EditText>(R.id.category).setText(
+                checkedCategory?.title ?:
+                getString(R.string.choseCategory)
+            )
+        }
+            .setSingleChoiceItems(array, -1) { _, index ->
+                id = index
+            }
+
+        builder.show()
+    }
+
+    override fun showAnimalTypesDialog(list: List<AnimalType>) {
+        var array = emptyArray<String>()
+        list.forEach { type ->
+            array += type.title
+        }
+        var id = -1
+        val builder = createAlertDialog(
+            resources.getString(R.string.choseAnimalType)
+        )
+
+        builder.setPositiveButton(
+            resources.getString(R.string.complete)
+        ){ _, _ ->
+            if (id < 0) return@setPositiveButton
+            checkedAnimalType = list[id]
+            findViewById<EditText>(R.id.animalType).setText(
+                checkedAnimalType?.title ?:
+                getString(R.string.choseAnimalType)
+            )
+        }
+            .setSingleChoiceItems(array, -1) { _, index ->
+                id = index
+            }
+
+        builder.show()
+    }
+
+    override fun showGenderDialog() {
+        val array = resources.getStringArray(R.array.gender)
+        var gender = getString(R.string.none)
+
+        val builder = createAlertDialog(
+            resources.getString(R.string.choseGender)
+        )
+
+        builder.setPositiveButton(
+            resources.getString(R.string.complete)
+        ){ _, _ ->
+            findViewById<EditText>(R.id.gender).setText(gender)
+            checkedGender = when (gender) {
+                getString(R.string.m) -> Sex.M
+                getString(R.string.w) -> Sex.F
+                else -> Sex.NONE
+            }
+        }
+            .setSingleChoiceItems(array, -1) { _, index ->
+                gender = array[index]
+            }
+
+        builder.show()
+    }
+
+    private fun createAlertDialog(
+        title: String
+    ): AlertDialog.Builder =
+         AlertDialog.Builder(this)
+             .setTitle(title)
+            .setCancelable(true)
+            .setNegativeButton(
+                resources.getString(R.string.cancel)
+            ){ dialog, _ -> dialog.cancel() }
+
+    override fun clickCategory(): Observable<Any> = RxView.clicks(category)
+
+    override fun clickAnimalType(): Observable<Any> = RxView.clicks(animalType)
+
+    override fun clickGender(): Observable<Any> = RxView.clicks(gender)
+
+    override fun clickAddCard(): Observable<Any> = RxView.clicks(createNews)
+
     override fun showException(isVisible: Boolean) {
-        val visibility = if (isVisible) {
+        findViewById<TextView>(R.id.exception).visibility = if (isVisible) {
             View.VISIBLE
         } else {
             View.GONE
         }
-        findViewById<TextView>(R.id.exception).visibility = visibility
     }
 
     override fun showProgressBar(isVisible: Boolean) {
-        val visibility = if (isVisible) {
+        findViewById<ProgressBar>(R.id.progressBar).visibility = if (isVisible) {
             View.VISIBLE
         } else {
             View.GONE
         }
-        findViewById<ProgressBar>(R.id.progressBar).visibility = visibility
     }
+
+    override fun showAnimalForm(isVisible: Boolean) {
+        findViewById<ConstraintLayout>(R.id.animalForm).visibility = if (isVisible) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
+    override fun showAddCard(isVisible: Boolean) {
+        findViewById<Button>(R.id.createNews).visibility = if (isVisible) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
 
     private fun getAnimal(): Animal {
         return Animal(
