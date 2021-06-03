@@ -1,6 +1,7 @@
 package com.example.shelter.presentation.fragment_menu.news.reducer
 
 import com.example.shelter.data.news.repository.INewsRepository
+import com.example.shelter.presentation.fragment_menu.news.model.FilterNews
 import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
 import com.example.shelter.presentation.fragment_menu.news.model.NewsException
 import com.example.shelter.presentation.fragment_menu.news.model.NewsState
@@ -51,13 +52,13 @@ class NewsReducer @Inject constructor(
         updateState.onNext(state)
     }
 
-    override fun downloadNews(category: String) {
+    override fun downloadNews(filters: FilterNews) {
         state = NewsState(progressBarVisibility = true)
         updateState.onNext(state)
 
         disposeContainer.add(
-            backend.getListNewsByCategory(category)
-                .observeOn(Schedulers.io())
+            backend.getListNewsByFilters(filters)
+                .subscribeOn(Schedulers.io())
                 .subscribe ({
                     list.clear()
                     list.addAll(it)

@@ -2,6 +2,7 @@ package com.example.shelter.presentation.fragment_menu.news.reducer
 
 import android.content.Intent
 import com.example.shelter.presentation.base.inrefaces.BaseReducer
+import com.example.shelter.presentation.fragment_menu.news.model.FilterNews
 import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
 import com.example.shelter.presentation.fragment_menu.news.model.NewsException
@@ -17,7 +18,7 @@ interface INewsReducer: BaseReducer {
     val updateDestination: PublishSubject<NewsDestination>
 
     fun downloadNews()
-    fun downloadNews(category: String)
+    fun downloadNews(filters: FilterNews)
     fun openFilter()
     fun openCard(news: News)
     fun addNews()

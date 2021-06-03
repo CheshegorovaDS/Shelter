@@ -44,4 +44,13 @@
         <item name="android:textColor">@android:color/background_light</item>
     </style>
 
+    <style name="TextFilters">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/txtEditHeight</item>
+        <item name="android:layout_margin">@dimen/marginEditText</item>
+        <item name="android:drawablePadding">@dimen/paddingTxt</item>
+        <item name="android:padding">@dimen/paddingImage</item>
+        <item name="android:textColorHint">@color/editTxtHint</item>
+    </style>
+
 </resources>

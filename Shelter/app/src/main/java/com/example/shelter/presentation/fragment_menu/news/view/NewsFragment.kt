@@ -18,6 +18,7 @@ import com.example.shelter.presentation.creating_news.view.CreatingNewsActivity
 import com.example.shelter.presentation.filtering_news.view.FilteringNewsActivity
 import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
 import com.example.shelter.presentation.fragment_menu.news.di.DaggerNewsComponent
+import com.example.shelter.presentation.fragment_menu.news.model.FilterNews
 import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
 import com.example.shelter.presentation.fragment_menu.news.presenter.NewsPresenter
 import com.example.shelter.presentation.model.News
@@ -34,8 +35,10 @@ class NewsFragment: Fragment(), NewsView {
     lateinit var presenter: NewsPresenter
 
     private var adapter: NewsAdapter? = null
+    private var checkedCategories = intArrayOf()
+    private var checkedAnimalType = intArrayOf()
 
-    override val updateNews: PublishSubject<Unit> = PublishSubject.create()
+    override val updateNews: PublishSubject<FilterNews> = PublishSubject.create()
     override val clickOpenCard: PublishSubject<News> = PublishSubject.create()
 
     override fun onCreateView(
@@ -65,7 +68,7 @@ class NewsFragment: Fragment(), NewsView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
-        updateNews.onNext(Unit)
+        updateNews.onNext(FilterNews())
     }
 
     override fun onDestroy() {
@@ -120,9 +123,9 @@ class NewsFragment: Fragment(), NewsView {
             NewsDestination.FILTER_CARD -> openFilteringNews()
         }
 
-    override fun openFilter() {
-        Toast.makeText(context, "open filter", Toast.LENGTH_SHORT).show()
-    }
+//    override fun openFilter() {
+//        Toast.makeText(context, "open filter", Toast.LENGTH_SHORT).show()
+//    }
 
     private fun showLogInAppDialog() =
         AlertDialog.Builder(requireContext())
@@ -145,7 +148,23 @@ class NewsFragment: Fragment(), NewsView {
 
     private fun openFilteringNews() {
         val intent = Intent(requireContext(), FilteringNewsActivity::class.java)
-        startActivity(intent)
+        intent.putExtra(FILTER_CATEGORY_KEY, checkedCategories)
+        intent.putExtra(FILTER_ANIMAL_TYPE_KEY, checkedAnimalType)
+        startActivityForResult(intent, 1)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == 1) {
+            val checkedCategoriesId = data?.getIntArrayExtra(FILTER_CATEGORY_KEY)
+            val checkedTypesId = data?.getIntArrayExtra(FILTER_ANIMAL_TYPE_KEY)
+
+            updateNews.onNext(FilterNews(
+                checkedCategoriesId?.toList() ?: listOf(),
+                checkedTypesId?.toList() ?: listOf()
+            ))
+            Toast.makeText(requireContext(), "hey", Toast.LENGTH_SHORT).show()
+
+        }
     }
 
     override fun openCard(idCard: Int) {
@@ -156,5 +175,7 @@ class NewsFragment: Fragment(), NewsView {
 
     companion object {
         const val ANIMAL_KEY = "idAnimal"
+        const val FILTER_CATEGORY_KEY = "checkedCategories"
+        const val FILTER_ANIMAL_TYPE_KEY = "checkedAnimalTypes"
     }
 }

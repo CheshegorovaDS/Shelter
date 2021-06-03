@@ -6,6 +6,7 @@ import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface NewsService {
 
@@ -14,4 +15,10 @@ interface NewsService {
 
     @GET("/api/card/{id}")
     fun getNewsById(@Path("id")id: Int): Single<Response<NewsResponse>>
+
+    @GET("/api/cards/filters")
+    fun getNewsByFilters(
+        @Query("category")categories: List<Int>,
+        @Query("animal_type")types: List<Int>
+    ): Observable<Response<List<NewsResponse>>>
 }

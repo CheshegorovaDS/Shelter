@@ -1,8 +1,8 @@
 package com.example.shelter.data.news.repository
 
 import com.example.shelter.data.news.request.NewsRequest
-import com.example.shelter.data.news.response.NewsResponse
 import com.example.shelter.network.NetworkService
+import com.example.shelter.presentation.fragment_menu.news.model.FilterNews
 import com.example.shelter.presentation.model.News
 import com.example.shelter.presentation.model.User
 import io.reactivex.Observable
@@ -38,8 +38,26 @@ class NewsApi @Inject constructor(): INewsApi {
     }
 
 
-    override fun getListNewsByCategory(request: NewsRequest): Observable<List<NewsResponse>> {
-        TODO("Not yet implemented")
+    override fun getListNewsByFilters(
+        filtersRequest: FilterNews
+    ): Observable<List<News>> {
+        return service.getNewsByFilters(filtersRequest.listCategoriesId, filtersRequest.listTypesId).map {
+            if (it.isSuccessful) {
+                val list = mutableListOf<News>()
+                it.body()?.forEach { news ->
+                    list.add(News(
+                        news.id,
+                        news.name,
+                        news.photo,
+                        news.category,
+                        news.idUser
+                    ))
+                }
+                list
+            } else {
+                throw Exception("fail")
+            }
+        }
     }
 
     override fun getNewsById(id: Int): Single<News> {

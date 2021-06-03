@@ -10,12 +10,16 @@ import io.reactivex.subjects.PublishSubject
 interface IFilteringNewsReducer: BaseReducer {
     val updateState: PublishSubject<FilteringNewsState>
     val updateException: PublishSubject<FilteringNewsException>
-    val updateCategories: PublishSubject<List<Category>>
+    val updateCategories: PublishSubject<List<Pair<Category, Boolean>>>
     val updateAnimalTypes: PublishSubject<List<AnimalType>>
+    val updateCheckedCategories: PublishSubject<List<Category>>
+    val updateCheckedTypes: PublishSubject<List<AnimalType>>
     val applyFilters: PublishSubject<Unit>
 
     fun downloadInfo()
     fun showCategories()
     fun showAnimalTypes()
-    fun applyFilters()
+    fun applyFilters(checkedCategories: List<Category>, checkedTypes: List<AnimalType>)
+    fun changeCheckedCategories(categories: List<Category>)
+    fun changeCheckedTypes(types: List<AnimalType>)
 }

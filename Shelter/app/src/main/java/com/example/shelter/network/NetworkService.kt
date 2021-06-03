@@ -9,6 +9,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkService {
+
     private const val BASE_URL = "http://192.168.0.6:8080/"
 
     private val interceptor = HttpLoggingInterceptor().apply {
@@ -38,4 +39,7 @@ object NetworkService {
     fun buildCategoryService(): CategoryService = retrofit.create(CategoryService::class.java)
 
     fun buildAnimalTypeService(): AnimalTypeService = retrofit.create(AnimalTypeService::class.java)
+
+    private const val HOME = "192.168.0.6"
+    private const val WORK = "172.17.9.178"
 }

@@ -2,6 +2,7 @@ package com.example.shelter.presentation.fragment_menu.news.presenter
 
 import com.example.shelter.presentation.base.inrefaces.BasePresenter
 import com.example.shelter.presentation.base.inrefaces.BaseView
+import com.example.shelter.presentation.fragment_menu.news.model.FilterNews
 import com.example.shelter.presentation.fragment_menu.news.model.NewsState
 import com.example.shelter.presentation.fragment_menu.news.reducer.INewsReducer
 import com.example.shelter.presentation.fragment_menu.news.view.NewsView
@@ -30,7 +31,14 @@ class NewsPresenter @Inject constructor(
 
     override fun bind() {
         view?.updateNews?.subscribe {
-            reducer.downloadNews()
+            val l1 = it.listCategoriesId.filter {  id -> id > 0 }
+            val l2 = it.listTypesId.filter { id -> id > 0 }
+
+            if (l1.isEmpty() && l2.isEmpty()) {
+                reducer.downloadNews()
+            } else {
+                reducer.downloadNews(FilterNews(l1, l2))
+            }
         }?.addTo(disposeContainer)
 
         view?.clickAddCard()?.subscribe {
@@ -44,7 +52,7 @@ class NewsPresenter @Inject constructor(
         view?.clickFilter()?.subscribe {
             reducer.openFilter()
         }?.addTo(disposeContainer)
-//
+
 //        view?.clickSearch()?.subscribe {
 //
 //        }?.addTo(disposeContainer)

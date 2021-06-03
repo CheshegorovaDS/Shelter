@@ -23,8 +23,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.shelter.presentation.MainActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".presentation.log_in_app.view.LogInAppActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".presentation.about_animal.view.AboutAnimalActivity"

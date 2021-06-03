@@ -41,8 +41,16 @@ class FilteringNewsPresenter @Inject constructor(
             reducer.showAnimalTypes()
         }?.addTo(disposeContainer)
 
-        view?.clickApply()?.subscribe {
-            reducer.applyFilters()
+        view?.clickApplyFilters?.subscribe {
+            reducer.applyFilters(it.first, it.second)
+        }?.addTo(disposeContainer)
+
+        view?.updateCheckedCategory?.subscribe {
+            reducer.changeCheckedCategories(it)
+        }?.addTo(disposeContainer)
+
+        view?.updateCheckedType?.subscribe {
+            reducer.changeCheckedTypes(it)
         }?.addTo(disposeContainer)
 
         reducer.updateState
@@ -54,13 +62,13 @@ class FilteringNewsPresenter @Inject constructor(
         reducer.updateCategories
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-            view?.updateCategories(it)
+            view?.showCategoriesDialog(it)
         }.addTo(disposeContainer)
 
         reducer.updateAnimalTypes
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-            view?.updateAnimalTypes(it)
+            view?.showAnimalTypesDialog(it)
         }.addTo(disposeContainer)
 
         reducer.applyFilters
@@ -69,6 +77,17 @@ class FilteringNewsPresenter @Inject constructor(
             view?.applyFilters()
         }.addTo(disposeContainer)
 
+        reducer.updateCheckedCategories
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view?.updateCheckedCategories(it)
+            }.addTo(disposeContainer)
+
+        reducer.updateCheckedTypes
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view?.updateCheckedTypes(it)
+            }.addTo(disposeContainer)
     }
 
     private fun renderState(state: FilteringNewsState) {
@@ -76,5 +95,7 @@ class FilteringNewsPresenter @Inject constructor(
         view?.categoriesVisibility(state.categoriesVisibility)
         view?.animalTypesVisibility(state.animalTypesVisibility)
         view?.applyVisibility(state.applyVisibility)
+        view?.listCategoryVisibility(state.checkedCategoriesVisibility)
+        view?.listAnimalTypeVisibility(state.checkedAnimalTypesVisibility)
     }
 }

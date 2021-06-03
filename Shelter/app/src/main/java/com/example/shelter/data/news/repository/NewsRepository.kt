@@ -1,5 +1,6 @@
 package com.example.shelter.data.news.repository
 
+import com.example.shelter.presentation.fragment_menu.news.model.FilterNews
 import com.example.shelter.presentation.model.News
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -13,9 +14,8 @@ class NewsRepository @Inject constructor(
         return newsApi.getNews()
     }
 
-    override fun getListNewsByCategory(category: String): Observable<List<News>> {
-        TODO()
-//        return Observable.just(ad)
+    override fun getListNewsByFilters(filters: FilterNews): Observable<List<News>> {
+        return newsApi.getListNewsByFilters(filters)
     }
 
     override fun getNewsById(id: Int): Single<News> {

@@ -18,14 +18,19 @@ class FilteringNewsReducer @Inject constructor(
 
     override val updateState: PublishSubject<FilteringNewsState> = PublishSubject.create()
     override val updateException: PublishSubject<FilteringNewsException> = PublishSubject.create()
-    override val updateCategories: PublishSubject<List<Category>> = PublishSubject.create()
+    override val updateCategories: PublishSubject<List<Pair<Category, Boolean>>> = PublishSubject.create()
     override val updateAnimalTypes: PublishSubject<List<AnimalType>> = PublishSubject.create()
+    override val updateCheckedCategories: PublishSubject<List<Category>> = PublishSubject.create()
+    override val updateCheckedTypes: PublishSubject<List<AnimalType>> = PublishSubject.create()
     override val applyFilters: PublishSubject<Unit> = PublishSubject.create()
 
     private val dispose = CompositeDisposable()
     var state = FilteringNewsState()
     private val categories = mutableListOf<Category>()
+    private var checkedCategories = booleanArrayOf()
     private val animalTypes = mutableListOf<AnimalType>()
+    private var checkedTypes = booleanArrayOf()
+    private val c = mutableMapOf<Category, Boolean>()
 
     override fun downloadInfo() {
         updateState.onNext(state)
@@ -36,12 +41,15 @@ class FilteringNewsReducer @Inject constructor(
                 .subscribe({
                     it.forEach { category ->
                         categories.add(category)
+                        c[category] = false
                     }
+//                    checkedCategories = BooleanArray(categories.size){false}
                     state = state.copy(
                         progressBarVisibility = false,
                         categoriesVisibility = true,
                         applyVisibility = true
                     )
+
                     updateState.onNext(state)
                 }, {
                     updateException.onNext(FilteringNewsException())
@@ -52,6 +60,8 @@ class FilteringNewsReducer @Inject constructor(
                     it.forEach { type ->
                         animalTypes.add(type)
                     }
+//                    checkedTypes = BooleanArray(animalTypes.size){false}
+
                     state = state.copy(
                         progressBarVisibility = false,
                         animalTypesVisibility = true,
@@ -64,11 +74,28 @@ class FilteringNewsReducer @Inject constructor(
         )
     }
 
-    override fun showCategories() = updateCategories.onNext(categories)
+    override fun showCategories() = updateCategories.onNext(c.toList())
 
     override fun showAnimalTypes() = updateAnimalTypes.onNext(animalTypes)
 
-    override fun applyFilters() = applyFilters.onNext(Unit)
+    override fun applyFilters(
+        checkedCategories: List<Category>,
+        checkedTypes: List<AnimalType>
+    ) {
+
+    }
+
+    override fun changeCheckedCategories(categories: List<Category>) {
+        updateCheckedCategories.onNext(categories)
+        state = state.copy(checkedCategoriesVisibility = categories.isNotEmpty())
+        updateState.onNext(state)
+    }
+
+    override fun changeCheckedTypes(types: List<AnimalType>) {
+        updateCheckedTypes.onNext(types)
+        state = state.copy(checkedAnimalTypesVisibility = types.isNotEmpty())
+        updateState.onNext(state)
+    }
 
     override fun clearDispose() = dispose.clear()
 }

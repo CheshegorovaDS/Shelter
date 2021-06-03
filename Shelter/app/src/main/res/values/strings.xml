@@ -60,6 +60,7 @@
     <string name="filteringNews">Фильтр новостей :</string>
     <string name="apply">Применить</string>
     <string name="choseCategory">Выберите категории</string>
+    <string name="choseAnimalType">Выберите тип животного</string>
     <string name="complete">Готово</string>
 
     //Add new Animal Card
