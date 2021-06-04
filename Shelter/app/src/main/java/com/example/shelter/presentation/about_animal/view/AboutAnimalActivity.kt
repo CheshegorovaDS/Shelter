@@ -16,6 +16,7 @@ import com.example.shelter.data.di.DaggerUserRepositoryComponent
 import com.example.shelter.presentation.about_animal.di.DaggerAboutAnimalComponent
 import com.example.shelter.presentation.about_animal.presenter.AboutAnimalPresenter
 import com.example.shelter.presentation.extention.toast
+import com.example.shelter.presentation.fragment_menu.homepage.view.HomepageFragment
 import com.example.shelter.presentation.fragment_menu.news.view.NewsFragment
 import com.example.shelter.presentation.model.News
 import com.jakewharton.rxbinding2.view.RxView
@@ -196,6 +197,9 @@ class AboutAnimalActivity: AppCompatActivity() , AboutAnimalView {
     }
 
     override fun openUserHomepage(idUser: Int) {
-        toast("open user $idUser homepage")
+//        supportFragmentManager
+//            .beginTransaction()
+//            .replace(R.id.fl_content, HomepageFragment())
+//            .commit()
     }
 }

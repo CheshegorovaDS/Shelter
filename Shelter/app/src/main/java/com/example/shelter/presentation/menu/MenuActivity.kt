@@ -60,11 +60,11 @@ class MenuActivity: AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment) {
-        val ft = supportFragmentManager.beginTransaction()
-                .replace(R.id.fl_content, fragment)
-            ft.commit()
-    }
+    private fun loadFragment(fragment: Fragment)  = supportFragmentManager
+        .beginTransaction()
+        .replace(R.id.fl_content, fragment)
+        .commit()
+
 
     private fun tryLoadFragment(fragment: Fragment): Boolean {
         if(checkUser()) {
