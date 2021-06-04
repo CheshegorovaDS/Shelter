@@ -8,6 +8,9 @@ class LoggedUserManager @Inject constructor(
     private val sharedPreferences: SharedPreferences) :
     LoggedUserProvider {
 
+    private var loggedInUser: User? = null
+    private var token: String? = null
+
     override fun setLoggedUser(loggedUser: User) {
         loggedInUser = loggedUser
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
@@ -22,6 +25,26 @@ class LoggedUserManager @Inject constructor(
             loggedInUser = tryToGetSavedUserProfile()
         }
         return loggedInUser
+    }
+
+    override fun setToken(token: String) {
+        this.token = token
+
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putString(USER_NAME_ACCESS_TOKEN, token)
+        editor.apply()
+    }
+
+    override fun getToken(): String? {
+        return if (token == null) {
+            if (sharedPreferences.contains(USER_NAME_ACCESS_TOKEN)) {
+                sharedPreferences.getString(USER_NAME_ACCESS_TOKEN, DEFAULT_STRING_VALUE)
+            } else {
+                null
+            }
+        } else {
+            token
+        }
     }
 
     override fun logout() {
@@ -54,7 +77,5 @@ class LoggedUserManager @Inject constructor(
         private const val USER_NAME_PASSWORD: String = "logged_user_password"
         private const val USER_NAME_ACCESS_TOKEN: String = "logged_user_access_token"
         private const val DEFAULT_STRING_VALUE: String = ""
-
-        private var loggedInUser: User? = null
     }
 }

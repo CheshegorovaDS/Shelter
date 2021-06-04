@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
+import com.example.shelter.data.di.DaggerUserRepositoryComponent
 import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
 import com.example.shelter.presentation.onBoarding.login.di.DaggerLoginComponent
 import com.example.shelter.presentation.onBoarding.login.model.LoginDestination
@@ -59,8 +60,10 @@ class LoginFragment: LoginView, Fragment() {
         val appComponent = (activity?.application as ShelterManagerApp)
             .getAppComponent()
 
+        val userComponent = DaggerUserRepositoryComponent.builder().build()
+
         DaggerLoginComponent.builder()
-//            .userRepositoryComponent(repository)
+            .userRepositoryComponent(userComponent)
             .appComponent(appComponent)
             .build()
             .inject(this)

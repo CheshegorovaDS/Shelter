@@ -6,5 +6,6 @@ data class NewsState(
     val filterVisibility: Boolean = true,
     val searchVisibility: Boolean = false,
     val backVisibility: Boolean = false,
+    val enterVisibility: Boolean = true,
     val addNewsEnabled: Boolean = false
 )

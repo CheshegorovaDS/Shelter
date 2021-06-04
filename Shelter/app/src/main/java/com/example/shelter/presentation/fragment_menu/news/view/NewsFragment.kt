@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
 import com.example.shelter.data.di.DaggerNewsRepositoryComponent
-import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
 import com.example.shelter.presentation.about_animal.view.AboutAnimalActivity
 import com.example.shelter.presentation.creating_news.view.CreatingNewsActivity
 import com.example.shelter.presentation.filtering_news.view.FilteringNewsActivity
@@ -21,11 +21,14 @@ import com.example.shelter.presentation.fragment_menu.news.di.DaggerNewsComponen
 import com.example.shelter.presentation.fragment_menu.news.model.FilterNews
 import com.example.shelter.presentation.fragment_menu.news.model.NewsDestination
 import com.example.shelter.presentation.fragment_menu.news.presenter.NewsPresenter
+import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
 import com.example.shelter.presentation.model.News
 import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_news.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class NewsFragment: Fragment(), NewsView {
@@ -80,11 +83,17 @@ class NewsFragment: Fragment(), NewsView {
 
     override fun clickFilter(): Observable<Any> = RxView.clicks(buttonFilter)
 
+    override fun clickClose(): Observable<Any> = RxView.clicks(closeSearch)
+
+    override fun clickEnter(): Observable<Any> = RxView.clicks(buttonSearch)
+
+    override fun changeSearch(): Observable<String> = RxTextView.textChanges(search)
+        .map { value ->  value.toString()}
+        .debounce(DEBOUNCE_VALUE, TimeUnit.MILLISECONDS)
+
     private fun clickOpenCard(news: News) = clickOpenCard.onNext(news)
 
-    override fun clickSearch(): Observable<Any> {
-        TODO("Not yet implemented")
-    }
+    override fun clickSearch(): Observable<Any> = RxView.clicks(search)
 
     override fun showNews(list: List<News>) {
         if (adapter == null) {
@@ -113,6 +122,38 @@ class NewsFragment: Fragment(), NewsView {
         }
     }
 
+    override fun showSearchButton(visibility: Boolean) {
+        requireActivity().findViewById<ImageView>(R.id.searchNews).visibility = if (visibility) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
+    override fun showFilterButton(visibility: Boolean) {
+        requireActivity().findViewById<ImageView>(R.id.filterNews).visibility = if (visibility) {
+            View.VISIBLE
+        } else {
+            View.INVISIBLE
+        }
+    }
+
+    override fun showCancelButton(visibility: Boolean) {
+        requireActivity().findViewById<ImageView>(R.id.closeSearch).visibility = if (visibility) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
+    override fun showEnterButton(visibility: Boolean) {
+        requireActivity().findViewById<ImageView>(R.id.enter).visibility = if (visibility) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
     override fun addNewsEnabled(isEnabled: Boolean) {
         addNews.isEnabled = isEnabled
     }
@@ -127,8 +168,8 @@ class NewsFragment: Fragment(), NewsView {
     private fun showLogInAppDialog() =
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.not_log_in))
-            .setNegativeButton(getString(R.string.cancel)){dialog, _ -> dialog.cancel()}
-            .setNeutralButton(getString(R.string.log_in_app)){dialog, _ -> dialog.apply {
+            .setNegativeButton(getString(R.string.cancel)){ dialog, _ -> dialog.cancel()}
+            .setNeutralButton(getString(R.string.log_in_app)){ dialog, _ -> dialog.apply {
                 openLogInAppScreen()
             } }.create()
             .show()
@@ -155,10 +196,12 @@ class NewsFragment: Fragment(), NewsView {
             val checkedCategoriesId = data?.getIntArrayExtra(FILTER_CATEGORY_KEY)
             val checkedTypesId = data?.getIntArrayExtra(FILTER_ANIMAL_TYPE_KEY)
 
-            updateNews.onNext(FilterNews(
-                checkedCategoriesId?.toList() ?: listOf(),
-                checkedTypesId?.toList() ?: listOf()
-            ))
+            updateNews.onNext(
+                FilterNews(
+                    checkedCategoriesId?.toList() ?: listOf(),
+                    checkedTypesId?.toList() ?: listOf()
+                )
+            )
         }
     }
 
@@ -172,5 +215,6 @@ class NewsFragment: Fragment(), NewsView {
         const val ANIMAL_KEY = "idAnimal"
         const val FILTER_CATEGORY_KEY = "checkedCategories"
         const val FILTER_ANIMAL_TYPE_KEY = "checkedAnimalTypes"
+        const val DEBOUNCE_VALUE = 500L
     }
 }

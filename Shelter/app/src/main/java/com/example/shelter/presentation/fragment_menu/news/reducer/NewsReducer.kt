@@ -78,6 +78,32 @@ class NewsReducer @Inject constructor(
 
     override fun openFilter() = updateDestination.onNext(NewsDestination.FILTER_CARD)
 
+    override fun openSearch() {
+//        state = state.copy(
+//            focusSearch = true
+//        )
+//        updateState.onNext(state)
+    }
+
+    override fun updateSearch(text: String) {
+        state = if (text == "") {
+            state.copy(
+                filterVisibility = true,
+                searchVisibility = true,
+                enterVisibility = false,
+                backVisibility = false
+            )
+        } else {
+            state.copy(
+                enterVisibility = true,
+                backVisibility =  true,
+                filterVisibility = false,
+                searchVisibility = false
+            )
+        }
+        updateState.onNext(state)
+    }
+
     override fun openCard(news: News) {
         state = state.copy(addNewsEnabled = false)
         updateState.onNext(state)
@@ -91,7 +117,7 @@ class NewsReducer @Inject constructor(
             updateDestination.onNext(NewsDestination.LOGIN_OR_REGISTRATION_SCREEN)
         }
 
-    private fun userIsLogged(): Boolean = loggedUserProvider.getLoggedUser() != null
+    private fun userIsLogged(): Boolean = loggedUserProvider.getToken() != null
 
     override fun clearDispose() = disposeContainer.clear()
 }

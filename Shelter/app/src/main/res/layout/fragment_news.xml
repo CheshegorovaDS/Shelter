@@ -12,37 +12,20 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:background="@drawable/back_edit_txt"
-        android:focusableInTouchMode="false"
-        android:drawableStart="@drawable/ic_search"
         android:drawablePadding="@dimen/paddingTxt"
+        android:focusableInTouchMode="false"
         android:hint="@string/search"
-        android:padding="@dimen/paddingImage"
         android:lines="1"
+        android:padding="@dimen/paddingImage"
+        android:paddingStart="32dp"
         android:textColorHint="@color/colorBlack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-   <!-- <GridView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-        -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listAnimal"
         android:visibility="gone"
@@ -88,6 +71,7 @@
 
     <ImageView
         android:id="@+id/filterNews"
+        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -96,6 +80,41 @@
         app:layout_constraintEnd_toEndOf="@+id/search"
         app:layout_constraintTop_toTopOf="@+id/search"
         app:srcCompat="@drawable/ic_filter" />
+
+    <ImageView
+        android:id="@+id/enter"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/search"
+        app:layout_constraintEnd_toEndOf="@+id/search"
+        app:layout_constraintTop_toTopOf="@+id/search"
+        app:srcCompat="@drawable/ic_next" />
+
+    <ImageView
+        android:id="@+id/searchNews"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/search"
+        app:layout_constraintStart_toStartOf="@+id/search"
+        app:layout_constraintTop_toTopOf="@+id/search"
+        app:srcCompat="@drawable/ic_search" />
+
+    <ImageView
+        android:id="@+id/closeSearch"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:tint="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/search"
+        app:layout_constraintStart_toStartOf="@+id/search"
+        app:layout_constraintTop_toTopOf="@+id/search"
+        app:srcCompat="@drawable/ic_close" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -111,6 +130,16 @@
 
     <Button
         android:id="@+id/buttonFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/filterNews"
+        app:layout_constraintEnd_toEndOf="@+id/filterNews"
+        app:layout_constraintStart_toStartOf="@+id/filterNews"
+        app:layout_constraintTop_toTopOf="@+id/filterNews" />
+
+    <Button
+        android:id="@+id/buttonSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"

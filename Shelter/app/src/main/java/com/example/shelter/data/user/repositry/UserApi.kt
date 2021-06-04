@@ -1,6 +1,8 @@
 package com.example.shelter.data.user.repositry
 
+import com.example.shelter.data.user.request.TokenRequest
 import com.example.shelter.data.user.request.UserRequest
+import com.example.shelter.data.user.response.TokenResponse
 import com.example.shelter.data.user.response.UserResponse
 import com.example.shelter.network.NetworkService
 import com.example.shelter.presentation.model.Human
@@ -15,8 +17,14 @@ class UserApi @Inject constructor(): IUserApi {
     val builder = NetworkService
     private val service = builder.buildUserService()
 
-    override fun login(request: UserRequest): Observable<UserResponse> {
-        TODO("Not yet implemented")
+    override fun login(request: TokenRequest): Single<TokenResponse> {
+        return service.login(request.login, request.password).map {
+            if (it.isSuccessful){
+                it.body()
+            } else {
+                throw Exception("fail")
+            }
+        }
     }
 
     override fun registration(request: UserRequest): Observable<UserResponse> {

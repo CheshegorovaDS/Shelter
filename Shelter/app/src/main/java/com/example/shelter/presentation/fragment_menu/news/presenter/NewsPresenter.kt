@@ -53,9 +53,13 @@ class NewsPresenter @Inject constructor(
             reducer.openFilter()
         }?.addTo(disposeContainer)
 
-//        view?.clickSearch()?.subscribe {
-//
-//        }?.addTo(disposeContainer)
+        view?.clickSearch()?.subscribe {
+            reducer.openSearch()
+        }?.addTo(disposeContainer)
+
+        view?.changeSearch()?.subscribe {
+            reducer.updateSearch(it)
+        }?.addTo(disposeContainer)
 
         reducer.updateState
             .observeOn(AndroidSchedulers.mainThread())
@@ -85,5 +89,9 @@ class NewsPresenter @Inject constructor(
     private fun renderState(state: NewsState){
         view?.showProgressBar(state.progressBarVisibility)
         view?.showListNews(state.listVisibility)
+        view?.showCancelButton(state.backVisibility)
+        view?.showEnterButton(state.enterVisibility)
+        view?.showFilterButton(state.filterVisibility)
+        view?.showSearchButton(state.searchVisibility)
     }
 }

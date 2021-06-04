@@ -81,8 +81,8 @@ class MenuActivity: AppCompatActivity() {
     }
 
     private fun checkUser():Boolean{
-        val user = loggedUserProvider.getLoggedUser()
-        return user != null
+        val token = loggedUserProvider.getToken()
+        return token != null
     }
 
     private fun next(){

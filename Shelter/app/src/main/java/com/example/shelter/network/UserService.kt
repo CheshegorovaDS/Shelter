@@ -1,5 +1,6 @@
 package com.example.shelter.network
 
+import com.example.shelter.data.user.response.TokenResponse
 import com.example.shelter.data.user.response.UserResponse
 import io.reactivex.Single
 import retrofit2.Response
@@ -14,4 +15,10 @@ interface UserService {
 
     @GET("/api/organisation/{id}")
     fun getOrganisationById(@Path("id")id: Int): Single<Response<UserResponse>>
+
+    @GET("/api/login/login={login}&pass={password}")
+    fun login(
+        @Path("login")login: String,
+        @Path("password")password: String
+    ): Single<Response<TokenResponse>>
 }
