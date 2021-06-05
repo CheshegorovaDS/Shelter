@@ -46,11 +46,11 @@ class MenuActivity: AppCompatActivity() {
                 loadFragment(NewsFragment())
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_messager -> {
-                return@OnNavigationItemSelectedListener tryLoadFragment(
-                    MessagerFragment()
-                        .newInstance())
-            }
+//            R.id.navigation_messager -> {
+//                return@OnNavigationItemSelectedListener tryLoadFragment(
+//                    MessagerFragment()
+//                        .newInstance())
+//            }
             R.id.navigation_homepage -> {
                 return@OnNavigationItemSelectedListener tryLoadFragment(
                     HomepageFragment()
