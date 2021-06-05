@@ -16,6 +16,7 @@ interface INewsReducer: BaseReducer {
     val updateDestination: PublishSubject<NewsDestination>
 
     fun downloadNews()
+    fun downloadNews(request: String)
     fun downloadNews(filters: FilterNews)
     fun openFilter()
     fun openSearch()

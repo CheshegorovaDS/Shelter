@@ -34,6 +34,7 @@ class LoginReducer @Inject constructor(
                             email = email,
                             password = password
                         ))
+                        loggedUser.setId(it.first)
                         loggedUser.setToken(it.second)
                         updateDestination.onNext(LoginDestination.NEWS_SCREEN)
                     }, {

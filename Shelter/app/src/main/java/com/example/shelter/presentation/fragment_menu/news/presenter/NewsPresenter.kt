@@ -31,14 +31,11 @@ class NewsPresenter @Inject constructor(
 
     override fun bind() {
         view?.updateNews?.subscribe {
-            val l1 = it.listCategoriesId.filter {  id -> id > 0 }
-            val l2 = it.listTypesId.filter { id -> id > 0 }
+            downloadNews(it)
+        }?.addTo(disposeContainer)
 
-            if (l1.isEmpty() && l2.isEmpty()) {
-                reducer.downloadNews()
-            } else {
-                reducer.downloadNews(FilterNews(l1, l2))
-            }
+        view?.clickEnter()?.subscribe {
+            reducer.addNews()
         }?.addTo(disposeContainer)
 
         view?.clickAddCard()?.subscribe {
@@ -93,5 +90,22 @@ class NewsPresenter @Inject constructor(
         view?.showEnterButton(state.enterVisibility)
         view?.showFilterButton(state.filterVisibility)
         view?.showSearchButton(state.searchVisibility)
+    }
+
+    private fun downloadNews(filterNews: FilterNews) {
+        val sortedCategories = filterNews.listCategoriesId.filter { id -> id > 0 }
+        val sortedTypes = filterNews.listTypesId.filter { id -> id > 0 }
+
+        if (sortedCategories.isNotEmpty() || sortedTypes.isNotEmpty()) {
+            reducer.downloadNews(FilterNews(sortedCategories, sortedTypes))
+            return
+        }
+
+        if (filterNews.request != null) {
+            reducer.downloadNews(filterNews.request)
+            return
+        }
+
+        reducer.downloadNews()
     }
 }

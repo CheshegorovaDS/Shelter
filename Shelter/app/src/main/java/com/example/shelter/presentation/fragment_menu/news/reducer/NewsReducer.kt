@@ -52,6 +52,30 @@ class NewsReducer @Inject constructor(
         updateState.onNext(state)
     }
 
+    override fun downloadNews(request: String) {
+        state = NewsState(progressBarVisibility = true)
+        updateState.onNext(state)
+
+        disposeContainer.add(
+            backend.getListNewsByString(request)
+                .subscribeOn(Schedulers.io())
+                .subscribe ({
+                    list.clear()
+                    list.addAll(it)
+                    updateNews.onNext(list)
+                }, {
+                    updateException.onNext(NewsException())
+                })
+        )
+
+        state = NewsState(
+            progressBarVisibility = false,
+            listVisibility = true,
+            addNewsEnabled = true
+        )
+        updateState.onNext(state)
+    }
+
     override fun downloadNews(filters: FilterNews) {
         state = NewsState(progressBarVisibility = true)
         updateState.onNext(state)

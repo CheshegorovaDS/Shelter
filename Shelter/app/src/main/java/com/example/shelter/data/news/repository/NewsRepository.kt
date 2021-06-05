@@ -18,8 +18,16 @@ class NewsRepository @Inject constructor(
         return newsApi.getListNewsByFilters(filters)
     }
 
+    override fun getListNewsByString(request: String): Observable<List<News>> {
+        return newsApi.getNewsByString(request)
+    }
+
     override fun getNewsById(id: Int): Single<News> {
         return newsApi.getNewsById(id)
+    }
+
+    override fun getNewsByUser(idUser: Int): Observable<List<News>> {
+        return newsApi.getNewsByUserId(idUser)
     }
 
     override fun addNews(news: News) {

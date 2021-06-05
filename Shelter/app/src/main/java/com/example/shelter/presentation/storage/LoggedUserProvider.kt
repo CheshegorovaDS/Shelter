@@ -8,5 +8,7 @@ interface LoggedUserProvider {
     fun getLoggedUser(): User?
     fun setToken(token: String)
     fun getToken(): String?
+    fun setId(id: Int)
+    fun getId(): Int?
     fun logout()
 }

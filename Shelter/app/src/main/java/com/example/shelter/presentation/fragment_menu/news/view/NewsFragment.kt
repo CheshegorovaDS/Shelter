@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
@@ -72,6 +73,10 @@ class NewsFragment: Fragment(), NewsView {
         super.onViewCreated(view, savedInstanceState)
         presenter.attachView(this)
         updateNews.onNext(FilterNews())
+
+        buttonSearch.setOnClickListener {
+            updateNews.onNext(FilterNews(request = search.text.toString()))
+        }
     }
 
     override fun onDestroy() {
@@ -85,7 +90,9 @@ class NewsFragment: Fragment(), NewsView {
 
     override fun clickClose(): Observable<Any> = RxView.clicks(closeSearch)
 
-    override fun clickEnter(): Observable<Any> = RxView.clicks(buttonSearch)
+    override fun clickEnter(): Observable<Any> = RxView.clicks(buttonSearch).map {
+        search.text.toString()
+    }
 
     override fun changeSearch(): Observable<String> = RxTextView.textChanges(search)
         .map { value ->  value.toString()}
@@ -131,19 +138,23 @@ class NewsFragment: Fragment(), NewsView {
     }
 
     override fun showFilterButton(visibility: Boolean) {
-        requireActivity().findViewById<ImageView>(R.id.filterNews).visibility = if (visibility) {
-            View.VISIBLE
-        } else {
-            View.INVISIBLE
-        }
-    }
-
-    override fun showCancelButton(visibility: Boolean) {
-        requireActivity().findViewById<ImageView>(R.id.closeSearch).visibility = if (visibility) {
+        val visibility = if (visibility) {
             View.VISIBLE
         } else {
             View.GONE
         }
+        requireActivity().findViewById<ImageView>(R.id.filterNews).visibility = visibility
+        requireActivity().findViewById<Button>(R.id.buttonFilter).visibility = visibility
+    }
+
+    override fun showCancelButton(visibility: Boolean) {
+        val visibility = if (visibility) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+        requireActivity().findViewById<ImageView>(R.id.closeSearch).visibility = visibility
+        requireActivity().findViewById<Button>(R.id.buttonSearch).visibility = visibility
     }
 
     override fun showEnterButton(visibility: Boolean) {

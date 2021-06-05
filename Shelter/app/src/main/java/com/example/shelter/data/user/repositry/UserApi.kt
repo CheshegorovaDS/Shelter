@@ -64,7 +64,7 @@ class UserApi @Inject constructor(): IUserApi {
                     phone = it.body()!!.phone,
                     password = it.body()!!.password,
                     organisation = Organisation(
-                        title = it.body()!!.title
+                        title = it.body()!!.title!!
                     )
                 )
             } else {

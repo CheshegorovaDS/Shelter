@@ -12,7 +12,6 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class NewsApi @Inject constructor(): INewsApi {
-
     val builder = NetworkService
     private val service = builder.buildNewsService()
     private val dispose = CompositeDisposable()
@@ -85,6 +84,30 @@ class NewsApi @Inject constructor(): INewsApi {
            } else {
                throw Exception("fail")
            }
+        }
+    }
+
+    override fun getNewsByString(request: String): Observable<List<News>> {
+        return Observable.just(listOf())
+    }
+
+    override fun getNewsByUserId(idUser: Int): Observable<List<News>> {
+        return service.getNewsByUserId(idUser).map {
+            if (it.isSuccessful) {
+                val list = mutableListOf<News>()
+                it.body()?.forEach { news ->
+                    list.add(News(
+                        news.id,
+                        news.name,
+                        news.photo,
+                        news.category,
+                        news.idUser
+                    ))
+                }
+                list
+            } else {
+                throw Exception("fail")
+            }
         }
     }
 

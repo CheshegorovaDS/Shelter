@@ -21,4 +21,7 @@ interface NewsService {
         @Query("category")categories: List<Int>,
         @Query("animal_type")types: List<Int>
     ): Observable<Response<List<NewsResponse>>>
+
+    @GET("/api/cards/user={id}")
+    fun getNewsByUserId(@Path("id")id: Int): Observable<Response<List<NewsResponse>>>
 }

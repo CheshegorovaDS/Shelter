@@ -8,7 +8,9 @@ import io.reactivex.Single
 interface INewsRepository {
     fun getListNews(): Observable<List<News>>
     fun getListNewsByFilters(filters: FilterNews): Observable<List<News>>
+    fun getListNewsByString(request: String): Observable<List<News>>
     fun getNewsById(id: Int): Single<News>
+    fun getNewsByUser(idUser: Int): Observable<List<News>>
     fun addNews(news: News)
     fun changeNews(id: Long, news: News)
 }
