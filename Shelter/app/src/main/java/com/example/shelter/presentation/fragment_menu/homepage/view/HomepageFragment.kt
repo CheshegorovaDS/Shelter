@@ -92,7 +92,7 @@ class HomepageFragment: Fragment(), HomepageView {
     }
 
     override fun showCards(isVisible: Boolean) {
-        cardNews.visibility = if (isVisible) {
+        listAnimal.visibility = if (isVisible) {
             cardNewsTitle.visibility = View.VISIBLE
             View.VISIBLE
         } else {
