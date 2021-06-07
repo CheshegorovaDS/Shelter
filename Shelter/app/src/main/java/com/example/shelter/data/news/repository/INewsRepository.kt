@@ -11,6 +11,6 @@ interface INewsRepository {
     fun getListNewsByString(request: String): Observable<List<News>>
     fun getNewsById(id: Int): Single<News>
     fun getNewsByUser(idUser: Int): Observable<List<News>>
-    fun addNews(news: News)
+    fun addNews(news: News): Observable<Boolean>
     fun changeNews(id: Long, news: News)
 }

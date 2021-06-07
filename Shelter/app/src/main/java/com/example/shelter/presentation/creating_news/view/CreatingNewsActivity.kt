@@ -1,5 +1,6 @@
 package com.example.shelter.presentation.creating_news.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,14 +13,19 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.shelter.R
+import com.example.shelter.app.ShelterManagerApp
+import com.example.shelter.app.di.DaggerAppComponent
 import com.example.shelter.data.di.DaggerAnimalTypeRepositoryComponent
 import com.example.shelter.data.di.DaggerCategoryRepositoryComponent
+import com.example.shelter.data.di.DaggerNewsRepositoryComponent
 import com.example.shelter.presentation.about_animal.model.Sex
 import com.example.shelter.presentation.creating_news.di.DaggerCreatingNewsComponent
 import com.example.shelter.presentation.creating_news.presenter.CreatingNewsPresenter
+import com.example.shelter.presentation.fragment_menu.news.view.NewsFragment
 import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.model.AnimalType
 import com.example.shelter.presentation.model.Category
+import com.example.shelter.presentation.model.News
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -57,10 +63,14 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
     }
 
     override fun initComponent() {
+        val appComponent = (application as ShelterManagerApp).getAppComponent()
+        val newsComponent = DaggerNewsRepositoryComponent.builder().build()
         val categoryRepository = DaggerCategoryRepositoryComponent.builder().build()
         val animalTypeRepository = DaggerAnimalTypeRepositoryComponent.builder().build()
 
         DaggerCreatingNewsComponent.builder()
+            .appComponent(appComponent)
+            .newsRepositoryComponent(newsComponent)
             .categoryRepositoryComponent(categoryRepository)
             .animalTypeRepositoryComponent(animalTypeRepository)
             .build()
@@ -163,6 +173,11 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
         builder.show()
     }
 
+    override fun closeWindow() {
+        setResult(NewsFragment.RESULT_CODE_CREATING, Intent())
+        finish()
+    }
+
     private fun createAlertDialog(
         title: String
     ): AlertDialog.Builder =
@@ -178,8 +193,6 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
     override fun clickAnimalType(): Observable<Any> = RxView.clicks(animalType)
 
     override fun clickGender(): Observable<Any> = RxView.clicks(gender)
-
-    override fun clickAddCard(): Observable<Any> = RxView.clicks(createNews)
 
     override fun showException(isVisible: Boolean) {
         findViewById<TextView>(R.id.exception).visibility = if (isVisible) {
@@ -218,12 +231,20 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
         return Animal(
             findViewById<TextView>(R.id.name).text.toString(),
             "",
-            "",
-            Sex.NONE,
-            findViewById<TextView>(R.id.breed).text.toString(),
-            0,
-            "",
-            findViewById<TextView>(R.id.description).text.toString()
+            checkedAnimalType,
+            checkedGender,
+            checkedCategory,
+            getText(findViewById<TextView>(R.id.breed).text.toString()),
+            getText(findViewById<TextView>(R.id.age).text.toString()),
+            getText(findViewById<TextView>(R.id.passport).text.toString()),
+            getText(findViewById<TextView>(R.id.description).text.toString())
         )
     }
+
+    private fun getText(text: String): String? = if (text == "") {
+            null
+        } else {
+            text
+        }
+
 }

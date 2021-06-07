@@ -192,27 +192,40 @@ class NewsFragment: Fragment(), NewsView {
 
     private fun openCreatingNews() {
         val intent = Intent(view?.context, CreatingNewsActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent, RESULT_CODE_CREATING)
     }
 
     private fun openFilteringNews() {
         val intent = Intent(requireContext(), FilteringNewsActivity::class.java)
         intent.putExtra(FILTER_CATEGORY_KEY, checkedCategories)
         intent.putExtra(FILTER_ANIMAL_TYPE_KEY, checkedAnimalType)
-        startActivityForResult(intent, 1)
+        startActivityForResult(intent, RESULT_CODE_FILTERING)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == 1) {
-            val checkedCategoriesId = data?.getIntArrayExtra(FILTER_CATEGORY_KEY)
-            val checkedTypesId = data?.getIntArrayExtra(FILTER_ANIMAL_TYPE_KEY)
+        when (resultCode) {
+            RESULT_CODE_FILTERING -> {
+                val checkedCategoriesId = data?.getIntArrayExtra(FILTER_CATEGORY_KEY)
+                val checkedTypesId = data?.getIntArrayExtra(FILTER_ANIMAL_TYPE_KEY)
 
-            updateNews.onNext(
-                FilterNews(
-                    checkedCategoriesId?.toList() ?: listOf(),
-                    checkedTypesId?.toList() ?: listOf()
+                updateNews.onNext(
+                    FilterNews(
+                        checkedCategoriesId?.toList() ?: listOf(),
+                        checkedTypesId?.toList() ?: listOf()
+                    )
                 )
-            )
+            }
+            RESULT_CODE_CREATING -> {
+                updateNews.onNext(FilterNews())
+                val builder = AlertDialog.Builder(requireContext())
+                builder
+                    .setTitle(R.string.addCardIsSuccessful)
+                    .setPositiveButton(R.string.good){dialog, _ ->
+                        dialog.cancel()
+                    }
+                builder.create()
+                builder.show()
+            }
         }
     }
 
@@ -227,5 +240,7 @@ class NewsFragment: Fragment(), NewsView {
         const val FILTER_CATEGORY_KEY = "checkedCategories"
         const val FILTER_ANIMAL_TYPE_KEY = "checkedAnimalTypes"
         const val DEBOUNCE_VALUE = 500L
+        const val RESULT_CODE_FILTERING = 1
+        const val RESULT_CODE_CREATING = 2
     }
 }

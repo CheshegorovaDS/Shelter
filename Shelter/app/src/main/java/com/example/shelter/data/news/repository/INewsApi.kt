@@ -12,6 +12,6 @@ interface INewsApi {
     fun getNewsById(id: Int): Single<News>
     fun getNewsByString(request: String): Observable<List<News>>
     fun getNewsByUserId(idUser: Int): Observable<List<News>>
-    fun addNews(request: NewsRequest)
+    fun addNews(request: NewsRequest): Observable<Boolean>
     fun changeNews(request: NewsRequest)
 }

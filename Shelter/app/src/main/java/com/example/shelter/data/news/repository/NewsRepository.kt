@@ -1,5 +1,6 @@
 package com.example.shelter.data.news.repository
 
+import com.example.shelter.data.news.request.NewsRequest
 import com.example.shelter.presentation.fragment_menu.news.model.FilterNews
 import com.example.shelter.presentation.model.News
 import io.reactivex.Observable
@@ -30,8 +31,21 @@ class NewsRepository @Inject constructor(
         return newsApi.getNewsByUserId(idUser)
     }
 
-    override fun addNews(news: News) {
-        TODO("Not yet implemented")
+    override fun addNews(news: News): Observable<Boolean> {
+        return newsApi.addNews(
+            NewsRequest(
+                idUser = news.idUser,
+                idCategory = news.idCategory!!,
+                nameAnimal = news.name,
+                photoAnimal = news.photo,
+                ageAnimal = news.age,
+                breedAnimal = news.breed,
+                idAnimalType = news.idAnimalType!!,
+                sexAnimal = news.sex!!,
+                passportAnimal = news.passport,
+                descriptionAnimal = news.description
+            )
+        )
     }
 
     override fun changeNews(id: Long, news: News) {

@@ -1,5 +1,6 @@
 package com.example.shelter.network
 
+import com.example.shelter.data.news.request.NewsRequest
 import com.example.shelter.data.news.response.NewsResponse
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -7,6 +8,8 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface NewsService {
 
@@ -24,4 +27,7 @@ interface NewsService {
 
     @GET("/api/cards/user={id}")
     fun getNewsByUserId(@Path("id")id: Int): Observable<Response<List<NewsResponse>>>
+
+    @POST("/api/card/")
+    fun insertNews(@Body request: NewsRequest): Observable<Response<Any>>
 }

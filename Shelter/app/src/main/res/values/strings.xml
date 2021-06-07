@@ -76,6 +76,8 @@
     <string name="addTypeAnimal">Тип*</string>
     <string name="addSexAnimal">Пол*</string>
     <string name="addCard">Добавить карточку</string>
+    <string name="addCardIsSuccessful">Карточка успешно добавлена.</string>
+    <string name="good">Хорошо</string>
 
     //Homepage
     <string name="information">Информация</string>

@@ -6,10 +6,11 @@ import com.example.shelter.presentation.about_animal.model.Sterilization
 data class Animal (
     val name: String,
     val photo: String,
-    val type: String = "",
+    val type: AnimalType? = null,
     val sex: Sex = Sex.NONE,
-    val breed: String = "",
-    val age: Int = 0,
-    val passport: String = "",
-    val description: String = ""
+    val category: Category? = null,
+    val breed: String? = null,
+    val age: String? = null,
+    val passport: String? = null,
+    val description: String? = null
 )

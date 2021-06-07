@@ -33,6 +33,10 @@ class CreatingNewsPresenter @Inject constructor(
             reducer.download()
         }?.addTo(dispose)
 
+        view?.tryCreateNews?.subscribe {
+            reducer.tryAddNews(it)
+        }?.addTo(dispose)
+
         view?.clickCategory()?.subscribe {
             reducer.showCategories()
         }?.addTo(dispose)
@@ -67,6 +71,12 @@ class CreatingNewsPresenter @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 view?.showGenderDialog()
+            }.addTo(dispose)
+
+        reducer.updateDestination
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view?.closeWindow()
             }.addTo(dispose)
     }
 

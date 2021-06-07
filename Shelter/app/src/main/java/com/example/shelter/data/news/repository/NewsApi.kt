@@ -111,8 +111,14 @@ class NewsApi @Inject constructor(): INewsApi {
         }
     }
 
-    override fun addNews(request: NewsRequest) {
-//        return service.addNews(request)
+    override fun addNews(request: NewsRequest): Observable<Boolean> {
+        return service.insertNews(request).map {
+            if (it.isSuccessful) {
+                it.isSuccessful
+            } else {
+                throw Exception("fail")
+            }
+        }
     }
 
     override fun changeNews(request: NewsRequest) {

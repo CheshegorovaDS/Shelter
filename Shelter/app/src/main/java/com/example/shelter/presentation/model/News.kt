@@ -6,10 +6,12 @@ data class News (
     val photo: String,
     val category: String,
     val idUser: Int,
-    val age: Int = 0,
+    val age: Int? = null,
     val sex: String? = null,
     val breed: String? = null,
     val passport: String? = null,
     val description: String? = null,
-    val user: User? = null
+    val user: User? = null,
+    val idCategory: Int? = null,
+    val idAnimalType: Int? = null
 )

@@ -68,7 +68,7 @@ class FilteringNewsActivity: AppCompatActivity(), FilteringNewsView {
             val intentResult = Intent()
             intentResult.putExtra(NewsFragment.FILTER_CATEGORY_KEY, checkedCategoriesId)
             intentResult.putExtra(NewsFragment.FILTER_ANIMAL_TYPE_KEY, checkedTypesId)
-            setResult(1, intentResult)
+            setResult(NewsFragment.RESULT_CODE_FILTERING, intentResult)
             finish()
         }
     }
