@@ -34,6 +34,10 @@ class HomepagePresenter @Inject constructor(
             reducer.downloadUser()
         }?.addTo(disposeContainer)
 
+        view?.clickLogout?.subscribe{
+            reducer.logout()
+        }?.addTo(disposeContainer)
+
         reducer.updateState
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
@@ -54,6 +58,12 @@ class HomepagePresenter @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 view?.updateCards(it)
+            }.addTo(disposeContainer)
+
+        reducer.updateDestination
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view?.exit()
             }.addTo(disposeContainer)
     }
 

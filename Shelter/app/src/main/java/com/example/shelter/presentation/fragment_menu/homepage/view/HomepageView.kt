@@ -8,8 +8,10 @@ import io.reactivex.subjects.PublishSubject
 
 interface HomepageView: BaseView {
     val downloadUser: PublishSubject<Unit>
+    val clickOpenCard: PublishSubject<News>
+    val clickLogout: PublishSubject<Unit>
 
-    fun clickLogout(): Observable<Any>
+    fun showLogoutDialog()
 
     fun showProgressBar(isVisible: Boolean)
     fun showCards(isVisible: Boolean)
@@ -17,5 +19,5 @@ interface HomepageView: BaseView {
     fun showListIsEmpty(isVisible: Boolean)
     fun updateCards(list: List<News>)
     fun updateInfo(name: String, typeUser: UserType, email: String, phone: String)
-    val clickOpenCard: PublishSubject<News>
+    fun exit()
 }

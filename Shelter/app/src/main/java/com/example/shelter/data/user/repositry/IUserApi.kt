@@ -12,4 +12,5 @@ interface IUserApi {
     fun login(request: TokenRequest): Single<TokenResponse>
     fun registration(request: UserRequest): Observable<UserResponse>
     fun getUserById(id: Int): Single<User>
+    fun logout(token: String): Observable<Boolean>
 }

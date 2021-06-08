@@ -2,12 +2,18 @@ package com.example.shelter.presentation.fragment_menu.homepage.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
@@ -16,17 +22,16 @@ import com.example.shelter.data.di.DaggerUserRepositoryComponent
 import com.example.shelter.presentation.fragment_menu.homepage.di.DaggerHomepageComponent
 import com.example.shelter.presentation.fragment_menu.homepage.presenter.HomepagePresenter
 import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
+import com.example.shelter.presentation.fragment_menu.news.view.NewsFragment
+import com.example.shelter.presentation.menu.MenuActivity
 import com.example.shelter.presentation.model.News
-import com.example.shelter.presentation.model.User
 import com.example.shelter.presentation.onBoarding.registration.model.UserType
-import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_homepage.*
-import kotlinx.android.synthetic.main.fragment_homepage.listAnimal
-import kotlinx.android.synthetic.main.fragment_news.*
 import javax.inject.Inject
 
-class HomepageFragment: Fragment(), HomepageView {
+
+class HomepageFragment: Fragment(), HomepageView, Toolbar.OnMenuItemClickListener {
     private val resLayout: Int  = R.layout.fragment_homepage
 
     @Inject
@@ -34,6 +39,7 @@ class HomepageFragment: Fragment(), HomepageView {
 
     override val downloadUser: PublishSubject<Unit> = PublishSubject.create()
     override val clickOpenCard: PublishSubject<News> = PublishSubject.create()
+    override val clickLogout: PublishSubject<Unit> = PublishSubject.create()
 
     private var adapter: NewsAdapter? = null
 
@@ -70,6 +76,13 @@ class HomepageFragment: Fragment(), HomepageView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        toolbar.inflateMenu(R.menu.menu_user)
+        toolbar.setOnMenuItemClickListener(this)
+        if (toolbar.menu is MenuBuilder) {
+            val menuBuilder = toolbar.menu as MenuBuilder
+            menuBuilder.setOptionalIconsVisible(true)
+        }
+
         presenter.attachView(this)
         downloadUser.onNext(Unit)
     }
@@ -79,8 +92,19 @@ class HomepageFragment: Fragment(), HomepageView {
         presenter.detachView()
     }
 
-    override fun clickLogout(): Observable<Any> {
-        TODO("Not yet implemented")
+    override fun showLogoutDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder
+            .setTitle(R.string.logoutTitle)
+            .setNeutralButton(R.string.cancel) {dialog, _ ->
+                dialog.cancel()
+            }
+            .setPositiveButton(R.string.yes){dialog, _ ->
+                dialog.cancel()
+                clickLogout.onNext(Unit)
+            }
+        builder.create()
+        builder.show()
     }
 
     override fun showProgressBar(isVisible: Boolean) {
@@ -139,5 +163,22 @@ class HomepageFragment: Fragment(), HomepageView {
         requireActivity().findViewById<TextView>(R.id.phone).text = phone
     }
 
+    override fun exit() {
+        val currentActivity = activity as MenuActivity
+        currentActivity.loadFragment(NewsFragment())
+    }
+
     private fun clickOpenCard(news: News) = clickOpenCard.onNext(news)
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.edit -> {
+                Toast.makeText(context, "edit", Toast.LENGTH_SHORT).show()
+            }
+            R.id.logout -> {
+                showLogoutDialog()
+            }
+        }
+        return true
+    }
 }

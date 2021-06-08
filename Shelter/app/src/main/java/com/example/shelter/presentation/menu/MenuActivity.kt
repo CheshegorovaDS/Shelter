@@ -60,7 +60,7 @@ class MenuActivity: AppCompatActivity() {
         }
     }
 
-    private fun loadFragment(fragment: Fragment)  = supportFragmentManager
+    fun loadFragment(fragment: Fragment)  = supportFragmentManager
         .beginTransaction()
         .replace(R.id.fl_content, fragment)
         .commit()

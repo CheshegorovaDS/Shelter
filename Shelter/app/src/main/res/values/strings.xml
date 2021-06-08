@@ -85,6 +85,10 @@
     <string name="emailUser">Электронная почта</string>
     <string name="card">Карточки</string>
     <string name="noNews">Нет карточек</string>
+    <string name="logOut">Выход</string>
+    <string name="editUser">Редактировать</string>
+    <string name="logoutTitle">Вы действительно хотите выйти?</string>
+    <string name="yes">Да</string>
 
     //Messager
     <string name="messager">Сообщения</string>

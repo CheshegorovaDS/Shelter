@@ -72,6 +72,9 @@ class LoggedUserManager @Inject constructor(
         loggedInUser = null
         sharedPreferences.edit()
             .remove(USER_NAME_ACCESS_TOKEN)
+            .remove(USER_EMAIL)
+            .remove(USER_ID)
+            .remove(USER_NAME_PASSWORD)
             .apply()
     }
 

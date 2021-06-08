@@ -35,6 +35,16 @@ class UserApi @Inject constructor(): IUserApi {
         return getHumanById(id)
     }
 
+    override fun logout(token: String): Observable<Boolean> {
+        return service.logout(token).map {
+            if (it.isSuccessful) {
+                it.isSuccessful
+            } else {
+                throw Exception("fail")
+            }
+        }
+    }
+
     private fun getHumanById(id: Int): Single<User> {
         return service.getHumanById(id).map {
             if (it.isSuccessful) {
