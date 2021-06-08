@@ -1,5 +1,7 @@
 package com.example.shelter.presentation.fragment_menu.homepage.view
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -19,6 +21,7 @@ import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
 import com.example.shelter.data.di.DaggerNewsRepositoryComponent
 import com.example.shelter.data.di.DaggerUserRepositoryComponent
+import com.example.shelter.presentation.edit_user.view.EditUserActivity
 import com.example.shelter.presentation.fragment_menu.homepage.di.DaggerHomepageComponent
 import com.example.shelter.presentation.fragment_menu.homepage.presenter.HomepagePresenter
 import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
@@ -74,6 +77,7 @@ class HomepageFragment: Fragment(), HomepageView, Toolbar.OnMenuItemClickListene
             .inject(this)
     }
 
+    @SuppressLint("RestrictedApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         toolbar.inflateMenu(R.menu.menu_user)
@@ -163,6 +167,11 @@ class HomepageFragment: Fragment(), HomepageView, Toolbar.OnMenuItemClickListene
         requireActivity().findViewById<TextView>(R.id.phone).text = phone
     }
 
+    override fun openEditPage() {
+        val intent = Intent(view?.context, EditUserActivity::class.java)
+        startActivity(intent)
+    }
+
     override fun exit() {
         val currentActivity = activity as MenuActivity
         val fragment = NewsFragment()
@@ -175,7 +184,7 @@ class HomepageFragment: Fragment(), HomepageView, Toolbar.OnMenuItemClickListene
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.edit -> {
-                Toast.makeText(context, "edit", Toast.LENGTH_SHORT).show()
+                openEditPage()
             }
             R.id.logout -> {
                 showLogoutDialog()

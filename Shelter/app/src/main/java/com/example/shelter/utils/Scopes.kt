@@ -33,3 +33,7 @@ annotation class FilteringNewsScope
 @Scope
 @Retention
 annotation class CreatingNewsScope
+
+@Scope
+@Retention
+annotation class EditUserScope

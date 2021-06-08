@@ -90,6 +90,9 @@
     <string name="logoutTitle">Вы действительно хотите выйти?</string>
     <string name="yes">Да</string>
 
+    //Edit user
+    <string name="edit">Редактирование данных :</string>
+
     //Messager
     <string name="messager">Сообщения</string>
     <string name="image_of_animal">Image of animal.</string>

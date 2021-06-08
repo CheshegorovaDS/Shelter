@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
-import com.example.shelter.app.di.DaggerAppComponent
 import com.example.shelter.data.di.DaggerAnimalTypeRepositoryComponent
 import com.example.shelter.data.di.DaggerCategoryRepositoryComponent
 import com.example.shelter.data.di.DaggerNewsRepositoryComponent
@@ -25,12 +24,10 @@ import com.example.shelter.presentation.fragment_menu.news.view.NewsFragment
 import com.example.shelter.presentation.model.Animal
 import com.example.shelter.presentation.model.AnimalType
 import com.example.shelter.presentation.model.Category
-import com.example.shelter.presentation.model.News
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_creating_news.*
-import kotlinx.android.synthetic.main.activity_creating_news.toolbar
 import javax.inject.Inject
 
 class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {

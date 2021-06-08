@@ -19,5 +19,6 @@ interface HomepageView: BaseView {
     fun showListIsEmpty(isVisible: Boolean)
     fun updateCards(list: List<News>)
     fun updateInfo(name: String, typeUser: UserType, email: String, phone: String)
+    fun openEditPage()
     fun exit()
 }
