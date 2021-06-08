@@ -90,10 +90,6 @@ class NewsFragment: Fragment(), NewsView {
 
     override fun clickClose(): Observable<Any> = RxView.clicks(closeSearch)
 
-    override fun clickEnter(): Observable<Any> = RxView.clicks(buttonSearch).map {
-        search.text.toString()
-    }
-
     override fun changeSearch(): Observable<String> = RxTextView.textChanges(search)
         .map { value ->  value.toString()}
         .debounce(DEBOUNCE_VALUE, TimeUnit.MILLISECONDS)
@@ -162,6 +158,12 @@ class NewsFragment: Fragment(), NewsView {
             View.VISIBLE
         } else {
             View.GONE
+        }
+    }
+
+    override fun showRequest(isClear: Boolean) {
+        if (isClear) {
+            requireActivity().findViewById<EditText>(R.id.search).setText("")
         }
     }
 

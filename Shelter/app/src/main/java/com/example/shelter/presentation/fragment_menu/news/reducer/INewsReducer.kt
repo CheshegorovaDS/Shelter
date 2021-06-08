@@ -19,8 +19,8 @@ interface INewsReducer: BaseReducer {
     fun downloadNews(request: String)
     fun downloadNews(filters: FilterNews)
     fun openFilter()
-    fun openSearch()
     fun updateSearch(text: String)
     fun openCard(news: News)
     fun addNews()
+    fun clearSearch()
 }

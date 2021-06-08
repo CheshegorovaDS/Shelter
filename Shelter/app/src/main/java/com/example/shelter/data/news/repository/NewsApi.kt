@@ -88,7 +88,23 @@ class NewsApi @Inject constructor(): INewsApi {
     }
 
     override fun getNewsByString(request: String): Observable<List<News>> {
-        return Observable.just(listOf())
+        return service.getNewsByString(request).map {
+            if (it.isSuccessful) {
+                val list = mutableListOf<News>()
+                it.body()?.forEach { news ->
+                    list.add(News(
+                        news.id,
+                        news.name,
+                        news.photo,
+                        news.category,
+                        news.idUser
+                    ))
+                }
+                list
+            } else {
+                throw Exception("fail")
+            }
+        }
     }
 
     override fun getNewsByUserId(idUser: Int): Observable<List<News>> {

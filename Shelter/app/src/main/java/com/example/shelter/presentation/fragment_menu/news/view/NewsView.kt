@@ -14,7 +14,6 @@ interface NewsView: BaseView {
     fun clickSearch(): Observable<Any>
     fun clickFilter(): Observable<Any>
     fun clickClose(): Observable<Any>
-    fun clickEnter(): Observable<Any>
     fun changeSearch(): Observable<String>
 
     fun showNews(list: List<News>)
@@ -24,6 +23,7 @@ interface NewsView: BaseView {
     fun showFilterButton(visibility: Boolean)
     fun showCancelButton(visibility: Boolean)
     fun showEnterButton(visibility: Boolean)
+    fun showRequest(isClear: Boolean)
     fun addNewsEnabled(isEnabled: Boolean)
     fun openCard(idCard: Int)
     fun navigateTo(destination: NewsDestination)

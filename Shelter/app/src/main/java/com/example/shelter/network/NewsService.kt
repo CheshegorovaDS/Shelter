@@ -28,6 +28,9 @@ interface NewsService {
     @GET("/api/cards/user={id}")
     fun getNewsByUserId(@Path("id")id: Int): Observable<Response<List<NewsResponse>>>
 
+    @GET("/api/cards/request={request}")
+    fun getNewsByString(@Path("request")request: String): Observable<Response<List<NewsResponse>>>
+
     @POST("/api/card/")
     fun insertNews(@Body request: NewsRequest): Observable<Response<Any>>
 }

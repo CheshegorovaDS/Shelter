@@ -34,8 +34,8 @@ class NewsPresenter @Inject constructor(
             downloadNews(it)
         }?.addTo(disposeContainer)
 
-        view?.clickEnter()?.subscribe {
-            reducer.addNews()
+        view?.clickClose()?.subscribe {
+            reducer.clearSearch()
         }?.addTo(disposeContainer)
 
         view?.clickAddCard()?.subscribe {
@@ -48,10 +48,6 @@ class NewsPresenter @Inject constructor(
 
         view?.clickFilter()?.subscribe {
             reducer.openFilter()
-        }?.addTo(disposeContainer)
-
-        view?.clickSearch()?.subscribe {
-            reducer.openSearch()
         }?.addTo(disposeContainer)
 
         view?.changeSearch()?.subscribe {
@@ -90,6 +86,7 @@ class NewsPresenter @Inject constructor(
         view?.showEnterButton(state.enterVisibility)
         view?.showFilterButton(state.filterVisibility)
         view?.showSearchButton(state.searchVisibility)
+        view?.showRequest(state.searchStringClear)
     }
 
     private fun downloadNews(filterNews: FilterNews) {

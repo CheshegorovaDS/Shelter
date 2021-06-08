@@ -68,7 +68,7 @@ class NewsReducer @Inject constructor(
                 })
         )
 
-        state = NewsState(
+        state = state.copy(
             progressBarVisibility = false,
             listVisibility = true,
             addNewsEnabled = true
@@ -102,13 +102,6 @@ class NewsReducer @Inject constructor(
 
     override fun openFilter() = updateDestination.onNext(NewsDestination.FILTER_CARD)
 
-    override fun openSearch() {
-//        state = state.copy(
-//            focusSearch = true
-//        )
-//        updateState.onNext(state)
-    }
-
     override fun updateSearch(text: String) {
         state = if (text == "") {
             state.copy(
@@ -140,6 +133,18 @@ class NewsReducer @Inject constructor(
         } else {
             updateDestination.onNext(NewsDestination.LOGIN_OR_REGISTRATION_SCREEN)
         }
+
+    override fun clearSearch() {
+        state = state.copy(
+            filterVisibility = true,
+            searchVisibility = true,
+            backVisibility = false,
+            enterVisibility = false,
+            searchStringClear = true
+        )
+        updateState.onNext(state)
+        state = state.copy(searchStringClear = false)
+    }
 
     private fun userIsLogged(): Boolean = loggedUserProvider.getToken() != null
 
