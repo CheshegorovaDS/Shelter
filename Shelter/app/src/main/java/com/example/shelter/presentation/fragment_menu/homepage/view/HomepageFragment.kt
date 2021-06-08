@@ -165,7 +165,9 @@ class HomepageFragment: Fragment(), HomepageView, Toolbar.OnMenuItemClickListene
 
     override fun exit() {
         val currentActivity = activity as MenuActivity
-        currentActivity.loadFragment(NewsFragment())
+        val fragment = NewsFragment()
+        currentActivity.loadFragment(fragment)
+        currentActivity.selectIcon(fragment)
     }
 
     private fun clickOpenCard(news: News) = clickOpenCard.onNext(news)

@@ -65,6 +65,12 @@ class MenuActivity: AppCompatActivity() {
         .replace(R.id.fl_content, fragment)
         .commit()
 
+    fun selectIcon(fragment: Fragment) {
+        if (fragment is NewsFragment) {
+            navigation.selectedItemId = R.id.navigation_news
+        }
+    }
+
 
     private fun tryLoadFragment(fragment: Fragment): Boolean {
         if(checkUser()) {
@@ -72,8 +78,9 @@ class MenuActivity: AppCompatActivity() {
         }else{
             AlertDialog.Builder(this)
                 .setTitle("Вы не авторизованы")
-                .setNegativeButton("Отмена"){dialog,id-> dialog.cancel()}
-                .setNeutralButton("Войти в приложение"){dialog, _ -> dialog.apply { next() } }.create()
+                .setNegativeButton("Отмена"){dialog, _ -> dialog.cancel()}
+                .setNeutralButton("Войти в приложение"){dialog, _ -> dialog.apply { next() } }
+                .create()
                 .show()
             return false
         }
