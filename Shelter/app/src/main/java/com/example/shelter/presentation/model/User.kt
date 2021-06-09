@@ -7,6 +7,7 @@ data class User(
     val type: String = "",
     val phone:String = "",
     val city: String = "",
+    val country: String = "",
     val human: Human? = null,
     val organisation: Organisation? = null
 )

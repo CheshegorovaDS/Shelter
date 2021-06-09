@@ -1,5 +1,6 @@
 package com.example.shelter.data.user.repositry
 
+import com.example.shelter.data.user.request.HumanRequest
 import com.example.shelter.data.user.request.TokenRequest
 import com.example.shelter.data.user.request.UserRequest
 import com.example.shelter.data.user.response.TokenResponse
@@ -31,6 +32,16 @@ class UserApi @Inject constructor(): IUserApi {
         TODO("Not yet implemented")
     }
 
+    override fun editHuman(request: HumanRequest): Observable<Boolean> {
+        return service.editHuman(request, request.id).map {
+            if (it.isSuccessful) {
+                it.isSuccessful
+            } else {
+                throw Exception("fail")
+            }
+        }
+    }
+
     override fun getUserById(id: Int): Single<User> {
         return getHumanById(id)
     }
@@ -53,6 +64,8 @@ class UserApi @Inject constructor(): IUserApi {
                     email = it.body()!!.email,
                     phone = it.body()!!.phone,
                     password = it.body()!!.password,
+                    city = it.body()!!.city,
+                    country = it.body()!!.country,
                     human = Human(
                         firstName = it.body()!!.firstName,
                         lastName = it.body()!!.lastName,

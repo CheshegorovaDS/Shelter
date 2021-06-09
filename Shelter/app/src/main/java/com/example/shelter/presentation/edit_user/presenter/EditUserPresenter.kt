@@ -33,6 +33,10 @@ class EditUserPresenter @Inject constructor(
             reducer.downloadInfo()
         }?.addTo(dispose)
 
+        view?.editUser?.subscribe {
+            reducer.editUser(it)
+        }?.addTo(dispose)
+
         reducer.updateState
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
@@ -48,13 +52,19 @@ class EditUserPresenter @Inject constructor(
                     view?.setOrganisationInfo(it)
                 }
             }.addTo(dispose)
+
+        reducer.updateDestination
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view?.exit()
+            }.addTo(dispose)
     }
 
     private fun renderState(state: EditUserState) {
         view?.showProgressBar(state.progressBarVisibility)
         view?.showException(state.exceptionVisibility)
         view?.showApply(state.applyVisibility)
-        view?.enabledApply(state.applyEnabled)
+//        view?.enabledApply(state.applyEnabled)
         if (state.userFieldsVisibility) {
             state.userType?.let { view?.showFields(it) }
         } else {

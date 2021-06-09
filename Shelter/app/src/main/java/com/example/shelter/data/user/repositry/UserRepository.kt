@@ -1,5 +1,6 @@
 package com.example.shelter.data.user.repositry
 
+import com.example.shelter.data.user.request.HumanRequest
 import com.example.shelter.data.user.request.TokenRequest
 import com.example.shelter.data.user.request.UserRequest
 import com.example.shelter.presentation.model.User
@@ -23,5 +24,24 @@ class UserRepository @Inject constructor(
 
     override fun logout(token: String): Observable<Boolean> {
         return userApi.logout(token)
+    }
+
+    override fun editUser(user: User): Observable<Boolean> {
+        return if (user.human != null) {
+            userApi.editHuman(
+                HumanRequest(
+                    id = user.id,
+                    email = user.email,
+                    phone = user.phone,
+                    city = user.city,
+                    country = user.country,
+                    firstName = user.human.firstName!!,
+                    lastName = user.human.lastName!!,
+                    patronymic = user.human.patronymic
+                )
+            )
+        } else {
+            Observable.just(true)
+        }
     }
 }

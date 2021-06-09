@@ -14,5 +14,6 @@ interface IEditUserReducer: BaseReducer {
     val updateDestination: PublishSubject<EditUserDestination>
 
     fun downloadInfo()
+    fun editUser(newUser: User)
 
 }

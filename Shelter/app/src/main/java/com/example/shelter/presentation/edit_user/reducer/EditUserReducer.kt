@@ -4,7 +4,6 @@ import com.example.shelter.data.user.repositry.IUserRepository
 import com.example.shelter.presentation.edit_user.model.EditUserDestination
 import com.example.shelter.presentation.edit_user.model.EditUserException
 import com.example.shelter.presentation.edit_user.model.EditUserState
-import com.example.shelter.presentation.filtering_news.model.FilteringNewsException
 import com.example.shelter.presentation.model.User
 import com.example.shelter.presentation.onBoarding.registration.model.UserType
 import com.example.shelter.presentation.storage.LoggedUserProvider
@@ -67,6 +66,56 @@ class EditUserReducer @Inject constructor(
                 })
         )
     }
+
+    override fun editUser(newUser: User) {
+        state = state.copy(
+            progressBarVisibility = true
+        )
+        updateState.onNext(state)
+
+        if (userIsNotChanged(newUser)) {
+            updateDestination.onNext(EditUserDestination.HOMEPAGE)
+            return
+        }
+
+        //checkFields
+        //change
+        user = user?.copy(
+            email = newUser.email,
+            phone = newUser.phone,
+            city = newUser.city,
+            human = newUser.human,
+            organisation = newUser.organisation
+        )
+
+
+        dispose.add(
+            userRepository.editUser(user!!)
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    state = state.copy(progressBarVisibility = false)
+                    updateState.onNext(state)
+                    updateDestination.onNext(EditUserDestination.HOMEPAGE)
+                }, {
+                    updateException.onNext(EditUserException())
+                    state = state.copy(
+                        progressBarVisibility = false,
+                        exceptionVisibility = true
+                    )
+                    updateState.onNext(state)
+                })
+        )
+
+    }
+
+    private fun userIsNotChanged(newUser: User): Boolean {
+        return newUser.email == user?.email &&
+                newUser.phone == user?.phone &&
+                newUser.city == user?.city &&
+                newUser.human == user?.human &&
+                newUser.organisation == user?.organisation
+    }
+
 
     override fun clearDispose() = dispose.clear()
 }

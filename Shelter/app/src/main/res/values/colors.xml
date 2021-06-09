@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
 
     <color name="mainColorGreen">#319E5F</color>
+    <color name="lightColorGreen">#64d894</color>
 
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
@@ -11,5 +12,5 @@
     <color name="colorTitleText">#00574B</color>
 
     <color name="editTxtHint">#646764</color>
-    <color name="colorException">#ff0000</color>
+    <color name="colorException">#C32525</color>
 </resources>

@@ -14,6 +14,8 @@ import com.example.shelter.data.di.DaggerUserRepositoryComponent
 import com.example.shelter.presentation.edit_user.di.DaggerEditUserComponent
 import com.example.shelter.presentation.edit_user.model.EditUserErrorCode
 import com.example.shelter.presentation.edit_user.presenter.EditUserPresenter
+import com.example.shelter.presentation.model.Human
+import com.example.shelter.presentation.model.Organisation
 import com.example.shelter.presentation.model.User
 import com.example.shelter.presentation.onBoarding.registration.model.UserType
 import io.reactivex.subjects.PublishSubject
@@ -30,6 +32,8 @@ class EditUserActivity: AppCompatActivity(), EditUserView {
     override val downloadInfo: PublishSubject<Unit> = PublishSubject.create()
     override val editUser: PublishSubject<User> = PublishSubject.create()
 
+    private var type: UserType? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(resLayout)
@@ -40,6 +44,10 @@ class EditUserActivity: AppCompatActivity(), EditUserView {
         initComponent()
         presenter.attachView(this)
         downloadInfo.onNext(Unit)
+
+        findViewById<Button>(R.id.apply).setOnClickListener {
+            editUser.onNext(getUser())
+        }
     }
 
     override fun initComponent() {
@@ -70,6 +78,34 @@ class EditUserActivity: AppCompatActivity(), EditUserView {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun getUser(): User {
+        var human: Human? = null
+        var organisation: Organisation? = null
+        when (type) {
+
+            UserType.HUMAN -> {
+                human = Human(
+                    firstName = firstName.text.toString(),
+                    lastName = lastName.text.toString(),
+                    patronymic = patronymic.text.toString()
+                )
+            }
+
+            UserType.ORGANIZATION -> {
+                organisation = Organisation(title = organisationName.text.toString())
+            }
+        }
+        return User(
+            id = 0,
+            email = email.text.toString(),
+            phone = phone.text.toString(),
+            city = city.text.toString(),
+            country = country.text.toString(),
+            human = human,
+            organisation = organisation
+        )
+    }
+
     override fun showProgressBar(visibility: Boolean) {
         findViewById<ProgressBar>(R.id.progressBar).visibility = if (visibility) {
             View.VISIBLE
@@ -79,6 +115,7 @@ class EditUserActivity: AppCompatActivity(), EditUserView {
     }
 
     override fun showFields(typeUser: UserType) {
+        this.type = typeUser
         when (typeUser) {
             UserType.HUMAN ->  {
                 lastName.visibility = View.VISIBLE
@@ -91,6 +128,7 @@ class EditUserActivity: AppCompatActivity(), EditUserView {
         }
 
         city.visibility = View.VISIBLE
+        country.visibility = View.VISIBLE
         phone.visibility = View.VISIBLE
         email.visibility = View.VISIBLE
     }
@@ -109,9 +147,9 @@ class EditUserActivity: AppCompatActivity(), EditUserView {
 
     override fun hideFields() {
         city.visibility = View.GONE
+        country.visibility = View.GONE
         phone.visibility = View.GONE
         email.visibility = View.GONE
-        password.visibility = View.GONE
         lastName.visibility = View.GONE
         firstName.visibility = View.GONE
         patronymic.visibility = View.GONE
@@ -140,6 +178,7 @@ class EditUserActivity: AppCompatActivity(), EditUserView {
 
     private fun setUserInfo(user: User) {
         city.setText(user.city)
+        country.setText(user.country)
         phone.setText(user.phone)
         email.setText(user.email)
     }
@@ -152,7 +191,7 @@ class EditUserActivity: AppCompatActivity(), EditUserView {
     }
 
     override fun exit() {
-        TODO("Not yet implemented")
+        finish()
     }
 
     companion object {

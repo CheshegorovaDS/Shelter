@@ -1,26 +1,24 @@
-package com.example.shelter.data.user.response
+package com.example.shelter.data.user.request
 
 import com.google.gson.annotations.SerializedName
 
-data class UserResponse(
+data class HumanRequest(
     @SerializedName("id")
     val id: Int,
     @SerializedName("email")
     val email: String,
-    @SerializedName("password")
-    val password: String,
+    @SerializedName("phone")
+    val phone: String,
     @SerializedName("city")
     val city: String,
     @SerializedName("country")
     val country: String,
-    @SerializedName("phone")
-    val phone:String = "",
+    @SerializedName("password")
+    val password: String? = null,
     @SerializedName("firstName")
-    val firstName: String? = null,
+    val firstName: String,
     @SerializedName("lastName")
-    val lastName: String? = null,
+    val lastName: String,
     @SerializedName("patronymic")
-    val patronymic: String? = null,
-    @SerializedName("title")
-    val title: String? = null
+    val patronymic: String? = null
 )

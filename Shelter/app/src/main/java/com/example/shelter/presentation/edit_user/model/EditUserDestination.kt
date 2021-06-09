@@ -1,4 +1,5 @@
 package com.example.shelter.presentation.edit_user.model
 
-class EditUserDestination {
+enum class EditUserDestination {
+    HOMEPAGE
 }
