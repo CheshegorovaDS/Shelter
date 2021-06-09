@@ -102,4 +102,7 @@
     <string name="w">Ж</string>
     <string name="none">Неизвестно</string>
 
+    //Exception
+    <string name="exception">Ошибка</string>
+
 </resources>

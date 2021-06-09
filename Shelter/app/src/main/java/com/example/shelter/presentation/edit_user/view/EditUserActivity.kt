@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
 import com.example.shelter.data.di.DaggerUserRepositoryComponent
 import com.example.shelter.presentation.edit_user.di.DaggerEditUserComponent
-import com.example.shelter.presentation.edit_user.model.EditUserException
+import com.example.shelter.presentation.edit_user.model.EditUserErrorCode
 import com.example.shelter.presentation.edit_user.presenter.EditUserPresenter
 import com.example.shelter.presentation.model.User
 import com.example.shelter.presentation.onBoarding.registration.model.UserType
@@ -67,6 +70,14 @@ class EditUserActivity: AppCompatActivity(), EditUserView {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun showProgressBar(visibility: Boolean) {
+        findViewById<ProgressBar>(R.id.progressBar).visibility = if (visibility) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
     override fun showFields(typeUser: UserType) {
         when (typeUser) {
             UserType.HUMAN ->  {
@@ -78,20 +89,66 @@ class EditUserActivity: AppCompatActivity(), EditUserView {
                 organisationName.visibility = View.VISIBLE
             }
         }
+
+        city.visibility = View.VISIBLE
+        phone.visibility = View.VISIBLE
+        email.visibility = View.VISIBLE
+    }
+
+    override fun showApply(visibility: Boolean) {
+        findViewById<Button>(R.id.apply).visibility = if (visibility) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
+    override fun enabledApply(isEnabled: Boolean) {
+        findViewById<Button>(R.id.apply).isEnabled = isEnabled
+    }
+
+    override fun hideFields() {
+        city.visibility = View.GONE
+        phone.visibility = View.GONE
+        email.visibility = View.GONE
+        password.visibility = View.GONE
+        lastName.visibility = View.GONE
+        firstName.visibility = View.GONE
+        patronymic.visibility = View.GONE
+        organisationName.visibility = View.GONE
+    }
+
+    override fun showException(visibility: Boolean) {
+        findViewById<TextView>(R.id.error).visibility = if (visibility) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
     override fun setHumanInfo(user: User) {
+        setUserInfo(user)
         lastName.setText(user.human?.lastName)
         firstName.setText(user.human?.firstName)
         patronymic.setText(user.human?.patronymic ?: EMPTY_TEXT)
     }
 
     override fun setOrganisationInfo(user: User) {
+        setUserInfo(user)
         organisationName.setText(user.organisation?.title)
     }
 
-    override fun showException(exception: EditUserException) {
-        TODO("Not yet implemented")
+    private fun setUserInfo(user: User) {
+        city.setText(user.city)
+        phone.setText(user.phone)
+        email.setText(user.email)
+    }
+
+    override fun setException(code: EditUserErrorCode) {
+        val text = when (code) {
+            else -> R.id.error
+        }
+        findViewById<TextView>(R.id.error).setText(text)
     }
 
     override fun exit() {

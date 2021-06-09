@@ -10,6 +10,8 @@
     <dimen name="imgNewsHeight">150dp</dimen>
     <dimen name="marginEditText">16dp</dimen>
     <dimen name="marginButton">@dimen/marginEditText</dimen>
+    <dimen name="marginTextException">@dimen/marginEditText</dimen>
+    <dimen name="dimenException">18sp</dimen>
 
     //Animal Card
     <dimen name="imgAnimalCard">400dp</dimen>
