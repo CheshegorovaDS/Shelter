@@ -137,7 +137,18 @@ class NewsApi @Inject constructor(): INewsApi {
         }
     }
 
-    override fun changeNews(request: NewsRequest) {
+    override fun changeNews(request: NewsRequest): Observable<Boolean> {
 //        return service.changeNews(request)
+        TODO()
+    }
+
+    override fun deleteNews(id: Int): Observable<Boolean> {
+        return service.deleteNews(id).map {
+            if (it.isSuccessful) {
+                it.isSuccessful
+            } else {
+                throw Exception("fail")
+            }
+        }
     }
 }

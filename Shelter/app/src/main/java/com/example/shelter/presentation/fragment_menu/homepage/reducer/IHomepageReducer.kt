@@ -15,6 +15,8 @@ interface IHomepageReducer: BaseReducer {
     val updateException: PublishSubject<HomepageException>
     val updateDestination: PublishSubject<HomepageDestination>
 
+    fun editCard(news: News)
+    fun deleteCard(id: Int)
     fun downloadUser()
     fun logout()
 }

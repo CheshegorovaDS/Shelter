@@ -24,7 +24,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardUser"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -231,7 +231,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="8dp"
-                        android:text="@string/information"
+                        android:text="@string/card"
                         android:textColor="@color/mainColorGreen"
                         android:textSize="@dimen/txtTitle"
                         android:textStyle="bold"

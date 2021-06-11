@@ -38,6 +38,14 @@ class HomepagePresenter @Inject constructor(
             reducer.logout()
         }?.addTo(disposeContainer)
 
+        view?.clickEditCard?.subscribe {
+            reducer.editCard(it)
+        }?.addTo(disposeContainer)
+
+        view?.clickDeleteCard?.subscribe {
+            reducer.deleteCard(it)
+        }?.addTo(disposeContainer)
+
         reducer.updateState
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {

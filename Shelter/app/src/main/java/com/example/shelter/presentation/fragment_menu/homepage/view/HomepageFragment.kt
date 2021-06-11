@@ -9,22 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
 import com.example.shelter.data.di.DaggerNewsRepositoryComponent
 import com.example.shelter.data.di.DaggerUserRepositoryComponent
 import com.example.shelter.presentation.edit_user.view.EditUserActivity
+import com.example.shelter.presentation.fragment_menu.homepage.adapter.HomepageAdapter
 import com.example.shelter.presentation.fragment_menu.homepage.di.DaggerHomepageComponent
 import com.example.shelter.presentation.fragment_menu.homepage.presenter.HomepagePresenter
-import com.example.shelter.presentation.fragment_menu.news.adapter.NewsAdapter
 import com.example.shelter.presentation.fragment_menu.news.view.NewsFragment
 import com.example.shelter.presentation.menu.MenuActivity
 import com.example.shelter.presentation.model.News
@@ -43,8 +41,10 @@ class HomepageFragment: Fragment(), HomepageView, Toolbar.OnMenuItemClickListene
     override val downloadUser: PublishSubject<Unit> = PublishSubject.create()
     override val clickOpenCard: PublishSubject<News> = PublishSubject.create()
     override val clickLogout: PublishSubject<Unit> = PublishSubject.create()
+    override val clickEditCard: PublishSubject<News> = PublishSubject.create()
+    override val clickDeleteCard: PublishSubject<Int> = PublishSubject.create()
 
-    private var adapter: NewsAdapter? = null
+    private var adapter: HomepageAdapter? = null
 
     fun newInstance(): Fragment {
         return HomepageFragment()
@@ -149,7 +149,11 @@ class HomepageFragment: Fragment(), HomepageView, Toolbar.OnMenuItemClickListene
 
     override fun updateCards(list: List<News>) {
         if (adapter == null) {
-            adapter = NewsAdapter(::clickOpenCard)
+            adapter = HomepageAdapter(
+                ::clickOpenCard,
+                ::clickMenuEditCard,
+                ::clickMenuDeleteCard
+            )
             listAnimal.layoutManager = LinearLayoutManager(context)
             listAnimal.adapter = adapter
         }
@@ -180,6 +184,27 @@ class HomepageFragment: Fragment(), HomepageView, Toolbar.OnMenuItemClickListene
     }
 
     private fun clickOpenCard(news: News) = clickOpenCard.onNext(news)
+
+    private fun clickMenuEditCard(news: News) = clickEditCard.onNext(news)
+
+    private fun clickMenuDeleteCard(id: Int) {
+        showDeleteCardDialog(id)
+    }
+
+    private fun showDeleteCardDialog(id: Int) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder
+            .setTitle(R.string.deleteCardTitle)
+            .setNeutralButton(R.string.cancel) {dialog, _ ->
+                dialog.cancel()
+            }
+            .setPositiveButton(R.string.yes){dialog, _ ->
+                dialog.cancel()
+                clickDeleteCard.onNext(id)
+            }
+        builder.create()
+        builder.show()
+    }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when (item?.itemId) {

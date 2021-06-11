@@ -10,6 +10,8 @@ interface HomepageView: BaseView {
     val downloadUser: PublishSubject<Unit>
     val clickOpenCard: PublishSubject<News>
     val clickLogout: PublishSubject<Unit>
+    val clickEditCard: PublishSubject<News>
+    val clickDeleteCard: PublishSubject<Int>
 
     fun showLogoutDialog()
 

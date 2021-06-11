@@ -11,6 +11,7 @@ import com.example.shelter.presentation.model.User
 import com.example.shelter.presentation.onBoarding.login.model.LoginDestination
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
@@ -51,25 +52,29 @@ class HomepageReducer @Inject constructor(
                 }, {
 //                        updateException.onNext(NewsException())
                 }),
-            newsRepository.getNewsByUser(loggedUserProvider.getId()!!)
-                .subscribeOn(Schedulers.io())
-                .subscribe ({
-                    list.addAll(it)
-                    if (list.isNotEmpty()) {
-                        updateNews.onNext(it.toList())
-                    }
-
-                    state = state.copy(
-                        listNewsVisibility = list.isNotEmpty(),
-                        listIsEmptyText = list.isEmpty(),
-                        progressbarVisibility = false
-                    )
-                    updateState.onNext(state)
-                }, {
-//                        updateException.onNext(NewsException())
-                })
+            getListNews()
         )
+
     }
+
+    private fun  getListNews(): Disposable = newsRepository
+        .getNewsByUser(loggedUserProvider.getId()!!)
+        .subscribeOn(Schedulers.io())
+        .subscribe ({
+            list.addAll(it)
+            if (list.isNotEmpty()) {
+                updateNews.onNext(it.toList())
+            }
+
+            state = state.copy(
+                listNewsVisibility = list.isNotEmpty(),
+                listIsEmptyText = list.isEmpty(),
+                progressbarVisibility = false
+            )
+            updateState.onNext(state)
+        }, {
+//                        updateException.onNext(NewsException())
+        })
 
     override fun logout() {
         val token = loggedUserProvider.getToken()
@@ -86,6 +91,24 @@ class HomepageReducer @Inject constructor(
                     updateDestination.onNext(HomepageDestination.NEWS_FRAGMENT)
                 }, {
                         updateException.onNext(HomepageException())
+                })
+        )
+    }
+
+    override fun editCard(news: News) {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteCard(id: Int) {
+        state = state.copy(progressbarVisibility = true)
+        updateState.onNext(state)
+        dispose.add(
+            newsRepository.deleteNews(id)
+                .subscribeOn(Schedulers.io())
+                .subscribe ({
+                    dispose.add(getListNews())
+                }, {
+                    updateException.onNext(HomepageException())
                 })
         )
     }

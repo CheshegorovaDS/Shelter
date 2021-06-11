@@ -48,8 +48,11 @@ class NewsRepository @Inject constructor(
         )
     }
 
-    override fun changeNews(id: Long, news: News) {
-        TODO("Not yet implemented")
+    override fun changeNews(id: Int, news: News): Observable<Boolean> {
+       TODO()
     }
 
+    override fun deleteNews(id: Int): Observable<Boolean> {
+        return newsApi.deleteNews(id)
+    }
 }
