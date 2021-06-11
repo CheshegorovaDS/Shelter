@@ -53,7 +53,7 @@ class HomepageAdapter (
 
         holder.toolbar.setOnMenuItemClickListener { item ->
             when (item?.itemId) {
-                R.id.edit -> editCard
+                R.id.edit -> editCard(list[position])
                 R.id.delete -> deleteCard(list[position].id)
             }
             return@setOnMenuItemClickListener true

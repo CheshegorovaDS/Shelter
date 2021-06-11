@@ -48,7 +48,7 @@ class NewsRepository @Inject constructor(
         )
     }
 
-    override fun changeNews(id: Int, news: News): Observable<Boolean> {
+    override fun changeNews(news: News): Observable<Boolean> {
        TODO()
     }
 

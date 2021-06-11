@@ -95,9 +95,7 @@ class HomepageReducer @Inject constructor(
         )
     }
 
-    override fun editCard(news: News) {
-        TODO("Not yet implemented")
-    }
+    override fun editCard(news: News) = Unit
 
     override fun deleteCard(id: Int) {
         state = state.copy(progressbarVisibility = true)

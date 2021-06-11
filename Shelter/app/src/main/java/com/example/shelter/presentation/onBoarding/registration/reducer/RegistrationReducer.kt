@@ -60,7 +60,7 @@ class RegistrationReducer @Inject constructor(
 //            state = state.copy(
 //                toolbar = true
 //            )
-            //updateState.onNext(state)
+//            updateState.onNext(state)
             registration()
         } else {
             updateException.onNext(

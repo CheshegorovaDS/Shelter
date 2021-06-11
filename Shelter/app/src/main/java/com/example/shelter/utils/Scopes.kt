@@ -37,3 +37,7 @@ annotation class CreatingNewsScope
 @Scope
 @Retention
 annotation class EditUserScope
+
+@Scope
+@Retention
+annotation class EditCardScope

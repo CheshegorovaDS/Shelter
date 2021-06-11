@@ -19,6 +19,7 @@ import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
 import com.example.shelter.data.di.DaggerNewsRepositoryComponent
 import com.example.shelter.data.di.DaggerUserRepositoryComponent
+import com.example.shelter.presentation.edit_card.view.EditCardActivity
 import com.example.shelter.presentation.edit_user.view.EditUserActivity
 import com.example.shelter.presentation.fragment_menu.homepage.adapter.HomepageAdapter
 import com.example.shelter.presentation.fragment_menu.homepage.di.DaggerHomepageComponent
@@ -171,8 +172,13 @@ class HomepageFragment: Fragment(), HomepageView, Toolbar.OnMenuItemClickListene
         requireActivity().findViewById<TextView>(R.id.phone).text = phone
     }
 
-    override fun openEditPage() {
+    override fun openEditUserPage() {
         val intent = Intent(view?.context, EditUserActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun openEditCardPage() {
+        val intent = Intent(view?.context, EditCardActivity::class.java)
         startActivity(intent)
     }
 
@@ -185,7 +191,9 @@ class HomepageFragment: Fragment(), HomepageView, Toolbar.OnMenuItemClickListene
 
     private fun clickOpenCard(news: News) = clickOpenCard.onNext(news)
 
-    private fun clickMenuEditCard(news: News) = clickEditCard.onNext(news)
+    private fun clickMenuEditCard(news: News) {
+//        openEditCardPage()
+    }
 
     private fun clickMenuDeleteCard(id: Int) {
         showDeleteCardDialog(id)
@@ -209,7 +217,7 @@ class HomepageFragment: Fragment(), HomepageView, Toolbar.OnMenuItemClickListene
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.edit -> {
-                openEditPage()
+                openEditUserPage()
             }
             R.id.logout -> {
                 showLogoutDialog()
