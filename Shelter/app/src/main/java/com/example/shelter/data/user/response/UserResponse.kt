@@ -22,5 +22,7 @@ data class UserResponse(
     @SerializedName("patronymic")
     val patronymic: String? = null,
     @SerializedName("title")
-    val title: String? = null
+    val title: String? = null,
+    @SerializedName("photo")
+    val photo: ByteArray? = null
 )

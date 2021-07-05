@@ -84,8 +84,10 @@ class AboutAnimalActivity: AppCompatActivity() , AboutAnimalView {
     override fun clickUserCard(): Observable<Any> = RxView.clicks(cardUser)
 
     override fun updateNews(news: News) {
-        Glide.with(imgAnimal.context)
-            .load(Uri.parse(news.photo)).into(imgAnimal)
+        if (news.photo != "") {
+            Glide.with(imgAnimal.context)
+                .load(Uri.parse(news.photo)).into(imgAnimal)
+        }
         findViewById<TextView>(R.id.name).text = news.name
         findViewById<TextView>(R.id.age).text = news.age.toString()
         findViewById<TextView>(R.id.sex).text = news.sex

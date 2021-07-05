@@ -46,8 +46,12 @@ class HomepageAdapter (
         }
         holder.name.text = list[position].name
         holder.category.text = list[position].category
-        Glide.with(holder.imgAnimal.context)
-            .load(Uri.parse(list[position].photo)).into(holder.imgAnimal)
+        if (list[position].photo != "") {
+            Glide.with(holder.imgAnimal.context)
+                .load(Uri.parse(list[position].photo)).into(holder.imgAnimal)
+        } else {
+            holder.imgAnimal.setImageResource(R.drawable.ic_pet_house)
+        }
 
         holder.animalCard.setOnClickListener{ openCard(list[position])}
 

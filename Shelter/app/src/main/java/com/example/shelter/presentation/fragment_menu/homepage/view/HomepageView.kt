@@ -24,4 +24,6 @@ interface HomepageView: BaseView {
     fun openEditUserPage()
     fun openEditCardPage()
     fun exit()
+    fun openCard(idCard: Int)
+    fun updatePhoto(array: ByteArray)
 }

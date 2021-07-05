@@ -1,6 +1,7 @@
 package com.example.shelter.data.user.repositry
 
 import com.example.shelter.data.user.request.HumanRequest
+import com.example.shelter.data.user.request.OrganisationRequest
 import com.example.shelter.data.user.request.TokenRequest
 import com.example.shelter.data.user.request.UserRequest
 import com.example.shelter.data.user.response.TokenResponse
@@ -28,8 +29,24 @@ class UserApi @Inject constructor(): IUserApi {
         }
     }
 
-    override fun registration(request: UserRequest): Observable<UserResponse> {
-        TODO("Not yet implemented")
+    override fun registrationHuman(request: HumanRequest): Observable<Boolean> {
+        return service.registerHuman(request).map {
+            if (it.isSuccessful) {
+                it.isSuccessful
+            } else {
+                throw Exception("fail")
+            }
+        }
+    }
+
+    override fun registrationOrganisation(request: OrganisationRequest): Observable<Boolean> {
+        return service.registerOrganisation(request).map {
+            if (it.isSuccessful) {
+                it.isSuccessful
+            } else {
+                throw Exception("fail")
+            }
+        }
     }
 
     override fun editHuman(request: HumanRequest): Observable<Boolean> {
@@ -69,7 +86,8 @@ class UserApi @Inject constructor(): IUserApi {
                     human = Human(
                         firstName = it.body()!!.firstName,
                         lastName = it.body()!!.lastName,
-                        patronymic = it.body()!!.patronymic
+                        patronymic = it.body()!!.patronymic,
+                        photo = it.body()!!.photo
                     )
                 )
             } else {

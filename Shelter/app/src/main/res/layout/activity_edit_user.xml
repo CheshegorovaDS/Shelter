@@ -133,6 +133,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/phone" />
 
+            <Button
+                android:id="@+id/chosePhote"
+                style="@style/ButtonAdd"
+                android:text="@string/changePhoto"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

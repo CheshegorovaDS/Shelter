@@ -1,26 +1,25 @@
 package com.example.shelter.presentation.onBoarding.utils
 
+import com.example.shelter.presentation.model.User
 import com.example.shelter.utils.checkEmailAndPassword
-import com.example.shelter.presentation.onBoarding.registration.model.Human
-import com.example.shelter.presentation.onBoarding.registration.model.Organisation
 import java.util.regex.Pattern
 
-val pattern: Pattern = Pattern.compile("^[+а-яА-Яa-zA-Z]+$")
+val pattern: Pattern = Pattern.compile("^[A-ЯA-Z][+а-яa-z]+$")
 
 
-fun checkOrganisation(organisation: Organisation): Boolean {
-    return checkEmailAndPassword(organisation.email, organisation.password) &&
-            checkNameOrganisation(organisation.name) &&
-            checkCity(organisation.city) &&
-            checkPhone(organisation.phone)
+fun checkOrganisation(user:User): Boolean {
+    return checkEmailAndPassword(user.email, user.password) &&
+            checkNameOrganisation(user.organisation!!.title) &&
+            checkPhone(user.phone) &&
+            checkCity(user.city)
 }
 
-fun checkHuman(human: Human): Boolean {
-    return checkEmailAndPassword(human.email, human.password) &&
-            checkFirstName(human.firstName) &&
-            checkLastName(human.lastName) &&
-            checkPhone(human.phone) &&
-            checkCity(human.city)
+fun checkHuman(user: User): Boolean {
+    return checkEmailAndPassword(user.email, user.password) &&
+            checkFirstName(user.human!!.firstName) &&
+            checkLastName(user.human!!.lastName) &&
+            checkPhone(user.phone) &&
+            checkCity(user.city)
 }
 
 // Checking human and organisation parameters

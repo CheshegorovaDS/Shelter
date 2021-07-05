@@ -1,7 +1,9 @@
 package com.example.shelter.presentation.fragment_menu.news.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +15,9 @@ import com.bumptech.glide.Glide
 import com.example.shelter.R
 import com.example.shelter.presentation.fragment_menu.news.utils.OpenCardAnimal
 import com.example.shelter.presentation.model.News
+import kotlinx.android.synthetic.main.activity_animal_card.*
+import java.io.InputStream
+import java.net.URL
 
 class NewsAdapter (
     val clickOpenCardAnimal: OpenCardAnimal
@@ -32,8 +37,20 @@ class NewsAdapter (
     override fun onBindViewHolder(holder: TableViewHolder, position: Int) {
         holder.name.text = list[position].name
         holder.category.text = list[position].category
-        Glide.with(holder.imgAnimal.context)
-            .load(Uri.parse(list[position].photo)).into(holder.imgAnimal)
+
+        if (list[position].photo != "") {
+            if (list[position].photo.startsWith("h", false)) {
+                Glide.with(holder.imgAnimal.context)
+                    .load(Uri.parse(list[position].photo)).into(holder.imgAnimal)
+            } else {
+                holder.imgAnimal.setImageDrawable(
+                    Drawable.createFromStream(URL(list[position].photo).content as InputStream?, "src"))
+            }
+
+        } else {
+            holder.imgAnimal.setImageResource(R.drawable.ic_pet_house)
+        }
+
 
         holder.animalCard.setOnClickListener{ openCard(list[position])}
     }

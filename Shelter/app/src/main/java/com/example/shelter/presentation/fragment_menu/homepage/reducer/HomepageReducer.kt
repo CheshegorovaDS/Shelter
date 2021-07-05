@@ -27,6 +27,7 @@ class HomepageReducer @Inject constructor(
     override val updateState: PublishSubject<HomepageState> = PublishSubject.create()
     override val updateException: PublishSubject<HomepageException> = PublishSubject.create()
     override val updateDestination: PublishSubject<HomepageDestination> = PublishSubject.create()
+    override val openAnimalNews: PublishSubject<Int> = PublishSubject.create()
 
     private val dispose = CompositeDisposable()
     private var state = HomepageState()
@@ -109,6 +110,11 @@ class HomepageReducer @Inject constructor(
                     updateException.onNext(HomepageException())
                 })
         )
+    }
+
+    override fun openCard(news: News) {
+        updateState.onNext(state)
+        openAnimalNews.onNext(news.id)
     }
 
     override fun clearDispose() = dispose.clear()

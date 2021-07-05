@@ -143,7 +143,9 @@ class NewsReducer @Inject constructor(
             searchStringClear = true
         )
         updateState.onNext(state)
+        downloadNews()
         state = state.copy(searchStringClear = false)
+        updateState.onNext(state)
     }
 
     private fun userIsLogged(): Boolean = loggedUserProvider.getToken() != null

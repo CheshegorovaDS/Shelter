@@ -1,6 +1,7 @@
 package com.example.shelter.data.user.repositry
 
 import com.example.shelter.data.user.request.HumanRequest
+import com.example.shelter.data.user.request.OrganisationRequest
 import com.example.shelter.data.user.request.TokenRequest
 import com.example.shelter.data.user.request.UserRequest
 import com.example.shelter.presentation.model.User
@@ -15,6 +16,36 @@ class UserRepository @Inject constructor(
     override fun login(login: String, password: String): Single<Pair<Int, String>> {
         return userApi.login(TokenRequest(login, password)).map {
             Pair(it.id, it.accessToken)
+        }
+    }
+
+    override fun register(user: User): Observable<Boolean> {
+        return if (user.human != null) {
+            userApi.registrationHuman(
+                HumanRequest(
+                    id = user.id,
+                    email = user.email,
+                    phone = user.phone,
+                    city = user.city,
+                    password = user.password,
+                    country = user.country,
+                    firstName = user.human.firstName!!,
+                    lastName = user.human.lastName!!,
+                    patronymic = user.human.patronymic
+                )
+            )
+        } else {
+            userApi.registrationOrganisation(
+                OrganisationRequest(
+                    id = user.id,
+                    email = user.email,
+                    phone = user.phone,
+                    city = user.city,
+                    password = user.password,
+                    country = user.country,
+                    title = user.organisation!!.title
+                )
+            )
         }
     }
 
@@ -37,7 +68,8 @@ class UserRepository @Inject constructor(
                     country = user.country,
                     firstName = user.human.firstName!!,
                     lastName = user.human.lastName!!,
-                    patronymic = user.human.patronymic
+                    patronymic = user.human.patronymic,
+                    photo = user.human.photo
                 )
             )
         } else {

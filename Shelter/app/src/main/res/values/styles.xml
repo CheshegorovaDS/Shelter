@@ -44,6 +44,15 @@
         <item name="android:textColor">@android:color/background_light</item>
     </style>
 
+    <style name="ButtonAdd">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/txtButtonHeight</item>
+        <item name="android:layout_margin">@dimen/marginButton</item>
+        <item name="android:layout_marginBottom">24dp</item>
+        <item name="android:background">@drawable/back_edit_txt</item>
+        <item name="android:textColor">@color/mainColorGreen</item>
+    </style>
+
     <style name="TextFilters">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/txtEditHeight</item>

@@ -2,7 +2,9 @@ package com.example.shelter.presentation.fragment_menu.homepage.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -19,11 +21,13 @@ import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
 import com.example.shelter.data.di.DaggerNewsRepositoryComponent
 import com.example.shelter.data.di.DaggerUserRepositoryComponent
+import com.example.shelter.presentation.about_animal.view.AboutAnimalActivity
 import com.example.shelter.presentation.edit_card.view.EditCardActivity
 import com.example.shelter.presentation.edit_user.view.EditUserActivity
 import com.example.shelter.presentation.fragment_menu.homepage.adapter.HomepageAdapter
 import com.example.shelter.presentation.fragment_menu.homepage.di.DaggerHomepageComponent
 import com.example.shelter.presentation.fragment_menu.homepage.presenter.HomepagePresenter
+import com.example.shelter.presentation.fragment_menu.news.model.FilterNews
 import com.example.shelter.presentation.fragment_menu.news.view.NewsFragment
 import com.example.shelter.presentation.menu.MenuActivity
 import com.example.shelter.presentation.model.News
@@ -224,5 +228,22 @@ class HomepageFragment: Fragment(), HomepageView, Toolbar.OnMenuItemClickListene
             }
         }
         return true
+    }
+
+    override fun openCard(idCard: Int) {
+        val intentActivity = Intent(requireContext(), AboutAnimalActivity::class.java)
+        intentActivity.putExtra(ANIMAL_KEY, idCard)
+        startActivity(intentActivity)
+    }
+
+    override fun updatePhoto(array: ByteArray) {
+        val imageEncoded: String = Base64.encodeToString(array, Base64.DEFAULT)
+        val decodedByte = Base64.decode(imageEncoded, 0)
+        val bitmap = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.size)
+        imgAnimal.setImageBitmap(bitmap)
+    }
+
+    companion object {
+        const val ANIMAL_KEY = "idAnimal"
     }
 }

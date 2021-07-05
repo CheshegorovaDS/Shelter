@@ -6,6 +6,7 @@ import io.reactivex.Single
 
 interface IUserRepository {
     fun login(login: String, password: String): Single<Pair<Int, String>>
+    fun register(user: User): Observable<Boolean>
     fun getUserById(id: Int): Single<User>
     fun logout(token: String): Observable<Boolean>
     fun editUser(user: User): Observable<Boolean>

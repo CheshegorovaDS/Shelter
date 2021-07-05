@@ -1,7 +1,6 @@
 package com.example.shelter.presentation.onBoarding.login.reducer
 
 import com.example.shelter.data.user.repositry.IUserRepository
-import com.example.shelter.presentation.fragment_menu.news.model.NewsException
 import com.example.shelter.utils.checkEmailAndPassword
 import com.example.shelter.presentation.onBoarding.login.model.LoginDestination
 import com.example.shelter.presentation.onBoarding.login.model.LoginErrorCode
@@ -30,10 +29,12 @@ class LoginReducer @Inject constructor(
                 userRepository.login(email, password)
                     .subscribeOn(Schedulers.io())
                     .subscribe ({
-                        loggedUser.setLoggedUser(User(
+                        loggedUser.setLoggedUser(
+                            User(
                             email = email,
                             password = password
-                        ))
+                        )
+                        )
                         loggedUser.setId(it.first)
                         loggedUser.setToken(it.second)
                         updateDestination.onNext(LoginDestination.NEWS_SCREEN)

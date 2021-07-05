@@ -10,9 +10,16 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.shelter.R
 import com.example.shelter.app.ShelterManagerApp
+import com.example.shelter.data.di.DaggerUserRepositoryComponent
 import com.example.shelter.presentation.log_in_app.view.LogInAppActivity
+import com.example.shelter.presentation.model.Human
+import com.example.shelter.presentation.model.Organisation
+import com.example.shelter.presentation.model.User
 import com.example.shelter.presentation.onBoarding.registration.di.DaggerRegistrationComponent
-import com.example.shelter.presentation.onBoarding.registration.model.*
+import com.example.shelter.presentation.onBoarding.registration.model.RegistrationDestination
+import com.example.shelter.presentation.onBoarding.registration.model.RegistrationErrorCode
+import com.example.shelter.presentation.onBoarding.registration.model.RegistrationException
+import com.example.shelter.presentation.onBoarding.registration.model.UserType
 import com.example.shelter.presentation.onBoarding.registration.presenter.IRegistrationPresenter
 import com.example.shelter.presentation.storage.LoggedUserProvider
 import com.jakewharton.rxbinding2.view.RxView
@@ -68,30 +75,41 @@ class RegistrationFragment: Fragment(), RegistrationView {
     override fun clickRegistration() {
         val user = when (editTxtYouAre.text.toString()) {
             resources.getString(R.string.human) -> {
-                Human(
-                    firstName = firstName.text.toString(),
-                    lastName = lastName.text.toString(),
+                User(
+                    id = 0,
+                    email = email.text.toString(),
+                    password = password.text.toString(),
+                    type = UserType.HUMAN.name,
                     city = city.text.toString(),
                     phone = phone.text.toString(),
-                    email = email.text.toString(),
-                    password = password.text.toString()
+                    country = country.text.toString(),
+                    human = Human(
+                        firstName = firstName.text.toString(),
+                        lastName = lastName.text.toString(),
+                        patronymic = patronymic.text.toString()
+                        )
                 )
             }
 
             resources.getString(R.string.organisation) -> {
-                Organisation(
-                    name = organisationName.text.toString(),
+                User(
+                    id = 0,
+                    email = email.text.toString(),
+                    password = password.text.toString(),
+                    type = UserType.HUMAN.name,
                     city = city.text.toString(),
                     phone = phone.text.toString(),
-                    email = email.text.toString(),
-                    password = password.text.toString()
+                    country = country.text.toString(),
+                    organisation = Organisation(
+                        title = organisationName.text.toString()
+                    )
                 )
             }
 
-            else -> User()
+            else -> null
         }
 
-        clickRegistration.onNext(user)
+        user?.let { clickRegistration.onNext(it) }
     }
 
     override fun clickYouAre() = RxView.clicks(editTxtYouAre)
@@ -159,6 +177,14 @@ class RegistrationFragment: Fragment(), RegistrationView {
         }
     }
 
+    override fun setProgressBarVisibility(isVisible: Boolean) {
+        progressBar.visibility = if (isVisible) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
     override fun showError(code: RegistrationException) {
         val text = when (code.id) {
             RegistrationErrorCode.INTERNET_CONNECTION_EXCEPTION -> "internet"
@@ -187,9 +213,10 @@ class RegistrationFragment: Fragment(), RegistrationView {
     override fun initComponent() {
         val appComponent = (activity?.application as ShelterManagerApp)
             .getAppComponent()
+        val userRepository = DaggerUserRepositoryComponent.builder().build()
 
         DaggerRegistrationComponent.builder()
-//            .userRepositoryComponent(repository)
+            .userRepositoryComponent(userRepository)
             .appComponent(appComponent)
             .build()
             .inject(this)

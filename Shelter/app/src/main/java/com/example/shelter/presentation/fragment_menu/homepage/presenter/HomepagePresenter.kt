@@ -46,6 +46,10 @@ class HomepagePresenter @Inject constructor(
             reducer.deleteCard(it)
         }?.addTo(disposeContainer)
 
+        view?.clickOpenCard?.subscribe {
+            reducer.openCard(it)
+        }?.addTo(disposeContainer)
+
         reducer.updateState
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
@@ -73,12 +77,19 @@ class HomepagePresenter @Inject constructor(
             .subscribe {
                 view?.exit()
             }.addTo(disposeContainer)
+
+        reducer.openAnimalNews
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                view?.openCard(it)
+            }.addTo(disposeContainer)
     }
 
     private fun updateHuman(user: User) {
         val human = user.human ?: return
         val name = "${human.lastName} ${human.firstName} ${human.patronymic ?: ""}"
         view?.updateInfo(name, UserType.HUMAN, user.email, user.phone)
+
     }
 
     private fun updateOrganisation(user: User) {

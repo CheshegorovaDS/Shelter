@@ -20,5 +20,7 @@ data class HumanRequest(
     @SerializedName("lastName")
     val lastName: String,
     @SerializedName("patronymic")
-    val patronymic: String? = null
+    val patronymic: String? = null,
+    @SerializedName("photo")
+    val photo: ByteArray? = null
 )

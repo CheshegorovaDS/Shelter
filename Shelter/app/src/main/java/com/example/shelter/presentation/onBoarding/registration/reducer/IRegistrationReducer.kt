@@ -1,6 +1,7 @@
 package com.example.shelter.presentation.onBoarding.registration.reducer
 
 import com.example.shelter.presentation.base.inrefaces.BaseReducer
+import com.example.shelter.presentation.model.User
 import com.example.shelter.presentation.onBoarding.registration.model.*
 import io.reactivex.subjects.PublishSubject
 

@@ -1,7 +1,11 @@
 package com.example.shelter.presentation.creating_news.view
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Base64
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -28,7 +32,11 @@ import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_creating_news.*
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import java.net.URI
 import javax.inject.Inject
+
 
 class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
     private val resLayout = R.layout.activity_creating_news
@@ -57,7 +65,44 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
         findViewById<Button>(R.id.createNews).setOnClickListener {
             tryCreateNews.onNext(getAnimal())
         }
+
+        chosePhote.setOnClickListener {
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE)
+        }
     }
+
+    val PICK_IMAGE = 1
+    var path: String? = null
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE) {
+
+            val inputStream: InputStream? =
+                data?.data?.let { contentResolver.openInputStream(it) }
+            val filePath: URI? = null
+            val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, data!!.data)
+
+            val baos = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos)
+            val b: ByteArray = baos.toByteArray()
+            val imageEncoded: String = Base64.encodeToString(b, Base64.DEFAULT)
+            val leng = imageEncoded.length
+//            imageView2.setImageBitmap(imageEncoded)
+            decodeBase64(imageEncoded)
+        }
+    }
+
+    fun decodeBase64(input: String) {
+        val decodedByte = Base64.decode(input, 0)
+        val bitmap = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.size)
+//        imageView2.setImageBitmap(bitmap)
+    }
+
+
 
     override fun initComponent() {
         val appComponent = (application as ShelterManagerApp).getAppComponent()
@@ -107,8 +152,7 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
             if (id < 0) return@setPositiveButton
             checkedCategory = list[id]
             findViewById<EditText>(R.id.category).setText(
-                checkedCategory?.title ?:
-                getString(R.string.choseCategory)
+                checkedCategory?.title ?: getString(R.string.choseCategory)
             )
         }
             .setSingleChoiceItems(array, -1) { _, index ->
@@ -134,8 +178,7 @@ class CreatingNewsActivity: AppCompatActivity(), CreatingNewsView {
             if (id < 0) return@setPositiveButton
             checkedAnimalType = list[id]
             findViewById<EditText>(R.id.animalType).setText(
-                checkedAnimalType?.title ?:
-                getString(R.string.choseAnimalType)
+                checkedAnimalType?.title ?: getString(R.string.choseAnimalType)
             )
         }
             .setSingleChoiceItems(array, -1) { _, index ->

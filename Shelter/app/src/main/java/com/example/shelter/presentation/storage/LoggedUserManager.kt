@@ -5,8 +5,8 @@ import com.example.shelter.presentation.onBoarding.registration.model.User
 import javax.inject.Inject
 
 class LoggedUserManager @Inject constructor(
-    private val sharedPreferences: SharedPreferences) :
-    LoggedUserProvider {
+    private val sharedPreferences: SharedPreferences
+) : LoggedUserProvider {
 
     private var loggedInUser: User? = null
     private var token: String? = null
